@@ -16,7 +16,10 @@ app.use((request, response, next) => {
   next(); 
 });
 
-// Rutas 
+// Rutas
+const rutasLogin = require('./routes/login.routes');
+app.use('/', rutasLogin);
+
 const rutasTemplate = require('./routes/template.routes');
 app.use('/template', rutasTemplate);
 
