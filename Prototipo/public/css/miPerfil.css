@@ -1,0 +1,33 @@
+.profile-picture img {
+    max-width: 150px;
+    border-radius: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.user-info h1 {
+    margin: 0 10px;
+}
+
+.user-role {
+    font-size: 12px;
+    margin: 0 12px;
+}
+
+.form-control {
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 350px;
+}
+
+@media (max-width: 576px) {
+    .form-control {
+        max-width: 100%;
+    }
+}
