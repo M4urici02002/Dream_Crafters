@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
-router.get('/', (request, response, next) => {
+router.get('/miPerfil', (request, response, next) => {
     response.render('miPerfil');
 });
 
