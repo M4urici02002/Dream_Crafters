@@ -1,0 +1,33 @@
+/* Estilo personalizado para la barra lateral principal */
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top:auto;
+    left: 0;
+    background-color:  #5c5c5c;
+    padding-top: 20px;
+  }
+
+/* Transformación y estilos del icono al pasar el ratón sobre el elemento desplegable */
+.dropdown-item-sidebar:hover .icon {
+  transform: translateX(-600%);
+  width: 6px;
+  height: 35px;
+  background-color: #FD5859;
+  border-radius: 0;
+}
+
+/* Estilos al pasar el ratón sobre el elemento desplegable */
+.dropdown-item-sidebar:hover {
+  background-color: #303030;
+}
+
+.dropdown-item-sidebar a {
+  color: white;
+}
+
+.dropdown-item-sidebar:hover a {
+  color: white;
+}
+

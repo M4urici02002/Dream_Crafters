@@ -1,0 +1,105 @@
+/* Estilos de fuente */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Estilos del menú desplegable */
+.dropdown-menu {
+    border-radius: 0;
+    background-color: #5c5c5c;
+}
+
+/* Estilos del enlace del elemento desplegable */
+.dropdown-item a {
+    color: white;
+}
+
+/* Estilos del enlace del elemento desplegable al pasar el ratón */
+.dropdown-item:hover a {
+    color: white;
+}
+
+/* Estilos al pasar el ratón sobre el elemento desplegable */
+.dropdown-item:hover {
+    background-color: #303030;
+}
+
+/* Estilos del icono del elemento desplegable */
+.dropdown-item i {
+    color: #5c5c5c;
+}
+
+/* Estilos del icono al pasar el ratón sobre el elemento desplegable */
+.dropdown-item:hover i {
+    color: #303030;
+}
+
+/* Estilos del último icono del elemento desplegable */
+.dropdown-item:last-child i {
+    color: white;
+}
+
+/* Estilos del enlace de la barra de navegación */
+.nav-link {
+    color: black;
+}
+
+/* Estilos del enlace de la barra de navegación al pasar el ratón */
+.nav-link.cambio:hover{
+    color: #FD5859;
+}
+
+/* Estilos de la línea horizontal */
+.hr {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+/* Transformación y estilos del icono al pasar el ratón sobre el elemento desplegable */
+.dropdown-item:hover .icon {
+    transform: translateX(-340%);
+    width: 6px;
+    height: 35px;
+    background-color: #5cab4b;
+    border-radius: 0;
+}
+
+/* Estilos del icono */
+.icon {
+    transform: translateX(-340%);
+    width: 6px;
+    height: 35px;
+    background-color: #5c5c5c;
+    border-radius: 0;
+}
+
+/* Estilos de fuente del contenedor y enlace */
+.container, a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+/* Estilos de fuente del logo de la barra de navegación */
+.navbar-brand {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 28px;
+    margin: 0px;
+}
+
+/* Estilos de margen de la fila */
+.row {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+/* Estilos de margen de la barra de navegación */
+.navbar-nav.mx-auto {
+    padding-left: 145px;
+}
+
+.separator {
+    border-top: 25px solid #F1F2F2; /* Estilo del borde superior */
+    margin-top: 0; /* Espacio entre las secciones */
+    margin-bottom: 0;
+}
