@@ -17,6 +17,10 @@ app.use((request, response, next) => {
 });
 
 // Rutas 
+
+const rutasMiPerfil = require('./routes/miPerfil.routes')
+app.use('/miPerfil', rutasMiPerfil);
+
 const rutasTemplate = require('./routes/template.routes');
 app.use('/template', rutasTemplate);
 
