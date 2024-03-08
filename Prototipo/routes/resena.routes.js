@@ -1,9 +1,8 @@
 const express = require('express');
-
 const router = express.Router();
+const path = require('path');
 
-router.get('/', (request, response, next) => {
-    response.render('resena');
-});
+const resenaController= require('../controllers/resena.controller');
+router.get('/', resenaController.get_resena);
 
 module.exports = router;
