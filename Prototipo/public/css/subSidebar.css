@@ -1,0 +1,17 @@
+/* Estilos de fuente */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.sideNab2 {
+    height: 100%;
+    width: 250px;
+    transform: translateX(-20%);
+    
+    background-color: #ffffff;
+  
+    border-right: 1px solid #000000; /* Añade un borde derecho para separar del contenido principal */
+    z-index: 1000; /* Asegura que el offcanvas esté por encima del contenido principal */
+    left: 250px; /* Ajusta la posición izquierda según tus necesidades */
+    color: #000000; /* Color del texto */
+    overflow-y: auto; /* Agrega desplazamiento vertical si es necesario */
+}

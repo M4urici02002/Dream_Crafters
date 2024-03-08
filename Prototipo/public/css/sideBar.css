@@ -1,17 +1,6 @@
-/* Estilo personalizado para la barra lateral principal */
-.sidenav {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    top:auto;
-    left: 0;
-    background-color:  #5c5c5c;
-    padding-top: 20px;
-  }
-
 /* Transformación y estilos del icono al pasar el ratón sobre el elemento desplegable */
 .dropdown-item-sidebar:hover .icon {
-  transform: translateX(-600%);
+  transform: translateX(0%);
   width: 6px;
   height: 35px;
   background-color: #FD5859;
@@ -30,4 +19,19 @@
 .dropdown-item-sidebar:hover a {
   color: white;
 }
+
+.dropdown-item-sidebar {
+  display: flex; /* Enable flexbox for the list item */
+  align-items: center; /* Align content vertically */
+}
+
+.sidebar {
+  background-color: red;
+}
+
+.d-flex.flex-column.flex-shrink-0.p-3 {  /* Target existing classes */
+  height: 100vh;
+}
+
+
 
