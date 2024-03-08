@@ -16,16 +16,12 @@ app.use((request, response, next) => {
   next(); 
 });
 
-<<<<<<< HEAD
 // Rutas 
-
 const rutasMiPerfil = require('./routes/miPerfil.routes')
 app.use('/miPerfil', rutasMiPerfil);
-=======
-// Rutas
+
 const rutasLogin = require('./routes/login.routes');
 app.use('/', rutasLogin);
->>>>>>> 7c9730cfecc9f7baec1b4c867b5806c9ee5c79db
 
 const rutasTemplate = require('./routes/template.routes');
 app.use('/template', rutasTemplate);
