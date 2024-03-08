@@ -3,7 +3,7 @@ const resena = [
         producto:"Colchon Sigma",
         nombre: "Valeria", 
         fecha: "00/00/0000", 
-        titulo: "Se me hizo muy duro",
+        titulo: "Muy buena calidad y muy comodo",
         estrellas: 'xxxxx',
 
     }

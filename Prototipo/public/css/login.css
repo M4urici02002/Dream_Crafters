@@ -1,0 +1,47 @@
+#intro {
+    background-image: 
+    url('https://contentful-nooz.b-cdn.net/3gEsMgAPelzIs1Z7DCHTSk/485af890eeeaa3077e4ad13cc1ea9bba/Cama_light_metal.png?width=828'), 
+    url('https://contentful-mappa.b-cdn.net/8cn4s0Aw8Mx9eWeiqoqsH/6e92e6065da16d4ceabc814e77a38e8e/mobile.webp?width=828'), 
+    url('https://www.iwmbuzz.com/wp-content/uploads/2021/07/rakul-preet-is-a-yogini-and-these-pictures-are-a-proof-4.jpg'),
+    url('https://m.media-amazon.com/images/S/aplus-media-library-service-media/4d21ff42-5a0b-4d02-b2ff-835cfe8fc71c.__CR5,0,2427,1501_PT0_SX970_V1___.jpg'),
+    url('https://contentful-nooz.b-cdn.net/4FqdK5lQbmPYgSyk2U62As/133415d8aee432fc62b3c1cb1d6e496e/Homeware_Card_Adaptable.jpg?width=828'),
+    url('https://cdn.forbes.com.mx/2022/07/LUUNA1-640x360.jpg');
+  background-size: 
+    35% 50%, /* Tamaño de la primera imagen */
+    40% 50%, /* Tamaño de la segunda imagen */
+    30% 50%, /* Tamaño de la tercera imagen */
+    35% 50%, /* Tamaño de la cuarta imagen */
+    40% 50%, /* Tamaño de la quinta imagen */
+    30% 50%; /* Tamaño de la sexta imagen */
+  background-position: 
+    top left, /* Posición de la primera imagen */
+    top center,
+    top right, /* Posición de la segunda imagen */
+    bottom left, /* Posición de la tercera imagen */
+    bottom center, /* Posición de la sexta imagen */
+    bottom right; /* Posición de la cuarta imagen */
+  
+  background-repeat: no-repeat; /* Evita que las imágenes se repitan */
+  background-attachment: fixed; /* Fija el fondo */
+  height: 100vh;
+  }
+  
+  /* Estilos de fuente del logo de la barra de navegación */
+  .navbar-brand {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 28px;
+    margin: 10px;
+  
+  }
+  
+  .navbar .nav-link {
+    color: #fff !important;
+  }
+  
+  .form-rounded {
+    width:auto;
+    position: center;
+    border-radius: 1rem;
+  }
+  
+  
