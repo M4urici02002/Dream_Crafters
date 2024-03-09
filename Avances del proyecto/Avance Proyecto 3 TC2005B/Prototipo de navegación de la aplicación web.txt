@@ -1,0 +1,2 @@
+Para acceder al prototipo navegable de la aplicacion:
+ Acceder a la rama develop del repositorio > Prototipo
