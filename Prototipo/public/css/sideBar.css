@@ -1,6 +1,6 @@
 /* Transformación y estilos del icono al pasar el ratón sobre el elemento desplegable */
 .dropdown-item-sidebar:hover .icon {
-  transform: translateX(0%);
+  transform: translateX(-100%);
   width: 6px;
   height: 35px;
   background-color: #FD5859;
