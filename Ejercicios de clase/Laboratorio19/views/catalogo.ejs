@@ -1,0 +1,75 @@
+<%- include('includes/head.ejs', {
+    username: username,
+    permisos: permisos,
+}) %>
+
+<link rel="stylesheet" href="./css/catalogo.css">
+
+<div class="container">
+
+<h1 id="catalogoRopa" class="featurette-heading fw-normal lh-1">Catálogo</h1> <br>
+<!--Linea divisora-->
+<hr class="featurette-divider">
+<div class="row">
+
+<% // Generar tarjetas de productos %>
+<% for (let productoCatalogo of producto){ %>
+    <!--Columna-->
+        <div class="col-lg-2 col-md-3 col-sm-4 card-producto">
+            <!--Card-->
+            <div class="card">
+            <img id="imagen_producto" src="<%=productoCatalogo.Imagen%>" class="card-img-top" alt="Imagen de <%=productoCatalogo.clase%>">
+            <div class="card-body">
+                <p class="card-text">ID: <span id="idProducto_tienda"><%=productoCatalogo.IDProducto%></span></p>
+                
+                <h5 class="card-title"> <a href="/catalogo/<%= productoCatalogo.IDProducto %>"><%=productoCatalogo.Clase%></a></h5>
+                <p class="card-text">Precio: $<span id="precioProducto_tienda"><%=productoCatalogo.Precio%></span></p>
+                
+                <button id="boton_añadir" class="btn btn-dark botonAñadir">Añadir</button>
+                <% for (let permiso of permisos) { %>
+                    <% if(permiso.permiso == 'editar_producto') { %>
+                        <button class="btn btn-dark botonEditar">
+                            <a class="dorado" href="editar/<%=productoCatalogo.IDProducto%>">Editar</a>
+                        </button>
+                        <br><br>
+                    <% } %>
+                <% } %>
+            </div>
+            </div>
+            <!--/card-->
+        </div>
+<% } %>
+
+<% if(ultimo_producto != '') { %> 
+    <div><br>El último producto agregado fue <%= ultimo_producto %>.<br><br></div>
+<% } %>
+
+<div class="section">
+    <% //Carrito de compras %>
+        <!--Linea divisora-->
+        <hr class="featurette-divider">
+
+        <!--Carrito de compras-->
+        <br><h2 class="featurette-heading fw-normal lh-1">Carrito de compras</h2> <br><br>
+
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody id="carrito-body">
+            <!-- Aquí se agregarán los productos -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><strong>Total</strong></td>
+                <td id="precio-total">$0.00</td>
+            </tr>
+        </tfoot>
+        </table>   
+
+    <%- include('includes/footJavaScript.ejs') %>
+</div>
+</div>

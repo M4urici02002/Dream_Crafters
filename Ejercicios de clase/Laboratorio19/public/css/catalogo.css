@@ -1,0 +1,44 @@
+.card-title a {
+    color: black;
+    text-decoration: none;
+}
+
+.container{
+    padding:3%;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap; /* Las tarjetas se envuelven cuando no haya suficiente espacio horizontal */
+}
+
+.card-producto {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 20px; /* Espacio entre filas */
+}
+
+.card-img-top {
+    height: 250px; /* Altura de las imágenes */
+    object-fit: cover; /* Ajusta la imagen dentro de su contenedor */
+}
+.card-body {
+    position: relative; 
+    padding-bottom: 45px; /* Ajusta el espacio en la parte inferior para dejar espacio al botón */
+}
+
+.botonAñadir {
+    position: absolute; 
+    bottom: 10px; /* Posición para el botón dentro de la tarjeta */
+    width: 5em;
+}
+.botonEditar {
+    position: absolute; 
+    bottom: 50px; /* Posición para el botón dentro de la tarjeta */
+    width: 5em;
+}
+
+.dorado{
+    color: rgb(163, 163, 52) !important;
+    text-decoration: none !important;
+}

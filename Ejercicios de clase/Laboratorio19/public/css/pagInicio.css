@@ -1,0 +1,38 @@
+/* Contenedor de imagenes del titulo */
+.contenedor-imagen-titulo {
+    height: 45vh; /* Alto del contenedor */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que se salga del contenedor */
+    padding: 0; /* Elimina cualquier padding */
+}
+
+/* Estilos adicionales para las imágenes */
+.img-fluid-inicio {
+    width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+    height: auto; /* Hace que la altura de la imagen se ajuste automáticamente */
+}
+
+
+/* Título sobre la imagen */
+.titulo-sobre-imagenes {
+    font-family: 'BhuTuka Expanded One'; font-weight: bold; font-size: 7vh;
+    position: absolute; /* Establece el posicionamiento absoluto */
+    top: 25%; /* Lo posiciona en la parte inferior del contenedor */
+    padding: 5px 10px; /* Añade espacio alrededor del texto */
+    color: #FFFF;
+    background-color: rgba(0, 0, 0, 0.1); /* Color de fondo semi-transparente */
+    width: 100vw; /* Abarca todo el ancho de la pantalla */
+    text-align: center;
+}
+/* Cursivas */
+.cursivas{
+    font-style: italic;
+}
+
+/* Info pag inicio */
+#info-pag{
+    padding: 10%;
+}
+/* Carrusel */
+#carouselExampleAutoplaying{
+    margin:20px;
+}

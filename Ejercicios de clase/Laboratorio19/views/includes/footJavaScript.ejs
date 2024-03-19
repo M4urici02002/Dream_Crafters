@@ -1,0 +1,43 @@
+<!--Include bootstrap js to include popovers or dropdowns-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Obtenemos todos los botones de añadir
+    const botonesAñadir = document.querySelectorAll('.botonAñadir');
+
+    // Recorremos los botones y añadimos un event listener a cada uno
+    botonesAñadir.forEach(function (boton) {
+        boton.addEventListener('click', function () {
+            // Obtenemos el nombre del producto y su precio
+            const nombreProducto = boton.parentElement.querySelector('.card-title').innerText;
+            const precioProducto = parseFloat(boton.parentElement.querySelector('#precioProducto_tienda').innerText);
+
+            // Creamos un nuevo elemento de fila para la tabla del carrito
+            const fila = document.createElement('tr');
+            fila.innerHTML = 
+                '<td>' + nombreProducto + '</td>' +
+                '<td>$' + precioProducto.toFixed(2) + '</td>';
+
+
+            // Añadimos la fila al cuerpo de la tabla del carrito
+            document.querySelector('#carrito-body').appendChild(fila);
+
+            // Actualizamos el precio total
+            const precioTotal = calcularPrecioTotal();
+            document.querySelector('#precio-total').innerText = '$' + precioTotal.toFixed(2);
+        });
+    });
+
+    // Función para calcular el precio total del carrito
+    function calcularPrecioTotal() {
+        let precioTotal = 0;
+        document.querySelectorAll('#carrito-body tr').forEach(function (fila) {
+            precioTotal += parseFloat(fila.querySelector('td:nth-child(2)').innerText.slice(1));
+        });
+        return precioTotal;
+    }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<%- include('includes/head.ejs', {
+    username: username,
+    permisos: permisos,
+}) %>
+
+<link rel="stylesheet" href="./css/pagInicio.css">
+
+
+    <!--Imagenes para el título en dos columnas-->
+    <div class="container-fluid text-center">
+    <div class="row justify-content-center no-gutters">
+        <div class="col contenedor-imagen-titulo">
+            <img src="https://i.pinimg.com/474x/12/e2/4d/12e24d187364a8b7c844750f9cfe4b90.jpg" class="img-fluid img-fluid-inicio" alt="Closeup arete">
+            </div>
+        <div class="col contenedor-imagen-titulo">
+            <img src="https://i.pinimg.com/474x/9b/e6/46/9be646dc47ba4783ff92f5a5365c3495.jpg" class="img-fluid img-fluid-inicio" alt="Closeup atrás manos">
+        </div>
+    </div>
+    </div>
+
+    <!--Título-->
+    <h2 class="titulo-sobre-imagenes">STYLEṨTREAM</h2>
+
+    <!--------------------------------------------------------------------------------------------------------->
+    <!--Bienvenida a la página--> 
+
+    <div class="row">
+    <!--Primera columna Bienvenida-->
+    <div class="col-md-8 col-sm-12">
+        <div id="info-pag">
+            <h2 class="featurette-heading fw-normal lh-1">Bienvenido!</h2> <br><br>
+            <p class="lead">
+                <span class="text-body-secondary">Stylestream,</span>
+                tu destino favorito para sumergirte en el mundo fascinante de la moda online! 
+                La moda es más que ropa: es una corriente de estilo en constante evolución que te invita a 
+                explorar y expresarte.<br>
+                En Stylestream, fusionamos la elegancia atemporal con las últimas tendencias, ofreciéndote 
+                una experiencia de compra única donde cada prenda cuenta una historia.<br><br>
+                <span class="cursivas">Navega a través del estilo con Stylestream.</span>
+            </p> 
+        </div>
+    </div>
+    <!--Otra columna-->
+    <!--Carrusel de imágenes autodeslizante-->
+    <div class="col-md-4 col-sm-12 order-md-2">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://i.pinimg.com/474x/a4/95/5c/a4955cf125c4e7758045c68f5b63e7a3.jpg" class="d-block w-100" alt="martini">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://i.pinimg.com/474x/d8/f0/76/d8f076fcf6e35223d617c9a2d66b3df0.jpg" class="d-block w-100" alt="tenis">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://i.pinimg.com/474x/24/9b/69/249b6943293ab129cc66753d2d6aa722.jpg" class="d-block w-100" alt="traje gris">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <!-- /carrusel -->
+    </div>
+
+    <!--------------------------------------------------------------------------------------------------------->
+    <!--Linea divisora-->
+    <hr class="featurette-divider">
+    <!--Info con imagen a la izquierda-->
+    <div class="row featurette">
+    <div class="col-md-7 order-md-2"> <!--orden-md-2 indica que va en la segunda columna-->
+        <div id="info-pag">
+        <p class="lead">
+            <h2><span class="text-body-secondary">Ropa</span></h2> <br><br>
+            Explora la sección de ropa! 
+            Nuestra amplia selección de ropa te ofrece la oportunidad de expresar tu personalidad y destacar tu estilo. 
+            Descubre prendas de alta calidad con cortes y diseños que se adaptan a todas las ocasiones, 
+            todo cuidadosamente seleccionado para satisfacer tus gustos y necesidades.
+            
+        </p> 
+        </div>
+    </div>
+    <!--Imagen circular-->
+    <div class="col-md-4 order-md-1"> <!--Primera columna-->
+        <div class="d-flex justify-content-center align-items-center">
+        <img src="https://i.pinimg.com/474x/68/f5/53/68f5535df68857ff0d3dde6adeaeee8a.jpg" class="rounded-circle img-fluid" alt="Imagen circular closeup outfit" style="width: 400px; height: 400px;">
+        </div>
+    </div>
+    </div>
+    <!--------------------------------------------------------------------------------------------------------->
+    <!--Linea divisora-->
+    <hr class="featurette-divider">
+
+    <!--Información de la página con imagen a la derecha-->
+    <div class="row">
+    <div class="col-md-7 col-sm-12">
+        <div id="info-pag">
+        <p class="lead">
+            <h2><span class="text-body-secondary">Accesorios</span></h2> <br><br>
+            Explora nuestra sección de accesorios y encuentra el toque perfecto para completar tu estilo. 
+            Desde llamativos bolsos hasta delicadas joyas, nuestra colección de accesorios está diseñada 
+            para realzar tu look y añadir un toque de sofisticación a cualquier conjunto. 
+        </p> 
+        </div>
+    </div>
+    <!--Segunda columa con imagen circular-->
+    <div class="col-md-5 col-sm-12 text-center">
+        <div class="d-flex justify-content-center align-items-center">
+            <img src="https://i.pinimg.com/474x/6b/3a/b2/6b3ab2267859043e3d90fb69ba542db7.jpg" class="rounded-circle img-fluid" alt="Imagen circular mano con anillo" style="width: 400px; height: 400px;">
+        </div>
+    </div>
+    </div>
+
+    </div> 
+    
+<%- include('includes/footJavaScript.ejs') %>
