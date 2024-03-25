@@ -1,18 +1,80 @@
 <%- include('includes/navbar.ejs') %>
-   <main>
-        <aside style="float: left; width: 20%;">
-            <%- include('includes/sidebar.ejs') %>
-        </aside>
-        <section style="float: left; width: 15%;">
-            <%- include('includes/subsidebar.ejs') %>
+<%- include('includes/sidebar.ejs') %>
+<%- include('includes/subsidebar.ejs') %>
 
-        </section>
 
-        <!--Imagen del prototipo template-->
-        <section style="float: right; width: 65%; padding-left: 200px;">
-            <div class="container">
-                    <br><img src="https://i.pinimg.com/736x/50/21/cc/5021cc2e684530ba8971ba58cd6f6d4a.jpg" class="img-fluid" width="67%" alt="Representación de template" style="border: 1px solid black;">
+<div class="main p-3">
+    <div class="container">
+        <form class="template">
+            <img src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg" class="img-fluid img-marca" alt="Imagen logo marca">
+            <h2 id="tituloPrincipal">Hola, (Nombre del comprador)</h2>
+            <div class="row mb-3">
+                <div class="col-md-4 img-producto">
+                    <img src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg" class="img-fluid" alt="Imagen del producto">
+                </div>
             </div>
-        </section>
-    </main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+            <!-- Pregunta 1 -->
+            <div class="pregunta-rating">
+                <label for="marca">¿Qué te ha parecido tu producto Luuna?</label>
+                <div class="row mb-3">
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5"></label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4"></label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3"></label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2"></label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-line"></div>
+
+            <!-- Pregunta 2 -->
+            <div class="mb-5 contenido-con-margen">
+                <label for="aliviarProblemas">¿Qué tan bien el colchón ha ayudado a aliviar tus problemas de sueño, como el insomnio o el dolor de espalda?</label>
+                <textarea id="aliviarProblemas" class="form-control" name="reason" rows="3"></textarea>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="mb-5 contenido-con-margen">
+                <label for="elegisteLuuna">¿Por qué elegiste Luuna vs otras marcas?</label>
+                <select id="elegisteLuuna" class="form-select">
+                    <option>Precio</option>
+                    <option>Garantía y calidad del producto</option>
+                    <option>Cualidades (tecnología, diseño,colores)</option>
+                    <option>Recomendaciones</option>
+                    <option>Otro</option>
+                </select>
+            </div>
+            <div class="btn-template">
+                <button type="submit" class="btn btn-dark">Enviar</button>
+            </div>
+            <footer class="footer-template">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="https://www.facebook.com/luunasleep/" class="footer-icons"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/luunasleep/" class="footer-icons"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-custom float-end me-4">Aceptar</button>
+                </div>
+            </div>
+        </div>                
+    </div>
+</div>        
+</div>
+
+
+<%- include('includes/footer.ejs') %>

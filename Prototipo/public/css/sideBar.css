@@ -1,37 +1,84 @@
-/* Transformación y estilos del icono al pasar el ratón sobre el elemento desplegable */
-.dropdown-item-sidebar:hover .icon {
-  transform: translateX(-100%);
-  width: 6px;
-  height: 35px;
-  background-color: #FD5859;
-  border-radius: 0;
+/* Estilo para quitar subrayado en los enlaces */
+a {
+  text-decoration: none;
 }
 
-/* Estilos al pasar el ratón sobre el elemento desplegable */
-.dropdown-item-sidebar:hover {
-  background-color: #303030;
+/* Definir diseño flexible para el contenedor principal */
+.wrapper {
+  display: flex; 
 }
 
-.dropdown-item-sidebar a {
-  color: white;
+/* Estilo del contenedor donde se encuentra del contenido principal */
+.main {
+  width: 100%; /* Ancho completo */
+  min-height: calc(100vh - 65px); /* Altura mínima: 100% de la ventana menos 65px de la barra de navegación*/
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  transition: all 0.35s ease-in-out; /* Transición suave para animaciones */
+  background-color: #fafbfe; 
 }
 
-.dropdown-item-sidebar:hover a {
-  color: white;
+/* Estilo de barra lateral */
+#sidebar {
+  width: 40px; /* Ancho inicial */
+  min-width: 70px; /* Ancho mínimo */
+  z-index: 1000; /* Índice z para superposición */
+  transition: all .25s ease-in-out; /* Transición para animaciones suaves */
+  background-color: #5C5C5C; 
+  display: flex; /* Flexbox para diseño flexible */
+  flex-direction: column; /* Dirección de la columna para elementos secundarios */
 }
 
-.dropdown-item-sidebar {
-  display: flex; /* Enable flexbox for the list item */
-  align-items: center; /* Align content vertically */
+/* Expandir la barra lateral */
+#sidebar.expand {
+  width: 230px; 
+  min-width: 230px; /* Ancho mínimo expandido */
 }
 
-.sidebar {
-  background-color: red;
+/* Estilo de botón para desplegar la barra lateral principal*/
+.toggle-btn {
+  background-color: transparent; 
+  cursor: pointer; 
+  border: 0; 
+  padding: 1rem 1.5rem; 
 }
 
-.d-flex.flex-column.flex-shrink-0.p-3 {  /* Target existing classes */
-  height: 100vh;
+.toggle-btn i {
+  font-size: 1.5rem; /* Tamaño del icono */
+  color: #FFF; 
+  color: #FD5859;
 }
 
+/* Ocultar logo y enlaces cuando la barra lateral no está expandida */
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) a.sidebar-link span {
+  display: none; 
+}
 
+/* Estilo de navegación de la barra lateral */
+.sidebar-nav {
+  padding: 2rem 0; 
+  flex: 1 1 auto; 
+}
 
+/* Estilo de enlaces de la barra lateral */
+a.sidebar-link {
+  padding: .625rem 1.625rem; /* Espaciado interno */
+  color: #FFF; /* Color del texto */
+  display: block; /* Mostrar como bloque */
+  white-space: nowrap; /* No envolver texto */
+  border-left: 3px solid transparent; /* Borde izquierdo transparente */
+  font-family: 'Montserrat', sans-serif; /* Fuente */
+  font-weight: 300; 
+  font-size: 14px; 
+}
+
+.sidebar-link i {
+  font-size: 1.1rem; 
+  margin-right: .75rem; 
+}
+
+/* Estilo al pasar el mouse sobre los enlaces */
+a.sidebar-link:hover {
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-left: 3px solid #FD5859; 
+}
