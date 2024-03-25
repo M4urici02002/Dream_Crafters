@@ -1,5 +1,6 @@
 #intro {
-    background-image: 
+  background-image: url('https://i.pinimg.com/736x/a6/17/c8/a617c83ee14e0725b656ad8d1508578d.jpg');
+    /*background-image: 
     url('https://contentful-nooz.b-cdn.net/3gEsMgAPelzIs1Z7DCHTSk/485af890eeeaa3077e4ad13cc1ea9bba/Cama_light_metal.png?width=828'), 
     url('https://contentful-mappa.b-cdn.net/8cn4s0Aw8Mx9eWeiqoqsH/6e92e6065da16d4ceabc814e77a38e8e/mobile.webp?width=828'), 
     url('https://www.iwmbuzz.com/wp-content/uploads/2021/07/rakul-preet-is-a-yogini-and-these-pictures-are-a-proof-4.jpg'),
@@ -7,19 +8,19 @@
     url('https://contentful-nooz.b-cdn.net/4FqdK5lQbmPYgSyk2U62As/133415d8aee432fc62b3c1cb1d6e496e/Homeware_Card_Adaptable.jpg?width=828'),
     url('https://cdn.forbes.com.mx/2022/07/LUUNA1-640x360.jpg');
   background-size: 
-    35% 50%, /* Tamaño de la primera imagen */
-    40% 50%, /* Tamaño de la segunda imagen */
-    30% 50%, /* Tamaño de la tercera imagen */
-    35% 50%, /* Tamaño de la cuarta imagen */
-    40% 50%, /* Tamaño de la quinta imagen */
-    30% 50%; /* Tamaño de la sexta imagen */
+    35% 50%,  Tamaño de la primera imagen 
+    40% 50%, Tamaño de la segunda imagen 
+    30% 50%,  Tamaño de la tercera imagen 
+    35% 50%,  Tamaño de la cuarta imagen 
+    40% 50%,  Tamaño de la quinta imagen 
+    30% 50%;  Tamaño de la sexta imagen 
   background-position: 
-    top left, /* Posición de la primera imagen */
-    top center,
-    top right, /* Posición de la segunda imagen */
-    bottom left, /* Posición de la tercera imagen */
-    bottom center, /* Posición de la sexta imagen */
-    bottom right; /* Posición de la cuarta imagen */
+    top left,  Posición de la primera imagen 
+    top center, Posición de la segunda imagen 
+    top right,  Posición de la tercera imagen
+    bottom left,  Posición de la cuarta imagen
+    bottom center,  Posición de la quinta imagen 
+    bottom right;  Posición de la sexta imagen   */
   
   background-repeat: no-repeat; /* Evita que las imágenes se repitan */
   background-attachment: fixed; /* Fija el fondo */
