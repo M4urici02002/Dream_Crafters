@@ -1,14 +1,11 @@
 <%- include('includes/navbar.ejs') %>
-   <main>
-        <aside style="float: left; width: 20%;">
-            <%- include('includes/sidebar.ejs') %>
-        </aside>
-        <section style="float: left; width: 15%;">
-            <%- include('includes/subsidebar.ejs') %>
-        </section>
+<%- include('includes/sidebar.ejs') %>
+<%- include('includes/subsidebar.ejs') %>
+
+<div class="main p-3">
+    <div class="container">
 
         <!--Prototipo de contenedor de reseña-->
-        <section style="float: right; width: 65%; padding-top: 15px; padding-right: 30px;">
           <div class="col">
             <% for (let re of resena) { %>
                 <div class="card">
@@ -25,6 +22,6 @@
                   </div>
             <% } %>
         </div>
-        </section>
-    </main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      </div>
+    </div>
+  <%- include('includes/footer.ejs') %>

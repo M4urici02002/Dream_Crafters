@@ -1,19 +1,54 @@
-/* Estilos de fuente */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* Estilo de barra lateral */
+.second-sidebar-nav {
+    padding: 2rem 0;
+    flex: 1 1 auto;
+}
 
+/* Borde de barra lateral */
+#second-sidebar {
+    border: 1px solid black; 
+}
 
-.sideNab2 {
-    height: 100%;
-    width: 250px;
-    transform: translateX(-20%);
-    
-    background-color: #ffffff;
-  
-    border-right: 1px solid #000000; /* Añade un borde derecho para separar del contenido principal */
-    z-index: 1000; /* Asegura que el offcanvas esté por encima del contenido principal */
-    left: 250px; /* Ajusta la posición izquierda según tus necesidades */
-    color: #000000; /* Color del texto */
-    overflow-y: auto; /* Agrega desplazamiento vertical si es necesario */
+/* Estilo de línea del dropdown */
+.dropdown-line {
+    border-top: 1px solid black; 
+}
+
+/* Alineación de dropdown */
+.dropdown-toggle {
+    display: block;
+    padding: 0px;
+    text-align: center;  
+}
+
+/* Ajuste de ancho de la barra lateral */
+.width{
+    width: 219px; 
+    min-width: 219px;
+}
+
+/* Ajuste de alineación de casillas en la barra lateral */
+.sidebar-item-check{
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+/* Anula los estilos predeterminados del checkbox de Bootstrap */
+.form-check-input[type="checkbox"] {
+    border: 1px solid #ced4da; 
+    box-shadow: none; 
+}
+
+/* Estilo para el checkbox marcado */
+.form-check-input:checked {
+    background-color: #FD5859;
+    border-color: #FD5859;
+}
+
+/* Estilo para elementos del checkbox */
+.sidebar-item-check .form-check-label {
     font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
     font-size: 14px;
+    padding-left: 5px;
 }

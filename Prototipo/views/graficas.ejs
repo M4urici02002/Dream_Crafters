@@ -1,11 +1,9 @@
 <%- include('includes/navbar.ejs') %>
-<main>
-    <aside style="float: left; width: 30%;">
-        <%- include('includes/sidebar.ejs') %>
-    </aside>
+<%- include('includes/sidebar.ejs') %>
+<%- include('includes/subsidebar.ejs') %>
 
-    <section style="float: right; width: 65%;">
-        <div class="container">
+<div class="main p-3">
+    <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 col-sm-12">
        
@@ -48,28 +46,7 @@
                 <br><img src="https://img.freepik.com/free-vector/blue-marketing-charts-design-template_52683-24522.jpg" class="img-fluid" alt="Representación de gráfica">
                 </div>
             </div>
-        </div>
-    </section>
+</div>        
+</div>
 
-    <script>
-        document.getElementById("selectMenu").addEventListener("change", function() {
-            var categoriaDropdown = document.getElementById("categoriaDropdown");
-            var productoDropdown = document.getElementById("productoDropdown");
-            
-            if (this.value === "categoria") {
-                categoriaDropdown.style.display = "block";
-                productoDropdown.style.display = "none";
-
-            } else if (this.value === "producto") {
-                categoriaDropdown.style.display = "none";
-                productoDropdown.style.display = "block";
-
-            } else {
-                categoriaDropdown.style.display = "none";
-                productoDropdown.style.display = "none";
-            }
-        });
-    </script>
-    
-</main>
-
+<%- include('includes/footer.ejs') %>
