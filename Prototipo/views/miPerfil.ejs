@@ -8,31 +8,33 @@
     <!--Prototipo del perfil del usuario (falta ajustar la imagen)-->
     <section style="float: right; width: 70%;">
       <div class="container my-5">
-        <div class="row row-cols-1"> <div class="col-md-10"> <div class="content-box">
-              <div class="card">
-                <div class="card-body">
-                  <div class="user-info">
-                    <div class="profile-picture">
+        <div class="row row-cols-1">
+          <div class="col-md-10">
+            <div class="content-box">
+              <div class="card bg-body-tertiary border border-black">
+                <div class="card-body mx-5 my-3">
+                  <div class="user-info d-flex align-items-center">
+                    <div class="profile-picture me-3">
                       <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
                     </div>
                     <div>
-                      <br>
                       <h4>Usuario</h4>
                       <span class="user-role">Administrador</span>
                     </div>
-                    <br>
                   </div>
-                  <div class="mb-3">
-                    <label for="inputNombre" class="form-label"><i class="fas fa-user"></i> Nombre</label>
-                    <input type="text" class="form-control" id="inputNombre" value="John Doe" readonly>
+                  <br>
+                  <div class="">
+                    <label for="inputNombre" class="form-label">NOMBRE</label>
+                    <input type="text" class="form-control rounded-pill w-50 border border-black" id="inputNombre" value="John Doe" readonly>
                   </div>
-                  <div class="mb-3">
-                    <label for="inputEmail" class="form-label"><i class="fas fa-envelope"></i> Correo</label>
-                    <input type="email" class="form-control" id="inputEmail" value="john.doe@example.com" readonly>
+                  <div class="my-4">
+                    <label for="inputEmail" class="form-label">CORREO</label>
+                    <input type="email" class="form-control rounded-pill w-50 border border-black" id="inputEmail" value="john.doe@example.com" readonly>
                   </div>
-                  <div class="mb-3">
-                    <label for="inputUsuario" class="form-label"><i class="fas fa-user"></i> Contraseña</label>
-                    <input type="text" class="form-control" id="inputUsuario" value="************" readonly>
+                  <div class="">
+                    <label for="inputUsuario" class="form-label">CONTRASEÑA&nbsp;</label>
+                    <i class="fa-solid fa-pen"></i>
+                    <input type="text" class="form-control rounded-pill w-50 border border-black" id="inputUsuario" value="************" readonly>
                   </div>
                 </div>
               </div>
@@ -41,6 +43,8 @@
         </div>
       </div>
     </section>
+    
+    
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
