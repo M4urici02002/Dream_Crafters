@@ -32,4 +32,4 @@ app.use('/resena', rutasResena);
 const rutasGraficas = require('./routes/graficas.routes');
 app.use('/graficas', rutasGraficas);
 
-app.listen(2000);
+app.listen(3000);
