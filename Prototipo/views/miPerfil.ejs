@@ -2,44 +2,51 @@
 <%- include('includes/sidebar.ejs') %>
 <%- include('includes/subsidebar.ejs') %>
 
-    <!--Prototipo del perfil del usuario (falta ajustar la imagen)-->
-    <section style="float: right; width: 70%;">
-      <div class="container my-5">
-        <div class="row row-cols-1">
-          <div class="col-md-10 ms-auto me-4">
-
-            <div class="content-box">
-              <div class="card bg-body-tertiary border border-black">
-                <div class="card-body mx-5 my-3">
-                  <div class="user-info d-flex align-items-center">
-                    <div class="profile-picture me-3">
-                      <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
-                    </div>
-                    <div>
-                      <h4>Usuario</h4>
-                      <span class="user-role">Administrador</span>
-                    </div>
-                  </div>
-                  <br>
-                  <div class="">
-                    <label for="inputNombre" class="form-label">NOMBRE</label>
-                    <input type="text" class="form-control rounded-pill w-50 border border-black" id="inputNombre" value="John Doe" readonly>
-                  </div>
-                  <div class="my-4">
-                    <label for="inputEmail" class="form-label">CORREO</label>
-                    <input type="email" class="form-control rounded-pill w-50 border border-black" id="inputEmail" value="john.doe@example.com" readonly>
-                  </div>
-                  <div class="">
-                    <label for="inputUsuario" class="form-label">CONTRASEÑA&nbsp;</label>
-                    <i class="fa-solid fa-pen"></i>
-                    <input type="text" class="form-control rounded-pill w-50 border border-black" id="inputUsuario" value="************" readonly>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="main p-3">
+  <div class="container">
+    <div class="row miPerfil">
+      <!-- Column for the image -->
+      <div class="col-md-4 d-flex justify-content-center align-items-center">
+        <div>
+          <!-- Replace "image_path" with the path to your image -->
+          <img src="https://icon-library.com/images/username-icon-png/username-icon-png-6.jpg" alt="Profile Picture" class="img-fluid profile-picture mb-4">
+          <p class="text-center">Username</p>
+          <p class="text-center">Usernametype</p>
         </div>
-       </div>
       </div>
+      
+      <!-- Column for the form -->
+      <div class="col-md-8">
+        <form>
+          <div class="mb-5 contenido-con-margen">
+            <label for="inputNombre" class="form-label label-miPerfil">NOMBRE</label>
+            <input type="text" class="form-control input-miPerfil" id="inputNombre" value="Nombre Usuario" readonly>
+          
+            <label for="inputEmail" class="form-label label-miPerfil">CORREO</label>
+            <input type="email" class="form-control input-miPerfil" id="inputCorreo" value="correousuario@example.com" readonly>
+          
+            <label for="inputUsuario" class="form-label label-miPerfil">CONTRASEÑA&nbsp;</label>
+            <i class="lni lni-pencil"></i>
+            <input type="password" class="form-control input-miPerfil" id="inputContraseña" value="contraseña" readonly>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <%- include('includes/footer.ejs') %>
+
+<!-- 
+          <div class="user-info d-flex align-items-center">
+          <div class="profile-picture me-3">
+            <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
+          </div>
+          <div class = "info-usuario">
+            <h4>Usuario</h4>
+            <span class="user-role">Administrador</span>
+          </div>
+        </div>
+-->

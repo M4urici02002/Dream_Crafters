@@ -76,25 +76,25 @@
 
 /* Estilos del formulario */
 .template {
-    border: 1px solid black; /* Borde */
-    margin: 40px; /* Margen */
+    border: 1px solid black; 
+    margin: 40px; 
 }
 
 /* Estilo de la fuente de las preguntas del formulario */
 select.form-select option,
 .form-select,
 .form-control {
-    font-family: 'Montserrat', sans-serif; /* Fuente */
-    font-weight: 300; /* Peso de la fuente */
-    font-size: 16px; /* Tamaño de la fuente */
-    margin-top: 20px; /* Margen superior */
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: 300; 
+    font-size: 16px; 
+    margin-top: 20px; 
 }
 
 /* Estilo de la fuente del formulario */
 .template {
-    font-family: 'Montserrat', sans-serif; /* Fuente */
-    font-weight: 300; /* Peso de la fuente */
-    font-size: 16px; /* Tamaño de la fuente */
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: 300; 
+    font-size: 16px; 
 }
 
 /* Estilo para el título principal del formulario*/

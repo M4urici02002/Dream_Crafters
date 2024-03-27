@@ -1,0 +1,9 @@
+/* Estilo de fuente y contenedor*/
+.graficas{
+    margin-top: 40px;
+    padding-right: 40px;
+    padding-left: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+}

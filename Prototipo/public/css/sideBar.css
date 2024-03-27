@@ -63,11 +63,11 @@ a {
 /* Estilo de enlaces de la barra lateral */
 a.sidebar-link {
   padding: .625rem 1.625rem; /* Espaciado interno */
-  color: #FFF; /* Color del texto */
+  color: #FFF; 
   display: block; /* Mostrar como bloque */
   white-space: nowrap; /* No envolver texto */
   border-left: 3px solid transparent; /* Borde izquierdo transparente */
-  font-family: 'Montserrat', sans-serif; /* Fuente */
+  font-family: 'Montserrat', sans-serif; 
   font-weight: 300; 
   font-size: 14px; 
 }

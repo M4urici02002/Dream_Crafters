@@ -1,27 +1,24 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
-<%- include('includes/subsidebar.ejs') %>
+<%- include('includes/subsidebarSimple.ejs') %>
 
 <div class="main p-3">
-    <div class="container">
-
-        <!--Prototipo de contenedor de reseña-->
-          <div class="col">
-            <% for (let re of resena) { %>
-                <div class="card">
-                    <div class="card-header">
-                        <%=re.producto%>
-                    </div>
-                    <div class="card-body">
-                      <h5 class="card-title"><%=re.titulo%></h5>
-                      <p class="card-text"><%=re.nombre%></p>
-                      <p class="card-text"><%=re.fecha%></p>
-                      <p class="card-text"><%=re.estrellas%></p>
-                      
-                    </div>
-                  </div>
-            <% } %>
+  <div class="container">
+    <div class="col">
+      <% for (let re of resena) { %>
+        <div class="card">
+          <div class="card-header">
+            <%=re.producto%>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"><%=re.titulo%></h5>
+            <p class="card-text"><%=re.nombre%></p>
+            <p class="card-text"><%=re.fecha%></p>
+            <p class="card-text"><%=re.estrellas%></p>    
+          </div>
         </div>
-      </div>
+      <% } %>
     </div>
-  <%- include('includes/footer.ejs') %>
+  </div>
+</div>
+<%- include('includes/footer.ejs') %>
