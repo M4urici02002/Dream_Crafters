@@ -10,37 +10,53 @@
             <button type="button" class="btn btn-light flex-fill">Order to review</button>
         </div><br>
 
-        <!-- Menú de selección por marca, categoría y producto-->
-        <select class="form-select" aria-label="Default select example" id="selectMenu">
-            <option selected>Marca</option>
-            <option value="categoria">Categoría</option>
-            <option value="producto">Producto</option>
-        </select><br>
+        <div class="row" >
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <!-- Menú desplegable de categorías -->
+                <select class="form-select form-select-sm" aria-label="Small select example" id="categoriaDropdown">
+                    <option value="todasCategorias">Todas las categorías</option>
+                    <option value="Colchones">Colchones</option>
+                    <option value="Almohadas">Almohadas</option>
+                    <option value="Muebles">Muebles</option>
+                    <option value="Blancos">Blancos</option>
+                    <option value="Niños">Niños</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <!-- Menú desplegable de productos -->
+                <select class="form-select form-select-sm" aria-label="Small select example" id="productoDropdown">
+                    <option value="todosProductos">Todos los productos</option>
+                    <option value="Producto1">Colchón Nooz Essential -KING</option>
+                    <option value="Producto2">Colchón Nooz Essential -MATRI</option>
+                    <option value="Producto3">Colchón Nooz Essential -QUEEN</option>
+                    <option value="Producto4">Colchón Nooz Infusion -INDI</option>
+                    <option value="Producto5">Colchón Nooz Infusion -QUEEN</option>
+                    <option value="Producto6">Colchón Nooz Infusion -KING</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <!-- Especificación de las fechas -->
+                <div id="date-range-container" class="container">
+                <div class="row no-gutters" id="formsFechasInicioFin">
+                    <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" id="start-date" name="start-date" class="form-control" placeholder="Fecha de Inicio">
+                    </div>
+                    </div>
+                    <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" id="end-date" name="end-date" class="form-control" placeholder="Fecha de fin">
+                    </div>
+                    </div>
+                </div>
+                </div>
 
-        <!-- Menú desplegable de categorías -->
-        <select class="form-select form-select-sm" aria-label="Small select example" id="categoriaDropdown" style="display: none;">
-            <option selected disabled>Seleccione una categoría</option>
-            <option value="Colchones">Colchones</option>
-            <option value="Almohadas">Almohadas</option>
-            <option value="Muebles">Muebles</option>
-            <option value="Blancos">Blancos</option>
-            <option value="Niños">Niños</option>
-        </select>
-                
-        <!-- Menú desplegable de productos -->
-        <select class="form-select form-select-sm" aria-label="Small select example" id="productoDropdown" style="display: none;">
-            <option selected disabled>Seleccione un producto</option>
-            <option value="Producto1">Colchón Nooz Essential -KING</option>
-            <option value="Producto2">Colchón Nooz Essential -MATRI</option>
-            <option value="Producto3">Colchón Nooz Essential -QUEEN</option>
-            <option value="Producto4">Colchón Nooz Infusion -INDI</option>
-            <option value="Producto5">Colchón Nooz Infusion -QUEEN</option>
-            <option value="Producto6">Colchón Nooz Infusion -KING</option>
-        </select>
-
+            </div>
+        </div>
+    
         <!-- Imagen representativa de las gráficas -->
         <br>
-        <img src="https://img.freepik.com/free-vector/blue-marketing-charts-design-template_52683-24522.jpg" class="img-fluid" alt="Representación de gráfica">
+        <img id="imagenRepresentativaGrafica" src="https://img.freepik.com/free-vector/blue-marketing-charts-design-template_52683-24522.jpg" class="img-fluid" alt="Representación de gráfica">
     </div>
 </div>
 

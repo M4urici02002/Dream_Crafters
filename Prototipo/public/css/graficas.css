@@ -7,3 +7,38 @@
     font-weight: 300;
     font-size: 14px;
 }
+
+/* centrar la imagen representativa */
+#imagenRepresentativaGrafica {
+    display: block;
+    margin: 0 auto; 
+}
+
+/* estilo del calendario */
+.datepicker-dropdown {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}
+.datepicker table {
+    width: 100%;
+}
+.datepicker th, .datepicker td {
+    padding: 0.5rem;
+    text-align: center;
+}
+.datepicker table th {
+    font-weight: 600;
+}
+.datepicker table td {
+    cursor: pointer;
+}
+.datepicker table td.day:hover, .datepicker table td.day.focused {
+    background-color: #f0f0f0;
+}
+.datepicker-dropdown.datepicker-right:before {
+    border-left-color: #f8f9fa;
+}
+.datepicker-dropdown.datepicker-right:after {
+    border-left-color: #f8f9fa;
+}
