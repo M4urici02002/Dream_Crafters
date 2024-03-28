@@ -12,34 +12,19 @@
 #imagenRepresentativaGrafica {
     display: block;
     margin: 0 auto; 
+    width: 80%;
 }
 
 /* estilo del calendario */
-   
+
+/* Estilo para el contenedor del calendario */
 .datepicker-dropdown {
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.164);
+    background-color: #fff;
 }
-.datepicker table {
-    width: 100%;
+
+/* Estilo para los días del calendario */
+.datepicker-days th, .datepicker-days td {
+    font-size: 12px;
 }
-.datepicker th, .datepicker td {
-    padding: 0.5rem;
-    text-align: center;
-}
-.datepicker table th {
-    font-weight: 600;
-}
-.datepicker table td {
-    cursor: pointer;
-}
-.datepicker table td.day:hover, .datepicker table td.day.focused {
-    background-color: #f0f0f0;
-}
-.datepicker-dropdown.datepicker-right:before {
-    border-left-color: #f8f9fa;
-}
-.datepicker-dropdown.datepicker-right:after {
-    border-left-color: #f8f9fa;
-}
+
