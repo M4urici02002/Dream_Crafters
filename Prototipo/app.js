@@ -20,6 +20,9 @@ app.use((request, response, next) => {
 const rutasMiPerfil = require('./routes/miPerfil.routes')
 app.use('/miPerfil', rutasMiPerfil);
 
+const rutasConfiguracion = require('./routes/configuracion.routes')
+app.use('/configuracion', rutasConfiguracion);
+
 const rutasLogin = require('./routes/login.routes');
 app.use('/', rutasLogin);
 
