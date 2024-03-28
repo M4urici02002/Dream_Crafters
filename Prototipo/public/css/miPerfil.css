@@ -2,12 +2,13 @@
 .miPerfil {
     border: 1px solid black; 
     margin: 40px; 
-    margin-top: 80px;
+    margin-top: 50px;
     font-family: 'Montserrat', sans-serif; 
     font-weight: 300; 
     font-size: 16px; 
 } 
 
+/* Alineación de inputs y labels */
 .label-miPerfil{
     margin-top:40px;
 }
@@ -16,9 +17,39 @@
     max-width: 550px;
 }
 
+/* Estilo imagen de perfil */
 .profile-picture {
     border-radius: 50%; 
     height: 140px;
     width: 140px; 
     object-fit: cover; 
+    margin-top: 30px;
+}
+
+/* Color icono */
+.lni-pencil{
+    color:black;
+}
+
+.tipo-usuario{
+    font-size: 14px;
+}
+
+.nombre-usuario{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Estilos para el botón de configuración */
+.btn-custom-contrasena {
+    background-color: #FF5733; 
+    color: white; 
+    margin-right: 20px; 
+    width: 150px;
+    margin-bottom: 30px;
+}
+
+.btn-custom-contrasena:hover {
+    background-color: #f97659!important; 
+    color: white !important; 
 }

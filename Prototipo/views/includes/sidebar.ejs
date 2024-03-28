@@ -25,10 +25,19 @@
               </a>
           </li>
           <li class="sidebar-item">
-              <a href="#" class="sidebar-link">
-                  <i class="lni lni-users"></i>
-                  <span>GESTIÓN USUARIOS</span>
-              </a>
-          </li>
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                <i class="lni lni-users"></i>
+                <span>GESTIÓN </span>
+            </a>
+            <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">Usuarios</a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">Roles</a>
+                </li>
+            </ul>
+        </li>
       </ul>
   </aside>
