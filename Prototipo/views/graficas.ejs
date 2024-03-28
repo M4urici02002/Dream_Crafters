@@ -1,7 +1,6 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
 <!--Agregar css con estilos para despliegue de calendario-->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
 <div class="main p-3">
@@ -63,5 +62,24 @@
         <img id="imagenRepresentativaGrafica" src="https://img.freepik.com/free-vector/blue-marketing-charts-design-template_52683-24522.jpg" class="img-fluid" alt="Representación de gráfica">
     </div>
 </div>
+
+<!--Scripts para el despliegue de calendario-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#start-date').datepicker({
+    format: 'dd/mm/yyyy',
+    autoclose: true
+    });
+    $('#end-date').datepicker({
+    format: 'dd/mm/yyyy',
+    autoclose: true
+    });
+});
+</script>
 
 <%- include('includes/footer.ejs') %>
