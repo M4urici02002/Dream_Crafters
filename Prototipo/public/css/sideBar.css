@@ -96,7 +96,7 @@ a.sidebar-link:hover {
   padding: 0;
   min-width: 15rem;
   display: none;
-  border: 1px solid black; 
+  border: 1px solid rgb(110, 105, 105); 
 }
 
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
