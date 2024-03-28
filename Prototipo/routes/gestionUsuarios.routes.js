@@ -1,9 +1,16 @@
 const express = require('express');
-
 const router = express.Router();
 
-router.get('/', (request, response, next) => {
-    response.render('gestionUsuarios');
-});
+const path = require('path');
+
+const gestionUsuariosController= require('../controllers/gestionUsuarios.controller');
+router.get('/', gestionUsuariosController.get_usuarioRegistrado);
 
 module.exports = router;
+
+
+
+
+
+
+

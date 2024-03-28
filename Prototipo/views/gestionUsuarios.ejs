@@ -20,6 +20,23 @@
         </div>
     </div>
 
+
+    <div class="col">
+        <% for (let usuario of usuarioRegistrado) { %>
+          <div class="card">
+            <div class="card-header">
+              <%=usuario.username%>
+            </div>
+            <div class="card-body">
+              <p class="card-text"><%=usuario.nombre%></p>
+              <p class="card-text"><%=usuario.rol%></p>  
+            </div>
+          </div>
+        <% } %>
+      </div>
+
+
+
   </div>
 </div>
 
