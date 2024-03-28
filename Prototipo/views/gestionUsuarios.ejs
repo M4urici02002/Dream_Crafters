@@ -1,1 +1,26 @@
-<h2>Usuarios</h2>
+<%- include('includes/navbar.ejs') %>
+<%- include('includes/sidebar.ejs') %>
+
+
+<div class="main p-3">
+  <div class="container">
+    <div class="row">
+        <div class="col col-sm-5">
+            <!--Agregar usuario-->
+            <button type="button" class="btn btn-agregarUsuario">
+                Agregar usuario&nbsp;&nbsp;&nbsp;<i class="fas fa-plus"></i>
+            </button>
+            <!--Search bar-->
+            <div class="input-group mb-3 buscarUsuario">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+                <button class="btn btn-dark" type="button">
+                <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+<%- include('includes/footer.ejs') %>
