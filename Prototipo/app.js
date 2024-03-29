@@ -36,7 +36,7 @@ const rutasGraficas = require('./routes/graficas.routes');
 app.use('/graficas', rutasGraficas);
 
 const rutasUsuarios = require('./routes/gestionUsuarios.routes');
-app.use('/gestionUsuarios', rutasUsuarios);
+app.use(rutasUsuarios);
 
 const rutasRoles = require('./routes/gestionRoles.routes');
 app.use('/gestionRoles', rutasRoles);

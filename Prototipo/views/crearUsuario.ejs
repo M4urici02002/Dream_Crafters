@@ -1,0 +1,31 @@
+<%- include('includes/navbar.ejs') %>
+<%- include('includes/sidebar.ejs') %>
+
+<div class="main p-3 background-color">
+  <div class="container form">
+    <form class="crearUsuario">
+        <div class="mb-5 contenido-con-margen">
+          <label for="inputUsuario" class="form-label label-crearUsuario">Usuario</label>
+          <input type="text" class="form-control input-crearUsuario" id="username" name="username">
+        
+          <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
+          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre">
+
+          <label for="inputPassword" class="form-label label-crearUsuario">Contraseña</label>
+          <input type="password" class="form-control input-crearUsuario" id="password" name="password">
+        
+          <label for="inputUsuario" class="form-label label-crearUsuario">Rol</label>
+          <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
+            <option> Analítico</option>
+            <option> Administrador </option>
+            <option> CRM </option>
+          </select>
+        </div>
+        <div class="btn-formUsuario">
+            <button type="submit" class="btn btn-dark">Enviar</button>
+        </div>
+      </form>
+  </div>
+</div>
+
+<%- include('includes/footer.ejs') %>

@@ -1,0 +1,40 @@
+.background-color{
+    background-color: #EDEBE6;
+}
+
+/* Centrar el formulario */
+.form {
+    display: flex;
+    justify-content: center; 
+    height: 100%; 
+    width: 100%;
+    margin: 0px;
+}
+  
+/* Estilos del formulario */
+.crearUsuario {
+    border: 1px solid black; 
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: 300; 
+    font-size: 16px; 
+    width: 600px;
+    background-color: #FAFBFE;
+} 
+
+/* Alineación de inputs y labels */
+.label-crearUsuario{
+    margin-top:40px;
+}
+
+.input-crearUsuario{
+    max-width: 550px;
+}
+
+/* Estilo para el botón del template */
+.btn-formUsuario {
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 40px;
+}
