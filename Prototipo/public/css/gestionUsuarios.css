@@ -7,14 +7,14 @@
     display: flex; 
     align-items: center; 
     justify-content: space-between; 
-    background-color: #FFA73A; 
+    background-color: #000000; 
     color: #fff; 
     font-weight: 700; 
     margin-top: 10px;
 } 
 
 .btn-agregarUsuario:hover {
-    background-color: #000000; 
+    background-color: #FFA73A; 
     color: #fff; 
   }
 
@@ -22,7 +22,8 @@
 /* Tarjetas de usuarios */
 
 .tarjetaUsuario {
-    border: 1px solid black; 
+    
+    background-color: #f1f1f1;
     font-family: 'Montserrat', sans-serif; 
     align-items: center;
     margin-bottom: 5px;
@@ -55,4 +56,7 @@
 
 .btn-modificar-eliminar {
     align-items: flex-end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
