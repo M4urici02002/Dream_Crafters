@@ -2,7 +2,7 @@ const usuarioRegistrado = [
     {
         username:"Vale",
         nombre: "Valeria Zúñiga", 
-        rol: "crm", 
+        rol: "CRM", 
     },
     {
         username:"Nico",

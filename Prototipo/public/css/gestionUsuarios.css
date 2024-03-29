@@ -10,4 +10,49 @@
     background-color: #FFA73A; 
     color: #fff; 
     font-weight: 700; 
+    margin-top: 10px;
 } 
+
+.btn-agregarUsuario:hover {
+    background-color: #000000; 
+    color: #fff; 
+  }
+
+
+/* Tarjetas de usuarios */
+
+.tarjetaUsuario {
+    border: 1px solid black; 
+    font-family: 'Montserrat', sans-serif; 
+    align-items: center;
+    margin-bottom: 5px;
+} 
+
+#tarjetaUsuarioEncabezado {
+    background-color: #FD5859;
+    border: 1px #FD5859; 
+    color: #fff; 
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+/* Estilo imagen de tarjeta */
+.icon-tarjeta-usuario {
+    border-radius: 50%; 
+    height: 40px;
+    width: 40px; 
+    margin-top: 20px;
+}
+
+.text-tarjeta-usuario{
+    font-size: 14px;
+}
+
+.username-usuario-tarjeta{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-modificar-eliminar {
+    align-items: flex-end;
+}

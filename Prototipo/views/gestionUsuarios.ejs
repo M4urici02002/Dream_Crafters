@@ -20,22 +20,50 @@
         </div>
     </div>
 
+    <!--Encabezado-->
+    <div id="tarjetaUsuarioEncabezado" class="row tarjetaUsuario">
+        <div class="col-lg-2 col-md-3 col-sm-3 d-flex justify-content-center align-items-center">
+            <svg class="bi bi-person-fill text-white" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
 
-    <div class="col">
-        <% for (let usuario of usuarioRegistrado) { %>
-          <div class="card">
-            <div class="card-header">
-              <%=usuario.username%>
+            <p class="username-usuario-tarjeta"><br>&nbsp;&nbsp;Username</p>
+        </div>
+        <div class="col-sm-2">
+           <p class="text-tarjeta-usuario"><br>Nombre Usuario</p>
+        </div>
+        <div class="col-sm-2">
+            <p class="text-tarjeta-usuario"><br>Rol</p> 
+        </div>
+    </div> 
+
+    <!--Tarjetas de usuario-->
+    
+    <% for (let usuario of usuarioRegistrado) { %>
+        <div class="row tarjetaUsuario">
+            <div class="col-lg-2 col-md-3 col-sm-3">
+                <p class="username-usuario-tarjeta"><br>&nbsp;&nbsp;<%=usuario.username%></p>
             </div>
-            <div class="card-body">
-              <p class="card-text"><%=usuario.nombre%></p>
-              <p class="card-text"><%=usuario.rol%></p>  
+            <div class="col-sm-2">
+               <p class="text-tarjeta-usuario"><br><%=usuario.nombre%></p>
             </div>
-          </div>
-        <% } %>
-      </div>
-
-
+            <div class="col-sm-2">
+                <p class="text-tarjeta-usuario"><br><%=usuario.rol%></p> 
+            </div>
+            <div class="col-sm-2">
+                <!--Modificar usuario-->
+                <button type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
+                    Modificar
+                </button> 
+            </div>
+            <div class="col-sm-2">
+                <!--Eliminar usuario-->
+                <button type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    <% } %>    
 
   </div>
 </div>
