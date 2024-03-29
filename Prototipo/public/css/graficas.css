@@ -8,14 +8,13 @@
     font-size: 14px;
 }
 
-/* centrar la imagen representativa */
+/* Centrar la imagen representativa */
 #imagenRepresentativaGrafica {
     display: block;
     margin: 0 auto; 
 }
 
-/* estilo del calendario */
-   
+/* Estilo del calendario */
 .datepicker-dropdown {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;

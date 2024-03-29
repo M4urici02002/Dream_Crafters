@@ -1,7 +1,13 @@
+.consultar-usuarios{
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Buscar usuarios */
 .buscarUsuario{
     align-items: flex-end;
 } 
 
+/* Agregar usuarios */
 .btn-agregarUsuario { 
     width: 100%; 
     display: flex; 
@@ -9,7 +15,7 @@
     justify-content: space-between; 
     background-color: #000000; 
     color: #fff; 
-    font-weight: 700; 
+    font-weight: 550; 
     margin-top: 10px;
 } 
 
@@ -20,11 +26,8 @@
 
 
 /* Tarjetas de usuarios */
-
 .tarjetaUsuario {
-    
     background-color: #f1f1f1;
-    font-family: 'Montserrat', sans-serif; 
     align-items: center;
     margin-bottom: 5px;
 } 
@@ -47,11 +50,19 @@
 
 .text-tarjeta-usuario{
     font-size: 14px;
+    font-weight: 300;
+}
+
+.username-usuario-tarjeta-titulo{
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 15px;
 }
 
 .username-usuario-tarjeta{
     font-size: 14px;
     font-weight: 500;
+    padding-left: 40px;
 }
 
 .btn-modificar-eliminar {
