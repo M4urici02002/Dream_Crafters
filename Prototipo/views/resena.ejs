@@ -8,13 +8,13 @@
       <% for (let re of resena) { %>
         <div class="card">
           <div class="card-header">
-            <%=re.producto%>
+            <%=re.Titulo%>
           </div>
           <div class="card-body">
-            <h5 class="card-title"><%=re.titulo%></h5>
-            <p class="card-text"><%=re.nombre%></p>
-            <p class="card-text"><%=re.fecha%></p>
-            <p class="card-text"><%=re.estrellas%></p>    
+            <h5 class="card-title"><%=re.Titulo%></h5>
+            <p class="card-text"><%=re.Descripcion%></p>
+            <p class="card-text"><%=re.FechaContestacion%></p>
+            <p class="card-text"> Estrellas: <%=re.Rating%></p>    
           </div>
         </div>
       <% } %>
