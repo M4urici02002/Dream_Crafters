@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: proyecto
+-- Host: 127.0.0.1    Database: crafted_ratings
 -- ------------------------------------------------------
 -- Server version	8.2.0
 
@@ -289,13 +289,13 @@ INSERT INTO `producto` VALUES ('AN1133V',2,'Almohadas Nooz Essential de Microfib
 UNLOCK TABLES;
 
 --
--- Table structure for table `reseña`
+-- Table structure for table `resena`
 --
 
-DROP TABLE IF EXISTS `reseña`;
+DROP TABLE IF EXISTS `resena`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `reseña` (
+CREATE TABLE `resena` (
   `IDReseña` int NOT NULL AUTO_INCREMENT,
   `IDEncuesta` int DEFAULT NULL,
   `IDProducto` varchar(255) DEFAULT NULL,
@@ -305,25 +305,24 @@ CREATE TABLE `reseña` (
   `Descripcion` varchar(255) DEFAULT NULL,
   `Enviada` tinyint(1) DEFAULT NULL,
   `FechaContestacion` date DEFAULT NULL,
-  `Contestada` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`IDReseña`),
   KEY `IDEncuesta` (`IDEncuesta`),
   KEY `IDProducto` (`IDProducto`),
   KEY `IDCliente` (`IDCliente`),
-  CONSTRAINT `reseña_ibfk_1` FOREIGN KEY (`IDEncuesta`) REFERENCES `encuesta` (`IDEncuesta`),
-  CONSTRAINT `reseña_ibfk_2` FOREIGN KEY (`IDProducto`) REFERENCES `producto` (`IDProducto`),
-  CONSTRAINT `reseña_ibfk_3` FOREIGN KEY (`IDCliente`) REFERENCES `cliente` (`IDCliente`)
+  CONSTRAINT `resena_ibfk_1` FOREIGN KEY (`IDEncuesta`) REFERENCES `encuesta` (`IDEncuesta`),
+  CONSTRAINT `resena_ibfk_2` FOREIGN KEY (`IDProducto`) REFERENCES `producto` (`IDProducto`),
+  CONSTRAINT `resena_ibfk_3` FOREIGN KEY (`IDCliente`) REFERENCES `cliente` (`IDCliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `reseña`
+-- Dumping data for table `resena`
 --
 
-LOCK TABLES `reseña` WRITE;
-/*!40000 ALTER TABLE `reseña` DISABLE KEYS */;
-INSERT INTO `reseña` VALUES (1,1,'AN1133V',1,'Buen precio',5,'ReseÃ±a del colchÃ³n Luuna original',1,'2023-10-20',1),(2,6,'SH7003',2,'No me gisto',1,'Feedback de Sabanas Lunna',1,'2023-12-09',1),(3,2,'MA0012',3,'Buena maleta',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',1,'2023-09-27',1),(4,4,'AN1134VCH',4,'Incomoda',3,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',1,'2024-04-15',1),(5,7,'SI1003',4,'Muy relajante',5,'Feedback de  Lunna Signature',1,'2023-07-31',1),(6,9,'MA4003',5,'Muy resistente',5,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',1,'2023-11-18',1),(7,10,'AN1133V',6,'Muy comoda y fresca',5,'Dinos tu opinion sobre tu almohada Luuna',1,'2024-01-25',1),(8,2,'LU1003B2',7,'Esta muy fresco',5,'Dinos tu opinion sobre tu colchon Luuna',1,'2023-05-14',1),(9,3,'SH7003',8,'Suaves ',5,'Dinos tu opinion sobre tu sabana Luuna',1,'2023-08-09',1),(10,5,'MA0014',2,'Resistentes',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-GREEO!',1,'2023-05-14',1);
-/*!40000 ALTER TABLE `reseña` ENABLE KEYS */;
+LOCK TABLES `resena` WRITE;
+/*!40000 ALTER TABLE `resena` DISABLE KEYS */;
+INSERT INTO `resena` VALUES (1,1,'AN1133V',1,'Buen precio',5,'ReseÃ±a del colchÃ³n Luuna original',1,'2023-10-20'),(2,6,'SH7003',2,'No me gisto',1,'Feedback de Sabanas Lunna',1,'2023-12-09'),(3,2,'MA0012',3,'Buena maleta',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',1,'2023-09-27'),(4,4,'AN1134VCH',4,'Incomoda',3,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',1,'2024-04-15'),(5,7,'SI1003',4,'Muy relajante',5,'Feedback de  Lunna Signature',1,'2023-07-31'),(6,9,'MA4003',5,'Muy resistente',5,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',1,'2023-11-18'),(7,10,'AN1133V',6,'Muy comoda y fresca',5,'Dinos tu opinion sobre tu almohada Luuna',1,'2024-01-25'),(8,2,'LU1003B2',7,'Esta muy fresco',5,'Dinos tu opinion sobre tu colchon Luuna',1,'2023-05-14'),(9,3,'SH7003',8,'Suaves ',5,'Dinos tu opinion sobre tu sabana Luuna',1,'2023-08-09'),(10,5,'MA0014',2,'Resistentes',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-GREEO!',1,'2023-05-14');
+/*!40000 ALTER TABLE `resena` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -341,7 +340,7 @@ CREATE TABLE `responde` (
   `Fecha` date DEFAULT NULL,
   PRIMARY KEY (`IDRespuesta`,`IDReseña`,`IDPregunta`),
   KEY `IDReseña` (`IDReseña`),
-  CONSTRAINT `responde_ibfk_1` FOREIGN KEY (`IDReseña`) REFERENCES `reseña` (`IDReseña`)
+  CONSTRAINT `responde_ibfk_1` FOREIGN KEY (`IDReseña`) REFERENCES `resena` (`IDReseña`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -406,7 +405,7 @@ INSERT INTO `usuario` VALUES ('nico','Nicolas Hood','hola1234'),('vale','Valeria
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'proyecto'
+-- Dumping routines for database 'crafted_ratings'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -418,4 +417,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-29 12:16:52
+-- Dump completed on 2024-04-01 13:19:42
