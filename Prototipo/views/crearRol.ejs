@@ -1,0 +1,28 @@
+<%- include('includes/navbar.ejs') %>
+<%- include('includes/sidebar.ejs') %>
+
+<div class="main p-3 background-color">
+  <div class="container form">
+    <form class="crearUsuario">
+        <div class="mb-5 contenido-con-margen">
+            <h3><br>Agregar rol</h3>
+          
+          <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
+          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre">
+
+          
+          <label for="inputUsuario" class="form-label label-crearUsuario">Asignar privilegios</label>
+          <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
+            <option> A</option>
+            <option> B </option>
+            <option> C </option>
+          </select>
+        </div>
+        <div class="btn-formUsuario">
+            <button type="submit" class="btn btn-dark">Enviar</button>
+        </div>
+      </form>
+  </div>
+</div>
+
+<%- include('includes/footer.ejs') %>

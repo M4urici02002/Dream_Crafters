@@ -39,7 +39,7 @@ const rutasUsuarios = require('./routes/gestionUsuarios.routes');
 app.use(rutasUsuarios);
 
 const rutasRoles = require('./routes/gestionRoles.routes');
-app.use('/gestionRoles', rutasRoles); 
+app.use(rutasRoles); 
 
 const rutasModUsua = require('./routes/modificarUsuarios.routes');
 app.use('/modificarUsuarios', rutasModUsua);
