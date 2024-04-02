@@ -6,7 +6,7 @@ const pool = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',
     database: 'crafted_ratings', // Nombre del esquema en mySQL workbench
-    password: 'micontrasena'// Contraseña de tu conexion 
+    password: 'vazume159'// Contraseña de tu conexion 
 });
 
 module.exports = pool.promise();

@@ -1,8 +1,15 @@
 const UsuarioRegistrado = require('../models/gestionUsuarios.model');
 
 exports.get_usuarioRegistrado = (request, response, next) => {
-    response.render('gestionUsuarios',{
-        usuarioRegistrado: UsuarioRegistrado.fetchAll(),
+    UsuarioRegistrado.fetchAll().then(([rows, fieldData]) => {
+        //console.log(fieldData);
+        response.render('gestionUsuarios', {
+            usuarioRegistrado: rows,
+
+        });
+    })
+    .catch((error) => {
+        console.log(error)
     });
 };
 
