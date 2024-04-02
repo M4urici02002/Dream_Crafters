@@ -1,28 +1,35 @@
-const UsuarioRegistrado = require('../models/gestionUsuarios.model');
+const db=require('../util/database');
 
-exports.get_usuarioRegistrado = (request, response, next) => {
-    UsuarioRegistrado.fetchAll().then(([rows, fieldData]) => {
-        //console.log(fieldData);
+exports.get_usuarioRegistrado = async (request, response, next) => {
+    try {
+        const [users] = await db.query(`
+            SELECT U.username, U.nombre, rol.nombre AS rol_nombre
+            FROM usuario U
+            JOIN asigna A ON U.username = A.username
+            JOIN rol ON A.idrol = rol.idrol;
+        `);
+
         response.render('gestionUsuarios', {
-            usuarioRegistrado: rows,
-
+            usuarioRegistrado: users,
         });
-    })
-    .catch((error) => {
-        console.log(error)
-    });
+    } catch (error) {
+        console.log(error);
+        response.status(500).send("Error al obtener usuarios registrados");
+    }
 };
 
+
+// Crear usuario
 exports.get_crearUsuario = (request, response, next) => {
     response.render('crearUsuario');
 };
 
-exports.post_crearUsuario = (request, response, next) => {
+exports.post_crearUsuario = (request, response, next) => { //no
     console.log(request.body);
     const usuario = new UsuarioRegistrado(
         request.body.username, 
         request.body.nombre,
-        request.body.rol
+        request.body.rol,
     );
 
     usuario.save()
