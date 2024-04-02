@@ -5,7 +5,7 @@ const path = require('path');
 
 const gestionRolesController= require('../controllers/gestionRoles.controller');
 router.get('/gestionRoles', gestionRolesController.get_gestionRoles);
-router.get('/gestionUsuarios/crearRol', gestionRolesController.get_crearRol);
+router.get('/gestionRoles/crearRol', gestionRolesController.get_crearRol);
 
 
 module.exports = router;
