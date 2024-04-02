@@ -1,12 +1,12 @@
 const mysql = require('mysql2');
 
-//Como establecer el servidor??
+// Establecer el servidor
 
 const pool = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',
-    database: 'crafted_ratings', //nombrar todos el esquema asi
-    password: '12345678'//contraseña de tu conexion 
+    database: 'crafted_ratings', // Nombre del esquema en mySQL workbench
+    password: 'micontrasena'// Contraseña de tu conexion 
 });
 
 module.exports = pool.promise();
