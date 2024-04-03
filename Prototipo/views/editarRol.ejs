@@ -1,64 +1,44 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
 
-<!--FALTA AGREGAR FUENTE-->
-<div class="main d-flex justify-content-center">
-  <div class="w-50 h-auto" style="background-color: #669DD5;">
-    <div class="card-body" >
-      <div class="col-md-8 mx-auto">
-        <h4 class="mt-3 mb-4 texto-Usuario text-center text-white">MODIFICAR ROL</h4>
+<div class="main p-3 background-color">
+  <div class="container form">
+    <form class="crearUsuario">
+      <h1 class ="titulo-form"> Modificar Rol</h1>
+        <div class="mb-5 contenido-con-margen">
+          <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
+          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre">
 
-        <form>
-          <div class="mb-2">
-            <label for="inputNombre" class="fs-6 form-label text-white">NOMBRE</label>
-            <input type="text" class="form-control rounded-pill" id="inputNomb" value="Analitico">
-          </div>
-          
-          <!-- Asignar privilegio-->
-            <div class="mb-2">
-                <div class="dropdown">
-                    <label for="inputUsuario" class="fs-6 form-label label-miPerfil text-white">ASIGNAR PRIVILEGIO</label>
-                    <button class="btn bg-white dropdown-toggle form-control rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 2.4em;">
-                        Desplegar privilegios
-                    </button>
-                    <ul class="dropdown-menu bg-white">
-                        <li><a class="dropdown-item" href="#">Consultar reseñas por categoría</a></li>
-                        <li><a class="dropdown-item" href="#">Consultar gráficas de análisis</a></li>
-                        <li><a class="dropdown-item" href="#">Exportar gráficas de análisis</a></li>
-                    </ul>
-                </div>
+          <label for="inputPassword" class="form-label label-crearUsuario">Contraseña</label>
+          <input type="password" class="form-control input-crearUsuario" id="password" name="password">
+        
+          <label for="inputUsuario" class="form-label label-crearUsuario">Asignar privilegio</label>
+          <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
+            <option> Analítico</option>
+            <option> Administrador </option>
+            <option> CRM </option>
+          </select>
+
+          <label for="inputUsuario" class="form-label label-crearUsuario">Eliminar privilegio</label>
+          <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
+            <option> Analítico</option>
+            <option> Administrador </option>
+            <option> CRM </option>
+          </select>
+
+          <label for="inputUsuario" class="form-label label-crearUsuario">Privilegios</label>
+          <div class="card privilegio">
+            <div class="card-body list-group-numbered">
+                <li class="list-group-item">Exportar gráficas de análisis</li>
+                <li class="list-group-item">Consultar reseñas por categoría</li>
             </div>
-
-            <!-- Eliminar privilegio-->
-            <div class="mb-2">
-                <div class="dropdown">
-                    <label for="inputUsuario" class="fs-6 form-label label-miPerfil text-white">ELIMINAR PRIVILEGIO</label>
-                    <button class="btn bg-white dropdown-toggle form-control rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 2.4em;">
-                        Desplegar privilegios
-                    </button>
-                    <ul class="dropdown-menu bg-white">
-                        <li><a class="dropdown-item" href="#">Consultar reseñas por categoría</a></li>
-                        <li><a class="dropdown-item" href="#">Consultar gráficas de análisis</a></li>
-                        <li><a class="dropdown-item" href="#">Exportar gráficas de análisis</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Mostrar privilegios actuales-->
-            <div class="mb-2">
-                <label for="inputNombre" class="fs-6 form-label label-miPerfil text-white">PRIVILEGIOS</label>
-                <div class="card w-auto h-auto">
-                    <div class="card-body list-group-numbered">
-                        <li class="list-group-item">Exportar gráficas de análisis</li>
-                        <li class="list-group-item">Consultar reseñas por categoría</li>
-                    </div>
-                </div>
-            </div>
-
-          <button class="mt-3 mb-4 btn rounded-pill bg-black text-white w-75" type="submit">ACEPTAR</button>
-        </form>
-      </div>
-    </div>
+         </div>
+        </div>
+        
+        <div class="btn-formUsuario">
+            <button type="submit" class="btn btn-dark">Enviar</button>
+        </div>
+      </form>
   </div>
 </div>
 

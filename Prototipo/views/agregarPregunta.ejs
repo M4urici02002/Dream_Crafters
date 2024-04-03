@@ -1,0 +1,28 @@
+<%- include('includes/navbar.ejs') %>
+<%- include('includes/sidebar.ejs') %>
+
+<div class="main p-3 background-color">
+  <div class="container form">
+    <form class="crearUsuario">
+      <h1 class ="titulo-form preguntas-titulo"> Agregar Pregunta</h1>
+        <div class="mb-5 contenido-con-margen">
+          <label for="inputUsuario" class="form-label label-crearUsuario">Titulo de la encuesta</label>
+          <input type="text" class="form-control input-crearUsuario" id="username" name="username">
+
+          <label for="inputUsuario" class="form-label label-crearUsuario preguntas">Preguntas</label>
+          <select id="inputUsuario" class="form-control input-crearUsuario preguntas-input" name="rol">
+            <option> Pregunta 1</option>
+            <option> Pregunta 2 </option>
+            <option> Pregunta 3 </option>
+          </select>
+        
+        
+        </div>
+        <div class="btn-formUsuario">
+            <button type="submit" class="btn btn-dark">Agregar</button>
+        </div>
+      </form>
+  </div>
+</div>
+
+<%- include('includes/footer.ejs') %>
