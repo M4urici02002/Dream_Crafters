@@ -18,11 +18,17 @@ module.exports = class Resena {
     // resena.model
     static fetchAll(categoria = null) {
         if (categoria) {
-            return db.execute(`
+            return db.execute(
+                //`SELECT r.* 
+                //FROM resena r
+                //INNER JOIN producto p ON r.IDProducto = p.IDProducto
+                //WHERE p.Categoria = ?`, [categoria]
+                `
                 SELECT r.* 
                 FROM resena r
-                INNER JOIN producto p ON r.IDProducto = p.IDProducto
-                WHERE p.Categoria = ?`, [categoria]
+                INNER JOIN encuesta e ON r.IDEncuesta = e.IDEncuesta
+                WHERE e.Categoria = ?`,[categoria]
+                
             );
         } else {
             return db.execute('SELECT * FROM resena');
