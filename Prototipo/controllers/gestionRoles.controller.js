@@ -9,6 +9,7 @@ exports.get_gestionRoles = async (request, response, next) => {
 
         response.render('gestionRoles', {
             roles: uroles,
+            permisos: request.session.permisos || [],
         });
     } catch (error) {
         console.log(error);
@@ -19,6 +20,8 @@ exports.get_gestionRoles = async (request, response, next) => {
 
 // Crear usuario
 exports.get_crearRol = (request, response, next) => {
-    response.render('crearRol');
+    response.render('crearRol',{
+        permisos: request.session.permisos || [],
+    });
 };
 

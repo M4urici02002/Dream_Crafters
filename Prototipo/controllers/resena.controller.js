@@ -5,6 +5,7 @@ exports.get_resena = (request, response, next) => {
         //console.log(fieldData);
         response.render('resena', {
             resena: rows,
+            permisos: request.session.permisos || [],
         });
     })
     .catch((error) => {
