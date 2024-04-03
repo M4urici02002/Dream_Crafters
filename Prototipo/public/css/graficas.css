@@ -42,3 +42,10 @@
 .datepicker-dropdown.datepicker-right:after {
     border-left-color: #f8f9fa;
 }
+.reporte{
+    margin-top: 30px;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column; /* Para mantener el flujo de arriba hacia abajo */
+    align-items: flex-end; /* Alinea los hijos a la derecha */
+}
