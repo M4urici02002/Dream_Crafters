@@ -42,6 +42,9 @@ app.use('/resena', rutasResena);
 const rutasGraficas = require('./routes/graficas.routes');
 app.use('/graficas', rutasGraficas);
 
+const rutasReporte = require('./routes/reporte.routes');
+app.use('/reporte', rutasReporte);
+
 const rutasUsuarios = require('./routes/gestionUsuarios.routes');
 app.use(rutasUsuarios);
 
