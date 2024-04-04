@@ -26,7 +26,8 @@ exports.post_login = (request, response, next) => {
                                 console.log(permisos);
                                 console.log(usuario);
                                 request.session.permisos = permisos;
-                                request.session.username = usuario.nombre;
+                                request.session.username = usuario.username;
+                                request.session.nombre = usuario.nombre;
                                 request.session.isLoggedIn = true;
                                 response.redirect('/graficas');
                             })

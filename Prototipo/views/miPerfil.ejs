@@ -7,16 +7,16 @@
       <div class="col-md-4 d-flex justify-content-center align-items-center">
         <div>
           <img src="https://icon-library.com/images/username-icon-png/username-icon-png-6.jpg" alt="Profile Picture" class="img-fluid profile-picture mb-4">
-          <p class="text-center nombre-usuario">Nombre Usuario</p>
-          <p class="text-center tipo-usuario">Administrador</p>
+          <p class="text-center nombre-usuario"><%=nombre%></p>
+          <p class="text-center tipo-usuario"><%=rol%></p>
         </div>
       </div>
       
       <div class="col-md-8">
         <form>
           <div class="mb-5 contenido-con-margen">
-            <label for="inputNombre" class="form-label label-miPerfil">Nombre</label>
-            <input type="text" class="form-control input-miPerfil" id="inputNombre" value="Nombre Usuario" readonly>
+            <label for="inputNombre" class="form-label label-miPerfil">Nombre de usuario</label>
+            <input type="text" class="form-control input-miPerfil" id="inputNombre" value="<%=username%>" readonly>
           
             <!--<label for="inputEmail" class="form-label label-miPerfil">Correo</label>
             <input type="email" class="form-control input-miPerfil" id="inputCorreo" value="correousuario@example.com" readonly>-->

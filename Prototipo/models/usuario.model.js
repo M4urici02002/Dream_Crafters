@@ -32,7 +32,8 @@ module.exports = class Usuario {
     }
 
     static fetchOne(username) {
-        return db.execute('Select * from usuario WHERE username = ?', [username]);
+        return db.execute('Select * from usuario WHERE username = ?'
+        , [username]);
     }
 
     static getPermisos(username) {
@@ -43,5 +44,13 @@ module.exports = class Usuario {
             a.idrol = r.idrol AND r.idrol = po.idrol AND po.idprivilegio = pr.idprivilegio
         `, [username]);
     }
-
+    static fetchOneWithRole(username) {
+        return db.execute(`
+            SELECT u.username, u.nombre, r.nombre as rol
+            FROM usuario u
+            INNER JOIN asigna a ON u.username = a.username
+            INNER JOIN rol r ON a.idrol = r.idrol
+            WHERE u.username = ?
+        `, [username]);
+    }
 }
