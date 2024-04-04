@@ -21,6 +21,12 @@
     margin-bottom: 20px;
     box-shadow:  6px 6px 12px #5a5a5a;
 }
+
 .margenresena{
     margin-bottom: 20px;
+}
+
+.categorias{
+    width: auto; 
+    margin-right: 10px;
 }

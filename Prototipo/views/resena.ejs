@@ -1,12 +1,11 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
-<%- include('includes/subsidebarSimple.ejs') %>
 
 <div class="main p-3">
 
 <div class="container margenresena">
-  <form action="/resena" method="get" class="d-flex">
-    <select name="categoria" class="form-select form-select-sm me-2" aria-label="Small select example" id="productoDropdown" style="width: auto;">
+  <form action="/resena" method="get">
+    <select name="categoria" class="form-select d-inline-block categorias" aria-label="Small select example" id="productoDropdown">
         <option value="">Todas las reseñas</option>
         <option value="Almohadas">Almohadas</option>
         <option value="Colchon">Colchon</option>
@@ -14,9 +13,10 @@
         <option value="Maletas">Maletas</option>
         <option value="Sabanas">Sábanas</option>
     </select>
-    <button class="btn btn-dark" type="submit">Filtrar</button>
+    <button class="btn btn-dark d-inline-block" type="submit">Filtrar</button>
   </form>
 </div>
+
 
   <div class="container">
     <div class="col">
@@ -35,4 +35,5 @@
     </div>
   </div>
 </div>
+
 <%- include('includes/footer.ejs') %>
