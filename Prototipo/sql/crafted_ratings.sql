@@ -39,7 +39,7 @@ CREATE TABLE `asigna` (
 
 LOCK TABLES `asigna` WRITE;
 /*!40000 ALTER TABLE `asigna` DISABLE KEYS */;
-INSERT INTO `asigna` VALUES ('nico',1,'2024-04-03 05:47:39'),('vale',2,'2024-04-03 05:47:39');
+INSERT INTO `asigna` VALUES ('admin',1,'2024-04-04 14:50:14'),('nico',1,'2024-04-03 05:47:39'),('vale',2,'2024-04-03 05:47:39');
 /*!40000 ALTER TABLE `asigna` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,13 +401,9 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('nico','Nicolas Hood','hola1234'),('vale','Valeria Zuniga','hola1234');
+INSERT INTO `usuario` VALUES ('admin','admin','$2a$12$8kwQg610II8DIGb.9g595.AA3PdwmrHJPDcPBFJFK3qLz/tqWmc/O'),('nico','Nicolas Hood','hola1234'),('Prueba','Prueba 1','$2a$12$O6SWxS3MlSUFIkkguoy3NekGnt0T00efXFtSldUnk6iCRnGiTvKsO'),('vale','Valeria Zuniga','hola1234');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'crafted_ratings'
---
 
 --
 -- Dumping routines for database 'crafted_ratings'
@@ -422,4 +418,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-03  2:06:14
+-- Dump completed on 2024-04-04  9:01:03
