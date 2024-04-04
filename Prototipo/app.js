@@ -30,7 +30,7 @@ const rutasConfiguracion = require('./routes/configuracion.routes')
 app.use('/configuracion', rutasConfiguracion);
 
 const rutasTemplate = require('./routes/template.routes');
-app.use('/template', rutasTemplate);
+app.use(rutasTemplate);
 
 const rutasResena = require('./routes/resena.routes');
 app.use('/resena', rutasResena);

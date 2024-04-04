@@ -108,6 +108,7 @@ exports.get_crearUsuario = (request, response, next) => {
         permisos: request.session.permisos || [],
     });
 };
+
 exports.post_crearUsuario = (request, response, next) => {
     const nuevo_usuario = new Usuario(
         request.body.username, request.body.name, request.body.password
