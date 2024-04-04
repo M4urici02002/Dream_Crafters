@@ -111,10 +111,11 @@ CREATE TABLE `encuesta` (
   `Titulo` varchar(100) DEFAULT NULL,
   `DiasParaEnvio` int DEFAULT NULL,
   `Categoria` varchar(100) DEFAULT NULL,
+  `Html` text,
   PRIMARY KEY (`IDEncuesta`),
   KEY `IDMarca` (`IDMarca`),
   CONSTRAINT `encuesta_ibfk_1` FOREIGN KEY (`IDMarca`) REFERENCES `marca` (`IDMarca`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +124,7 @@ CREATE TABLE `encuesta` (
 
 LOCK TABLES `encuesta` WRITE;
 /*!40000 ALTER TABLE `encuesta` DISABLE KEYS */;
-INSERT INTO `encuesta` VALUES (1,1,'Feedback de Colchon Lunna Basic 2 indi',15,'Colchon'),(2,1,'Â¡Queremos tu opinion de Kit Cabina + Cabina Lote-CHAR!',15,'General'),(3,1,'Feedback de Sabanas Lunna',15,'Sabanas'),(4,2,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',15,'Almohadas'),(5,3,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',7,'Maletas'),(6,1,'Has comprado recientemente Juego De SÃ¡banas Individual Rosa Limonada, Â¿nos cuentas tu experiencia?',15,'Sabanas'),(7,1,'Feedback de  Lunna Signature',15,'Colchon'),(8,2,'Feedback de  Protector de colchon essential-bamboo',30,'Colchon'),(9,3,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',7,'Maletas'),(10,1,'Dinos tu opinion sobre tu almohada Luuna',14,'Almohadas');
+INSERT INTO `encuesta` VALUES (1,1,'Feedback de Colchon Lunna Basic 2 indi',15,'Colchon',NULL),(2,1,'Â¡Queremos tu opinion de Kit Cabina + Cabina Lote-CHAR!',15,'General',NULL),(3,1,'Feedback de Sabanas Lunna',15,'Sabanas',NULL),(4,2,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',15,'Almohadas',NULL),(5,3,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',7,'Maletas',NULL),(6,1,'Has comprado recientemente Juego De SÃ¡banas Individual Rosa Limonada, Â¿nos cuentas tu experiencia?',15,'Sabanas',NULL),(7,1,'Feedback de  Lunna Signature',15,'Colchon',NULL),(8,2,'Feedback de  Protector de colchon essential-bamboo',30,'Colchon',NULL),(9,3,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',7,'Maletas',NULL),(10,1,'Dinos tu opinion sobre tu almohada Luuna',14,'Almohadas',NULL);
 /*!40000 ALTER TABLE `encuesta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,4 +419,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-04  9:25:13
+-- Dump completed on 2024-04-04 13:45:32
