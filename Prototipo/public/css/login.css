@@ -113,3 +113,7 @@ button:hover {
   display: grid;
   align-items: center;
 }
+.login-error{
+  color: #fff;
+
+}

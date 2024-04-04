@@ -10,6 +10,7 @@
 </head>
 <body>
   <div class="contenedor centrar">
+
     <form action="/login" method="POST">
       <div class="group">
         <svg stroke="currentColor" stroke-width="1.5" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" class="icon">
@@ -24,6 +25,11 @@
         </svg>
         <input class="input" type="password" placeholder="contraseña"  id="password" name="password" required="">
       </div>
+      <% if(error != '') { %>
+        <div class="notification is-danger">
+          <strong  class="login-error"><%= error %></strong>
+        </div>
+        <% } %>
       <div class="elementosCentro">
         <input class="btn btn-danger" type="submit" value="Iniciar sesion">
       </div>
