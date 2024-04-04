@@ -30,9 +30,15 @@ exports.post_categoriasMarca = (request, response, next) => {
 
     mi_encuesta.save()
         .then(([rows, fieldData]) => {
-            response.redirect('/graficas');
+            response.redirect('/template/editarEncuesta');
         }).catch((error) => {
             console.log(error);
         });
 };
 
+exports.get_EditarEncuesta = (request, response, next) => {
+    response.render('template', {
+            username: request.session.username || '',
+            permisos: request.session.permisos || [],
+        });
+};

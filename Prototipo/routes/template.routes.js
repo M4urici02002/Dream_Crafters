@@ -7,4 +7,6 @@ const isAuth = require('../util/is-auth');
 router.get('/template', isAuth, templateController.get_categoriasMarca);
 router.post('/template', isAuth, templateController.post_categoriasMarca);
 
+router.get('/template/editarEncuesta', isAuth, templateController.get_EditarEncuesta);
+
 module.exports = router;
