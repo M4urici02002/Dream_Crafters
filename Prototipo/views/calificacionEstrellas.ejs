@@ -64,34 +64,63 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+        <!--Scripts para el despliegue de calendario-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
         <script>
             // Datos para Chart.js
-            $(document).ready(function(){
-                    const ctx = document.getElementById('chartEstrellas').getContext('2d');
-                    const labels = JSON.parse('<%= JSON.stringify(datos.map(d => d.rating)) %>');
-                    const dataPoints = JSON.parse('<%= JSON.stringify(datos.map(d => d.cantidad)) %>');
+                $(document).ready(function(){
+                const ctx = document.getElementById('chartEstrellas').getContext('2d');
+                const labels = JSON.parse('<%= JSON.stringify(datos.map(d => d.rating)) %>');
+                const dataPoints = JSON.parse('<%= JSON.stringify(datos.map(d => d.cantidad)) %>');
 
-                    const chartEstrellas = new Chart(ctx, {
-                        type: 'bar', // o el tipo de gráfica que prefieras
-                        data: {
-                            labels: labels, // Calificaciones como etiquetas
-                            datasets: [{
-                                label: 'Cantidad de Reseñas por Calificación',
-                                data: dataPoints, // Cantidad de reseñas
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+                // Define una matriz de colores para las barras
+                const barColors = [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                    // Añade más colores si tienes más de 6 categorías
+                ];
+
+                const chartEstrellas = new Chart(ctx, {
+                    type: 'bar', // o el tipo de gráfica que prefieras
+                    data: {
+                        labels: labels, // Calificaciones como etiquetas
+                        datasets: [{
+                            label: 'Cantidad de Reseñas por Calificación',
+                            data: dataPoints, // Cantidad de reseñas
+                            backgroundColor: barColors, // Usar la matriz de colores para las barras
+                            borderColor: barColors.map(color => color.replace('0.2', '1')), // Ajusta la opacidad para los bordes
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
                             }
                         }
-                    });
+                    }
                 });
+                $('#numeroResenas').click(function() {
+                window.location.href = '/graficas';
+                });
+
+                $('#start-date').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true
+                });
+                $('#end-date').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true
+                });
+            });
         </script>
     </div>
 </div>

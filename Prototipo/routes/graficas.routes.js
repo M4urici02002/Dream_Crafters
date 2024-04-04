@@ -11,5 +11,7 @@ router.get('/', isAuth, (request, response, next) => {
 
 // Nueva ruta para calificación por estrellas
 router.get('/calificacionEstrellas', isAuth, graficasController.calificacionEstrellas);
+router.get('/calificacionEstrellas', isAuth, graficasController.getCategorias);
+
 
 module.exports = router;
