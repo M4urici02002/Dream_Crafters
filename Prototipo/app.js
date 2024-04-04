@@ -18,9 +18,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 
 //Protección ataques de CSRF
-const csrf = require('csurf');
-const csrfProtection = csrf();
-app.use(csrfProtection); 
+//const csrf = require('csurf');
+//const csrfProtection = csrf();
+//app.use(csrfProtection); 
 
 // Rutas
 const rutasMiPerfil = require('./routes/miPerfil.routes')
