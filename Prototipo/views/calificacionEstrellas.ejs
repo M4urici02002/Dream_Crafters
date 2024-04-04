@@ -1,11 +1,11 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
-<!--Agregar css con estilos para despliegue de calendario-->
+<!-- Incluye CSS de Bootstrap Datepicker como antes -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
 <div class="main p-3">
     <div class="container graficas">
-        <!-- Menú de las diferentes gráficas -->
+        <!-- Similar a tu vista 'graficas' -->
         <div class="btn-group d-flex" role="group" aria-label="Menu de gráficas">
             <button type="button" id = "numeroResenas" class="btn btn-secondary active flex-fill">Número de reseñas</button>
             <button type="button" id = "calificacionEstrellas" class="btn btn-light flex-fill">Calificación de estrellas</button>
@@ -55,39 +55,45 @@
                 </div>
             </div>
         </div>
-    
-        <!-- Imagen representativa de las gráficas -->
-        <br>
-        <img id="imagenRepresentativaGrafica" src="https://img.freepik.com/free-vector/blue-marketing-charts-design-template_52683-24522.jpg" class="img-fluid" alt="Representación de gráfica">
-        <div class="reporte">
-            <button class = "download" onclick="window.location.href='/reporte'">
-                <i class="fa-solid fa-download"></i>
-            </button>         
-        </div>
+        <!-- Canvas para la gráfica de Chart.js -->
+        <canvas id="chartEstrellas"></canvas>
+
+        <!-- Scripts necesarios para Chart.js y Bootstrap Datepicker -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            // Datos para Chart.js
+            $(document).ready(function(){
+                    const ctx = document.getElementById('chartEstrellas').getContext('2d');
+                    const labels = JSON.parse('<%= JSON.stringify(datos.map(d => d.rating)) %>');
+                    const dataPoints = JSON.parse('<%= JSON.stringify(datos.map(d => d.cantidad)) %>');
+
+                    const chartEstrellas = new Chart(ctx, {
+                        type: 'bar', // o el tipo de gráfica que prefieras
+                        data: {
+                            labels: labels, // Calificaciones como etiquetas
+                            datasets: [{
+                                label: 'Cantidad de Reseñas por Calificación',
+                                data: dataPoints, // Cantidad de reseñas
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
+        </script>
     </div>
 </div>
-
-<!--Scripts para el despliegue de calendario-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
-<script>
-$(document).ready(function() {
-    $('#start-date').datepicker({
-    format: 'dd/mm/yyyy',
-    autoclose: true
-    });
-    $('#end-date').datepicker({
-    format: 'dd/mm/yyyy',
-    autoclose: true
-    });
-});
-
-$('#calificacionEstrellas').click(function() {
-        window.location.href = '/graficas/calificacionEstrellas';
-    });
-</script>
 
 <%- include('includes/footer.ejs') %>
