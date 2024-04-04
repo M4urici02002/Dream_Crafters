@@ -4,6 +4,7 @@ const router = express.Router();
 const templateController = require('../controllers/template.controller');
 const isAuth = require('../util/is-auth');
 
-router.get('/', isAuth, templateController.get_template);
+router.get('/template', isAuth, templateController.get_categoriasMarca);
+router.post('/template', isAuth, templateController.post_categoriasMarca);
 
 module.exports = router;
