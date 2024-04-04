@@ -4,7 +4,7 @@
 <div class="main p-3 background-color">
   <div class="container form">
     <form class="crearUsuario" action="/gestionUsuarios/crearUsuario" method="POST">
-
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <h1 class ="titulo-form"> Crear Usuario</h1>
         <div class="mb-5 contenido-con-margen">
           <label for="inputUsuario" class="form-label label-crearUsuario" for="username">Usuario</label>

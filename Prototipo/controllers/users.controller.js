@@ -7,7 +7,7 @@ exports.get_login = (request, response, next) => {
     response.render('login', {
         username: request.session.username || '',
         registro: false,
-        //csrfToken: request.csrfToken(),
+        csrfToken: request.csrfToken(),
         error: error,
         permisos: request.session.permisos || [],
     });
