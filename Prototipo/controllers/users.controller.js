@@ -13,8 +13,45 @@ exports.get_login = (request, response, next) => {
     });
 };
 
+// exports.post_login = (request, response, next) => {
+//     Usuario.fetchOne(request.body.username)
+//         .then(([usuarios, fieldData]) => {
+//             if (usuarios.length == 1) {
+//                 const usuario = usuarios[0];
+//                 bcrypt.compare(request.body.password, usuario.password)
+//                     .then((doMatch) => {
+//                         if(doMatch) {
+//                             Usuario.getPermisos(usuario.username)
+//                             .then(([permisos, fieldData]) => {
+//                                 console.log(permisos);
+//                                 console.log(usuario);
+//                                 request.session.permisos = permisos;
+//                                 request.session.username = usuario.username;
+//                                 request.session.nombre = usuario.nombre;
+//                                 request.session.isLoggedIn = true;
+//                                 response.redirect('/graficas');
+//                             })
+//                             .catch((error) => {
+//                                 console.log(error);
+//                             });
+//                         } else {
+//                             request.session.error = "Usuario y/o contraseña incorrectos";
+//                             response.redirect('/login');
+//                         }
+//                     })
+//                     .catch((error) => {
+//                         console.log(error);
+//                     });
+//             } else {
+//                 request.session.error = "Usuario y/o contraseña incorrectos";
+//                 response.redirect('/login');
+//             }
+//         })
+//         .catch((error) => {console.log(error);});
+// };
+
 exports.post_login = (request, response, next) => {
-    Usuario.fetchOne(request.body.username)
+    Usuario.fetchOneWithRole(request.body.username)
         .then(([usuarios, fieldData]) => {
             if (usuarios.length == 1) {
                 const usuario = usuarios[0];
@@ -28,6 +65,7 @@ exports.post_login = (request, response, next) => {
                                 request.session.permisos = permisos;
                                 request.session.username = usuario.username;
                                 request.session.nombre = usuario.nombre;
+                                request.session.rol = usuario.nombre_rol; // Guardar el rol en la sesión
                                 request.session.isLoggedIn = true;
                                 response.redirect('/graficas');
                             })
@@ -49,7 +87,6 @@ exports.post_login = (request, response, next) => {
         })
         .catch((error) => {console.log(error);});
 };
-
 
 
 

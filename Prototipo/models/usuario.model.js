@@ -46,11 +46,11 @@ module.exports = class Usuario {
     }
     static fetchOneWithRole(username) {
         return db.execute(`
-            SELECT u.username, u.nombre, r.nombre as rol
-            FROM usuario u
-            INNER JOIN asigna a ON u.username = a.username
-            INNER JOIN rol r ON a.idrol = r.idrol
-            WHERE u.username = ?
+            SELECT usuario.username, usuario.nombre, usuario.password, rol.nombre AS nombre_rol
+            FROM usuario
+            INNER JOIN asigna ON usuario.username = asigna.username
+            INNER JOIN rol ON asigna.idrol = rol.idrol
+            WHERE usuario.username = ?
         `, [username]);
     }
 }
