@@ -11,6 +11,7 @@ exports.get_usuarioRegistrado = async (request, response, next) => {
 
         response.render('gestionUsuarios', {
             usuarioRegistrado: users,
+            permisos: request.session.permisos || [],
         });
     } catch (error) {
         console.log(error);
@@ -21,7 +22,9 @@ exports.get_usuarioRegistrado = async (request, response, next) => {
 
 // Crear usuario
 exports.get_crearUsuario = (request, response, next) => {
-    response.render('crearUsuario');
+    response.render('crearUsuario',{
+        permisos: request.session.permisos || [],
+    });
 };
 
 exports.post_crearUsuario = (request, response, next) => { //no

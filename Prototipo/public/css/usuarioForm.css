@@ -1,5 +1,5 @@
 .background-color{
-    background-color: #EDEBE6;
+    background-color: #7D9DD1;
 }
 
 /* Centrar el formulario */
@@ -20,7 +20,7 @@
     font-weight: 300; 
     font-size: 16px; 
     width: 600px;
-    background-color: #FAFBFE;
+    background-color: white;
 } 
 
 /* Alineación de inputs y labels */
@@ -37,4 +37,34 @@
     display: flex;
     justify-content: center; 
     margin-bottom: 40px;
+}
+
+/* Estilo para el encabezado h1 */
+.titulo-form {
+    font-size: 24px; /* Tamaño del texto */
+    margin-top: 30px;
+    margin-bottom: 0px;
+    margin-left: 35px;
+
+}
+
+.privilegio{
+    box-shadow: none;
+}
+
+.sidebar-item-check-wrapper {
+    margin-top: 20px;
+    list-style-type: none; /* Eliminar los puntos de lista */
+}
+
+.preguntas{
+    margin-top: 30px;
+}
+
+.preguntas-input{
+    margin-bottom: 100px;
+}
+
+.preguntas-titulo{
+    margin-bottom: 30px;
 }

@@ -24,6 +24,8 @@
                   <span>ENCUESTAS</span>
               </a>
           </li>
+          <% for(permiso of permisos) { %>
+            <% if(permiso.permiso == 'adminUsuarios') { %>
           <li class="sidebar-item">
             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                 data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
@@ -34,9 +36,13 @@
                 <li class="sidebar-item">
                     <a href="/gestionUsuarios" class="sidebar-link">Usuarios</a>
                 </li>
+
                 <li class="sidebar-item">
                     <a href="/gestionRoles" class="sidebar-link">Roles</a>
                 </li>
+                    <% } %>
+                <% } %>
+
             </ul>
         </li>
       </ul>

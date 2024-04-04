@@ -39,6 +39,7 @@ CREATE TABLE `asigna` (
 
 LOCK TABLES `asigna` WRITE;
 /*!40000 ALTER TABLE `asigna` DISABLE KEYS */;
+INSERT INTO `asigna` VALUES ('nico',1,'2024-04-03 05:47:39'),('vale',2,'2024-04-03 05:47:39');
 /*!40000 ALTER TABLE `asigna` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,6 +406,10 @@ INSERT INTO `usuario` VALUES ('nico','Nicolas Hood','hola1234'),('vale','Valeria
 UNLOCK TABLES;
 
 --
+-- Dumping events for database 'crafted_ratings'
+--
+
+--
 -- Dumping routines for database 'crafted_ratings'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -417,4 +422,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-01 13:19:42
+-- Dump completed on 2024-04-03  2:06:14

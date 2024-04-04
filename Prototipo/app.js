@@ -4,6 +4,13 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+const session = require('express-session');
+app.use(session({
+  secret: 'mi string secreto que debe ser un string aleatorio muy largo, no como éste', 
+  resave: false, //La sesión no se guardará en cada petición, sino sólo se guardará si algo cambió 
+  saveUninitialized: false, //Asegura que no se guarde una sesión para una petición que no lo necesita
+}));
+
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -16,15 +23,15 @@ app.use((request, response, next) => {
   next(); 
 });
 
-// Rutas 
+// Rutas
+const rutasUser = require('./routes/users.routes');
+app.use('/', rutasUser);
+
 const rutasMiPerfil = require('./routes/miPerfil.routes')
 app.use('/miPerfil', rutasMiPerfil);
 
 const rutasConfiguracion = require('./routes/configuracion.routes')
 app.use('/configuracion', rutasConfiguracion);
-
-const rutasLogin = require('./routes/login.routes');
-app.use('/', rutasLogin);
 
 const rutasTemplate = require('./routes/template.routes');
 app.use('/template', rutasTemplate);
@@ -39,13 +46,10 @@ const rutasUsuarios = require('./routes/gestionUsuarios.routes');
 app.use(rutasUsuarios);
 
 const rutasRoles = require('./routes/gestionRoles.routes');
-app.use('/gestionRoles', rutasRoles); 
+app.use(rutasRoles); 
 
 const rutasModUsua = require('./routes/modificarUsuarios.routes');
 app.use('/modificarUsuarios', rutasModUsua);
-
-const rutasNewRol = require('./routes/NuevoRol.routes');
-app.use('/NuevoRol', rutasNewRol);
 
 const rutasEditarRol = require('./routes/editarRol.routes');
 app.use('/editarRol', rutasEditarRol);

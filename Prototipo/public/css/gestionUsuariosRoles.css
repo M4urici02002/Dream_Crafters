@@ -43,6 +43,14 @@
     margin-bottom: 40px;
 }
 
+#tarjetaRolesEncabezado {
+    background-color: #4166b1;
+    border: 1px #4166b1; 
+    color: #fff; 
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
 /* Estilo imagen de tarjeta */
 .icon-tarjeta-usuario {
     border-radius: 50%; 

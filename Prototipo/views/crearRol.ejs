@@ -4,24 +4,37 @@
 <div class="main p-3 background-color">
   <div class="container form">
     <form class="crearUsuario">
-      <h1 class ="titulo-form"> Crear Usuario</h1>
+      <h1 class ="titulo-form"> Crear Rol</h1>
         <div class="mb-5 contenido-con-margen">
-          <label for="inputUsuario" class="form-label label-crearUsuario">Usuario</label>
-          <input type="text" class="form-control input-crearUsuario" id="username" name="username">
-        
           <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
           <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre">
 
           <label for="inputPassword" class="form-label label-crearUsuario">Contraseña</label>
           <input type="password" class="form-control input-crearUsuario" id="password" name="password">
         
-          <label for="inputUsuario" class="form-label label-crearUsuario">Rol</label>
+          <label for="inputUsuario" class="form-label label-crearUsuario">Asignar privilegio</label>
           <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
             <option> Analítico</option>
             <option> Administrador </option>
             <option> CRM </option>
           </select>
+
+          <label for="inputUsuario" class="form-label label-crearUsuario">Eliminar privilegio</label>
+          <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
+            <option> Analítico</option>
+            <option> Administrador </option>
+            <option> CRM </option>
+          </select>
+
+          <label for="inputUsuario" class="form-label label-crearUsuario">Privilegios</label>
+          <div class="card privilegio">
+            <div class="card-body list-group-numbered">
+                <li class="list-group-item">Exportar gráficas de análisis</li>
+                <li class="list-group-item">Consultar reseñas por categoría</li>
+            </div>
+         </div>
         </div>
+        
         <div class="btn-formUsuario">
             <button type="submit" class="btn btn-dark">Enviar</button>
         </div>
