@@ -20,32 +20,25 @@
     border-radius: 0.25rem;
     padding: 0.5rem;
 }
-
 .datepicker table {
     width: 100%;
 }
-
 .datepicker th, .datepicker td {
     padding: 0.5rem;
     text-align: center;
 }
-
 .datepicker table th {
     font-weight: 600;
 }
-
 .datepicker table td {
     cursor: pointer;
 }
-
 .datepicker table td.day:hover, .datepicker table td.day.focused {
     background-color: #f0f0f0;
 }
-
 .datepicker-dropdown.datepicker-right:before {
     border-left-color: #f8f9fa;
 }
-
 .datepicker-dropdown.datepicker-right:after {
     border-left-color: #f8f9fa;
 }
@@ -59,8 +52,26 @@
     align-items: flex-end; 
 }
 
-.download{
+/*Botones para la descarga de reporte*/
+.download, .cerrar-mensaje{
     background: none;
     border: none;
     font-size: 20px;
+}
+
+/*Ocultar card de mensaje de descarga*/
+.hidden {
+    display: none;
+}
+
+/*Contenido de mensaje de descarga*/
+.contenido-mensaje{
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.imagen-mensaje{
+    width: 150px;
+    height: 150px;
 }

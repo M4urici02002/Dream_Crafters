@@ -5,6 +5,17 @@
 
 <div class="main p-3">
     <div class="container graficas">
+        <!-- Mensaje de descarga -->
+        <div id="mensajeDescarga" class="mensaje-descarga hidden">
+            <div class="card position-absolute top-50 start-50 translate-middle-x" style="z-index: 1000;">
+                <div class="card-body">
+                    <button type="button" class="close position-absolute top-0 end-0 cerrar-mensaje" onclick="cerrarMensaje()">&times;</button>
+                    <img class = "imagen-mensaje" src="https://th.bing.com/th/id/R.8bfd6c898d5d12a841301a5920fbc952?rik=bO1yKiy5RnL58g&pid=ImgRaw&r=0" alt="Imagen de mensaje">
+                    <p class = "contenido-mensaje" id="contenidoMensaje"></p>
+                </div>
+            </div>
+        </div>
+        
         <!-- Menú de las diferentes gráficas -->
         <div class="btn-group d-flex" role="group" aria-label="Menu de gráficas">
             <button type="button" id = "numeroResenas" class="btn btn-secondary active flex-fill">Número de reseñas</button>
@@ -54,7 +65,7 @@
                 </div>
                 </div>
             </div>
-        </div>
+        </div>  
     
         <!-- Imagen representativa de las gráficas -->
         <br>
@@ -62,8 +73,8 @@
         <div class="reporte">
             <button class = "download" onclick="window.location.href='/reporte'">
                 <i class="fa-solid fa-download"></i>
-            </button>         
-        </div>
+            </button>        
+        </div>      
     </div>
 </div>
 
