@@ -3,16 +3,17 @@
 
 <div class="main p-3 background-color">
   <div class="container form">
-    <form class="crearUsuario">
+    <form class="crearUsuario" action="/gestionUsuarios/crearUsuario" method="POST">
+
       <h1 class ="titulo-form"> Crear Usuario</h1>
         <div class="mb-5 contenido-con-margen">
-          <label for="inputUsuario" class="form-label label-crearUsuario">Usuario</label>
+          <label for="inputUsuario" class="form-label label-crearUsuario" for="username">Usuario</label>
           <input type="text" class="form-control input-crearUsuario" id="username" name="username">
         
-          <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
-          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre">
+          <label for="inputNombre" class="form-label label-crearUsuario" for="name">Nombre</label>
+          <input type="text" class="form-control input-crearUsuario" id="name" name="name">
 
-          <label for="inputPassword" class="form-label label-crearUsuario">Contraseña</label>
+          <label for="inputPassword" class="form-label label-crearUsuario" for="password">Contraseña</label>
           <input type="password" class="form-control input-crearUsuario" id="password" name="password">
         
           <label for="inputUsuario" class="form-label label-crearUsuario">Rol</label>
