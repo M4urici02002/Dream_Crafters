@@ -57,6 +57,7 @@
 
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
                <!--Modificar usuario-->
+               <% if (usuario.username != 'admin') { %>
                 <a href="/modificarUsuarios/<%= usuario.username %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
                     Modificar
                 </a> 
@@ -65,6 +66,7 @@
                 <button onclick="eliminar('<%= usuario.username %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
                     Eliminar
                 </button>
+                <% } %>    
             </div>
         </div>
     <% } %>    
@@ -74,30 +76,33 @@
 
 <script>
     const eliminar = (username) => {
-        console.log("Eliminando usuario:", username);
-        const csrf = document.getElementById('_csrf').value;
-        fetch('/gestionUsuarios/eliminar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'csrf-token': csrf,
-            },
-            body: JSON.stringify({username: username})
-        }).then((result) => {
-            if (result.ok) {
-                document.getElementById(`usuario-${username}`).remove();
-                document.getElementById('notification').innerHTML = `
-                    <div class="alert alert-success" role="alert">
-                        El usuario ${username} fue eliminado correctamente.
-                    </div>
-                `;
-            } else {
-                alert('Hubo un error al intentar eliminar el usuario.');
-            }
-        }).catch((error) => {
-            console.error('Error:', error);
-            alert('Error al eliminar el usuario.');
-        });
+        const respuesta = confirm("¿Deseas eliminar este registro de manera permanente?");
+        if (respuesta) {
+            console.log("Eliminando usuario:", username);
+            const csrf = document.getElementById('_csrf').value;
+            fetch('/gestionUsuarios/eliminar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'csrf-token': csrf,
+                },
+                body: JSON.stringify({username: username})
+            }).then((result) => {
+                if (result.ok) {
+                    document.getElementById(`usuario-${username}`).remove();
+                    document.getElementById('notification').innerHTML = `
+                        <div class="alert alert-success" role="alert">
+                            El usuario ${username} fue eliminado correctamente.
+                        </div>
+                    `;
+                } else {
+                    alert('Hubo un error al intentar eliminar el usuario.');
+                }
+            }).catch((error) => {
+                console.error('Error:', error);
+                alert('Error al eliminar el usuario.');
+            });
+        }
     }
 </script>
 
