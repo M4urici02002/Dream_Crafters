@@ -42,3 +42,17 @@ exports.get_EditarEncuesta = (request, response, next) => {
             permisos: request.session.permisos || [],
         });
 };
+
+exports.get_agregarPregunta = (request, response, next) => {
+    response.render('agregarPregunta', {
+            username: request.session.username || '',
+            permisos: request.session.permisos || [],
+        });
+};
+
+exports.get_diasParaEnvio = (request, response, next) => {
+    response.render('diasParaEnvio', {
+            username: request.session.username || '',
+            permisos: request.session.permisos || [],
+        });
+};
