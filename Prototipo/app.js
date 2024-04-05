@@ -17,16 +17,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 
-// Middleware
-app.use((request, response, next) => {
-  console.log('Middleware!');
-  next(); 
-});
+//Protección ataques de CSRF
+const csrf = require('csurf');
+const csrfProtection = csrf();
+app.use(csrfProtection); 
 
 // Rutas
-const rutasUser = require('./routes/users.routes');
-app.use('/', rutasUser);
-
 const rutasMiPerfil = require('./routes/miPerfil.routes')
 app.use('/miPerfil', rutasMiPerfil);
 
@@ -56,5 +52,8 @@ app.use('/modificarUsuarios', rutasModUsua);
 
 const rutasEditarRol = require('./routes/editarRol.routes');
 app.use('/editarRol', rutasEditarRol);
+
+const rutasUser = require('./routes/users.routes');
+app.use('/', rutasUser);
 
 app.listen(3000);
