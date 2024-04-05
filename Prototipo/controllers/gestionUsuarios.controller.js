@@ -32,23 +32,31 @@ exports.get_crearUsuario = (request, response, next) => {
 };
 
 // Modificar usuario
-exports.get_modificarUsuario = (request, response, next) => {
-    // Buscar el usuario correspondiente en la base de datos utilizando su username
-    Usuario.fetchOne(request.params.username)
-        .then(([usuarios, fieldData]) => {
-            response.render('modificarUsuarios', {
-                // Pasar los datos de usuario y genera un token CSRF para protección contra CSRF
-                username: request.session.username || '',
-                permisos: request.session.permisos || [],
-                csrfToken: request.csrfToken(),
-                // Pasar la información del producto que se va a editar
-                usuario: usuarios[0], // Tomar el primer elemento del arreglo de usuarios (asumiendo que fetchOne devuelve solo uno)
-            });
-        })
-        .catch((error) => {
-            console.log(error)
+exports.get_modificarUsuario = async (request, response, next) => {
+    try {
+        // Buscar el usuario correspondiente en la base de datos utilizando su username
+        const [usuarios, fieldData] = await Usuario.fetchOne(request.params.username);
+        
+        // Llama a la función consultaRol con el nombre de usuario actual
+        const [nombreRol] = await db.query(`
+            SELECT consultaRol('${request.params.username}');
+        `);
+
+        response.render('modificarUsuarios', {
+            nombre_rol: nombreRol,
+            // Pasar los datos de usuario y genera un token CSRF para protección contra CSRF
+            username: request.session.username || '',
+            permisos: request.session.permisos || [],
+            csrfToken: request.csrfToken(),
+            // Pasar la información del producto que se va a editar
+            usuario: usuarios[0], // Tomar el primer elemento del arreglo de usuarios (asumiendo que fetchOne devuelve solo uno)
         });
+    } catch (error) {
+        console.log(error);
+    }
 };
+
+
 
 // Función para guardar los cambios realizados en la modificación del usuario
 exports.post_modificarUsuario = (request, response, next) => {
