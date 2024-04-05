@@ -6,40 +6,62 @@
     <form class="crearUsuario">
       <h1 class ="titulo-form"> Modificar Rol</h1>
         <div class="mb-5 contenido-con-margen">
-          <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
-          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre">
+          <label for="inputNombre" class="form-label label-crearUsuario">Nuevo Nombre</label>
+          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre" placeholder="{{nombreActual}}">
 
-          <label for="inputPassword" class="form-label label-crearUsuario">Contraseña</label>
-          <input type="password" class="form-control input-crearUsuario" id="password" name="password">
-        
-          <label for="inputUsuario" class="form-label label-crearUsuario">Asignar privilegio</label>
-          <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
-            <option> Analítico</option>
-            <option> Administrador </option>
-            <option> CRM </option>
-          </select>
+          <label for="inputUsuario" class="form-label label-crearUsuario">Modificar privilegios</label>
+          <div id="inputUsuario" class="form-control input-crearUsuario">
+            <div>
+              <input type="checkbox" id="analitico" name="rol" value="Analítico">
+              <label for="analitico">CanView (Puede acceder a la vista, sin modificar)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="administrador" name="rol" value="Administrador">
+              <label for="administrador">CanAdmin (Controlar Usuarios)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="crm" name="rol" value="CRM">
+              <label for="crm">CanCreate (Generar Encuestas)</label>
+            </div>
+          </div>
 
-          <label for="inputUsuario" class="form-label label-crearUsuario">Eliminar privilegio</label>
-          <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
-            <option> Analítico</option>
-            <option> Administrador </option>
-            <option> CRM </option>
-          </select>
-
-          <label for="inputUsuario" class="form-label label-crearUsuario">Privilegios</label>
+          <label for="listaPrivilegios" class="form-label label-crearUsuario">Privilegios</label>
           <div class="card privilegio">
-            <div class="card-body list-group-numbered">
-                <li class="list-group-item">Exportar gráficas de análisis</li>
-                <li class="list-group-item">Consultar reseñas por categoría</li>
+            <div class="card-body list-group-numbered" id="listaPrivilegios">
+                <!-- Los ítems se agregarán dinámicamente aquí -->
             </div>
          </div>
         </div>
         
         <div class="btn-formUsuario">
-            <button type="submit" class="btn btn-dark">Enviar</button>
+            <button type="submit" class="btn btn-dark">Guardar</button>
         </div>
       </form>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][name="rol"]');
+    
+    function actualizarListaPrivilegios() {
+      const lista = document.getElementById('listaPrivilegios');
+      lista.innerHTML = '';
+      
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          const item = document.createElement('li');
+          item.classList.add('list-group-item');
+          item.textContent = document.querySelector(`label[for="${checkbox.id}"]`).textContent;
+          lista.appendChild(item);
+        }
+      });
+    }
+    
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', actualizarListaPrivilegios);
+    });
+  });
+</script>
 
 <%- include('includes/footer.ejs') %>
