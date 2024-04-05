@@ -13,6 +13,7 @@ exports.get_categoriasMarca = async (request, response, next) => {
         response.render('encuestaForm', {
             categoriasMarca: categoria,
             permisos: request.session.permisos || [],
+            csrfToken: request.csrfToken(),
         });
     } catch (error) {
         console.log(error);
@@ -40,6 +41,7 @@ exports.get_EditarEncuesta = (request, response, next) => {
     response.render('template', {
             username: request.session.username || '',
             permisos: request.session.permisos || [],
+            csrfToken: request.csrfToken(),
         });
 };
 
@@ -47,6 +49,7 @@ exports.get_agregarPregunta = (request, response, next) => {
     response.render('agregarPregunta', {
             username: request.session.username || '',
             permisos: request.session.permisos || [],
+            csrfToken: request.csrfToken(),
         });
 };
 
@@ -54,5 +57,6 @@ exports.get_diasParaEnvio = (request, response, next) => {
     response.render('diasParaEnvio', {
             username: request.session.username || '',
             permisos: request.session.permisos || [],
+            csrfToken: request.csrfToken(),
         });
 };

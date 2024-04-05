@@ -4,6 +4,7 @@
 <div class="main p-3 background-color">
   <div class="container form">
     <form action = "/template" method = "POST" class="crearUsuario">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <h1 class ="titulo-form"> Crear Encuesta</h1>
         <div class="mb-5 contenido-con-margen">
           <label for="titulo" class="form-label label-crearUsuario">Titulo de la encuesta</label>
