@@ -30,6 +30,9 @@ module.exports = class Usuario {
             }
         });
     }
+    static fetchAll() {
+        return db.execute('Select * from usuario')
+    }
 
     static fetchOne(username) {
         return db.execute('Select * from usuario WHERE username = ?'
@@ -53,4 +56,8 @@ module.exports = class Usuario {
             WHERE usuario.username = ?
         `, [username]);
     }
+    static eliminar(username) {
+        return db.execute('DELETE FROM usuario WHERE username = ?', [username]);
+    }
+
 }

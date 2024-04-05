@@ -1,3 +1,5 @@
+const Usuario = require('../models/usuario.model');
+
 const db=require('../util/database');
 
 exports.get_usuarioRegistrado = async (request, response, next) => {
@@ -12,6 +14,7 @@ exports.get_usuarioRegistrado = async (request, response, next) => {
         response.render('gestionUsuarios', {
             usuarioRegistrado: users,
             permisos: request.session.permisos || [],
+            csrfToken: request.csrfToken(),
         });
     } catch (error) {
         console.log(error);
@@ -24,6 +27,7 @@ exports.get_usuarioRegistrado = async (request, response, next) => {
 exports.get_crearUsuario = (request, response, next) => {
     response.render('crearUsuario',{
         permisos: request.session.permisos || [],
+        csrfToken: request.csrfToken(),
     });
 };
 
@@ -43,20 +47,12 @@ exports.post_crearUsuario = (request, response, next) => { //no
         });
 };
 
-// Función para eliminar un usuario
-exports.eliminarUsuario = (req, res) => {
-    const username = req.params.username;
-
-    // Consulta SQL para eliminar el usuario
-    const sql = `DELETE FROM usuarios WHERE username = ?`;
-
-    connection.query(sql, [username], (err, result) => {
-        if (err) {
-            return res.status(500).send("Error interno del servidor.");
-        }
-        if (result.affectedRows === 0) {
-            return res.status(404).send("Usuario no encontrado.");
-        }
-        return res.status(200).send("Usuario eliminado correctamente.");
-    });
+exports.post_eliminar = (request, response, next) => {
+    console.log("Username a eliminar:", request.body.username); // Añade esto para depuración
+    Usuario.eliminar(request.body.username)
+        .then(() => {
+            return Usuario.fetchAll();
+        }).then(([usuarios, fieldData]) => {
+            return response.status(200).json({usuarios: usuarios});
+        }).catch((error) => {console.log(error)})
 };

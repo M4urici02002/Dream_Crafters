@@ -1,7 +1,6 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
 
-
 <div class="main p-3">
   <div class="container consultar-usuarios">
     <div class="row justify-content-end">
@@ -12,9 +11,9 @@
                 <i class="fas fa-plus"></i>
             </a>
             
-            
             <!--Search bar-->
             <div class="input-group mb-3 buscarUsuario">
+                <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
                 <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
                 <button class="btn btn-dark" type="button">
                 <i class="fas fa-search"></i>
@@ -22,6 +21,7 @@
             </div>
         </div>
     </div>
+    <div id="notification"></div>
 
     <!--Encabezado-->
     <div id="tarjetaUsuarioEncabezado" class="row tarjetaUsuario">
@@ -41,7 +41,7 @@
 
     <!--Tarjetas de usuario-->
     <% for (let usuario of usuarioRegistrado) { %>
-        <div class="row tarjetaUsuario">
+        <div id="usuario-<%= usuario.username %>" class="row tarjetaUsuario">
             <div class="col-lg-2 col-md-3 col-sm-3">
                 <p class="username-usuario-tarjeta"><br><%=usuario.username%></p>
             </div>
@@ -57,20 +57,53 @@
 
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
                <!--Modificar usuario-->
-                <a href="/modificarUsuarios" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+               <% if (usuario.username != 'admin') { %>
+                <a href="/modificarUsuarios/<%= usuario.username %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
                     Modificar
                 </a> 
                 &nbsp;&nbsp;
                 <!--Eliminar usuario-->
-                <button type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
+                <button onclick="eliminar('<%= usuario.username %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
                     Eliminar
                 </button>
+                <% } %>    
             </div>
-
         </div>
     <% } %>    
 
   </div>
 </div>
+
+<script>
+    const eliminar = (username) => {
+        const respuesta = confirm("¿Deseas eliminar este registro de manera permanente?");
+        if (respuesta) {
+            console.log("Eliminando usuario:", username);
+            const csrf = document.getElementById('_csrf').value;
+            fetch('/gestionUsuarios/eliminar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'csrf-token': csrf,
+                },
+                body: JSON.stringify({username: username})
+            }).then((result) => {
+                if (result.ok) {
+                    document.getElementById(`usuario-${username}`).remove();
+                    document.getElementById('notification').innerHTML = `
+                        <div class="alert alert-success" role="alert">
+                            El usuario ${username} fue eliminado correctamente.
+                        </div>
+                    `;
+                } else {
+                    alert('Hubo un error al intentar eliminar el usuario.');
+                }
+            }).catch((error) => {
+                console.error('Error:', error);
+                alert('Error al eliminar el usuario.');
+            });
+        }
+    }
+</script>
 
 <%- include('includes/footer.ejs') %>
