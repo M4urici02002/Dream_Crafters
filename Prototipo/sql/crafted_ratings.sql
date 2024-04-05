@@ -39,7 +39,7 @@ CREATE TABLE `asigna` (
 
 LOCK TABLES `asigna` WRITE;
 /*!40000 ALTER TABLE `asigna` DISABLE KEYS */;
-INSERT INTO `asigna` VALUES ('admin',1,'2024-04-04 14:50:14'),('prueba4',3,'2024-04-04 15:19:19'),('vale',2,'2024-04-03 05:47:39');
+INSERT INTO `asigna` VALUES ('admin',1,'2024-04-04 14:50:14'),('prueba4',3,'2024-04-04 15:19:19'),('pruebaA',3,'2024-04-05 03:30:35'),('vale',2,'2024-04-03 05:47:39');
 /*!40000 ALTER TABLE `asigna` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +115,7 @@ CREATE TABLE `encuesta` (
   PRIMARY KEY (`IDEncuesta`),
   KEY `IDMarca` (`IDMarca`),
   CONSTRAINT `encuesta_ibfk_1` FOREIGN KEY (`IDMarca`) REFERENCES `marca` (`IDMarca`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +124,7 @@ CREATE TABLE `encuesta` (
 
 LOCK TABLES `encuesta` WRITE;
 /*!40000 ALTER TABLE `encuesta` DISABLE KEYS */;
-INSERT INTO `encuesta` VALUES (1,1,'Feedback de Colchon Lunna Basic 2 indi',15,'Colchon',NULL),(2,1,'Â¡Queremos tu opinion de Kit Cabina + Cabina Lote-CHAR!',15,'General',NULL),(3,1,'Feedback de Sabanas Lunna',15,'Sabanas',NULL),(4,2,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',15,'Almohadas',NULL),(5,3,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',7,'Maletas',NULL),(6,1,'Has comprado recientemente Juego De SÃ¡banas Individual Rosa Limonada, Â¿nos cuentas tu experiencia?',15,'Sabanas',NULL),(7,1,'Feedback de  Lunna Signature',15,'Colchon',NULL),(8,2,'Feedback de  Protector de colchon essential-bamboo',30,'Colchon',NULL),(9,3,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',7,'Maletas',NULL),(10,1,'Dinos tu opinion sobre tu almohada Luuna',14,'Almohadas',NULL);
+INSERT INTO `encuesta` VALUES (1,1,'Feedback de Colchon Lunna Basic 2 indi',15,'Colchon',NULL),(2,1,'Â¡Queremos tu opinion de Kit Cabina + Cabina Lote-CHAR!',15,'General',NULL),(3,1,'Feedback de Sabanas Lunna',15,'Sabanas',NULL),(4,2,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',15,'Almohadas',NULL),(5,3,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',7,'Maletas',NULL),(6,1,'Has comprado recientemente Juego De SÃ¡banas Individual Rosa Limonada, Â¿nos cuentas tu experiencia?',15,'Sabanas',NULL),(7,1,'Feedback de  Lunna Signature',15,'Colchon',NULL),(8,2,'Feedback de  Protector de colchon essential-bamboo',30,'Colchon',NULL),(9,3,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',7,'Maletas',NULL),(10,1,'Dinos tu opinion sobre tu almohada Luuna',14,'Almohadas',NULL),(14,1,'Prueba',NULL,'Cama',NULL),(15,1,'Prueba',NULL,'Cama',NULL),(16,1,'Prueba',NULL,'Cama',NULL),(17,1,'Prueba',NULL,'Cama',NULL),(18,1,'Prueba',NULL,'Cama',NULL),(19,1,'Prueba',NULL,'Cama',NULL),(20,1,'Prueba',NULL,'Cama',NULL),(21,1,'Prueba',NULL,'Cama',NULL),(22,1,'Prueba',NULL,'Cama',NULL),(23,1,'Prueba',NULL,'Cama',NULL),(24,1,'Prueba',NULL,'Cama',NULL),(25,1,'Prueba',NULL,'Cama',NULL),(26,1,'Prueba',NULL,'Cama',NULL);
 /*!40000 ALTER TABLE `encuesta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +314,7 @@ CREATE TABLE `resena` (
   CONSTRAINT `resena_ibfk_1` FOREIGN KEY (`IDEncuesta`) REFERENCES `encuesta` (`IDEncuesta`),
   CONSTRAINT `resena_ibfk_2` FOREIGN KEY (`IDProducto`) REFERENCES `producto` (`IDProducto`),
   CONSTRAINT `resena_ibfk_3` FOREIGN KEY (`IDCliente`) REFERENCES `cliente` (`IDCliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,7 +323,7 @@ CREATE TABLE `resena` (
 
 LOCK TABLES `resena` WRITE;
 /*!40000 ALTER TABLE `resena` DISABLE KEYS */;
-INSERT INTO `resena` VALUES (1,1,'AN1133V',1,'Buen precio',5,'ReseÃ±a del colchÃ³n Luuna original',1,'2023-10-20'),(2,6,'SH7003',2,'No me gisto',1,'Feedback de Sabanas Lunna',1,'2023-12-09'),(3,2,'MA0012',3,'Buena maleta',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',1,'2023-09-27'),(4,4,'AN1134VCH',4,'Incomoda',3,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',1,'2024-04-15'),(5,7,'SI1003',4,'Muy relajante',5,'Feedback de  Lunna Signature',1,'2023-07-31'),(6,9,'MA4003',5,'Muy resistente',5,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',1,'2023-11-18'),(7,10,'AN1133V',6,'Muy comoda y fresca',5,'Dinos tu opinion sobre tu almohada Luuna',1,'2024-01-25'),(8,2,'LU1003B2',7,'Esta muy fresco',5,'Dinos tu opinion sobre tu colchon Luuna',1,'2023-05-14'),(9,3,'SH7003',8,'Suaves ',5,'Dinos tu opinion sobre tu sabana Luuna',1,'2023-08-09'),(10,5,'MA0014',2,'Resistentes',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-GREEO!',1,'2023-05-14'),(11,NULL,'LB3231',1,'Increíble Comodidad',5,'Nunca había dormido mejor.',1,'2023-10-20'),(12,NULL,'MA4012',5,'Expectativas superadas',4,'Buena calidad a buen precio.',1,'2023-10-20'),(13,NULL,'NP6323',2,'Buen soporte',4,'Perfecto para mi espalda.',1,'2023-10-20'),(14,NULL,'MA0016',3,'Color perfecto',3,'Exactamente lo que quería.',1,'2023-10-20'),(15,NULL,'LB2231',4,'Entrega rápida',1,'Llegó antes de lo esperado.',1,'2023-10-20'),(16,NULL,'MA0017',6,'Fácil de armar',5,'Instrucciones claras y sencillas.',1,'2023-10-20'),(17,NULL,'NP6321',7,'Justo lo necesario',4,'Cumple con su propósito.',1,'2023-10-20'),(18,NULL,'SI1003',8,'Calidad promedio',3,'Es bueno, pero podría mejorar.',0,'2023-10-20'),(19,NULL,'AN1133V',9,'Satisface las necesidades',4,'Hace lo que dice.',1,'2023-10-20'),(20,NULL,'LU1001B2',10,'Mejor de lo esperado',5,'Gran calidad y precio.',1,'2023-10-20'),(21,NULL,'LU1002B2',11,'Muy cómodo',5,'Ideal para el descanso diario.',1,'2023-10-20'),(22,NULL,'LU1003B2',12,'Duradero y resistente',4,'Ha aguantado muy bien.',1,'2023-10-20'),(23,NULL,'LU1004B2',13,'Estilo moderno',5,'Complementa mi habitación.',1,'2023-10-20'),(24,NULL,'MA0012',14,'Fácil limpieza',4,'No requiere mucho mantenimiento.',1,'2023-10-20'),(25,NULL,'MA0013',15,'Agradable al tacto',1,'Materiales de primera.',1,'2023-10-20'),(26,NULL,'MA0014',16,'Entrega lenta',2,'Tardó más de lo anunciado.',0,'2023-10-20'),(27,NULL,'MA0015',17,'Precio justo',4,'Vale cada centavo.',1,'2023-10-20'),(28,NULL,'SI1004',18,'No es lo que esperaba',2,'Decepcionado con el producto.',0,'2023-10-20'),(29,NULL,'AN1133VCH',19,'Excelente para regalo',5,'Fue un regalo y le encantó.',1,'2023-10-20'),(30,NULL,'AN1134VCH',20,'Buen servicio al cliente',4,'Resolvieron mis dudas rápido.',1,'2023-10-20'),(31,NULL,'SH7003',21,'Recomendado',2,'Lo compraría de nuevo sin dudarlo.',1,'2023-10-20'),(32,NULL,'LB1231',22,'Mejorable',3,'Bueno, pero hay mejores opciones.',1,'2023-10-20'),(33,NULL,'NP6324',23,'Sobresaliente',2,'Excedió mis expectativas.',1,'2023-10-20'),(34,NULL,'MA4003',24,'No muy resistente',1,'Se dañó relativamente rápido.',0,'2023-10-20'),(35,NULL,'MA4012',25,'Justo y necesario',4,'Satisfecho con la compra.',1,'2023-10-20');
+INSERT INTO `resena` VALUES (1,1,'AN1133V',1,'Buen precio',5,'ReseÃ±a del colchÃ³n Luuna original',1,'2023-10-20'),(2,6,'SH7003',2,'No me gisto',1,'Feedback de Sabanas Lunna',1,'2023-12-09'),(3,2,'MA0012',3,'Buena maleta',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',1,'2023-09-27'),(4,4,'AN1134VCH',4,'Incomoda',3,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',1,'2024-04-15'),(5,7,'SI1003',4,'Muy relajante',5,'Feedback de  Lunna Signature',1,'2023-07-31'),(6,9,'MA4003',5,'Muy resistente',5,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',1,'2023-11-18'),(7,10,'AN1133V',6,'Muy comoda y fresca',5,'Dinos tu opinion sobre tu almohada Luuna',1,'2024-01-25'),(8,2,'LU1003B2',7,'Esta muy fresco',5,'Dinos tu opinion sobre tu colchon Luuna',1,'2023-05-14'),(9,3,'SH7003',8,'Suaves ',5,'Dinos tu opinion sobre tu sabana Luuna',1,'2023-08-09'),(10,5,'MA0014',2,'Resistentes',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-GREEO!',1,'2023-05-14');
 /*!40000 ALTER TABLE `resena` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -402,13 +402,9 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('admin','admin','$2a$12$8kwQg610II8DIGb.9g595.AA3PdwmrHJPDcPBFJFK3qLz/tqWmc/O'),('prueba4','prueba4','$2a$12$rMOXcIr0gygJ8nCMhP5O8OfRDpdN8wHdb1wC2l3orv090Fh8QrT0q'),('vale','Valeria Zuniga','hola1234');
+INSERT INTO `usuario` VALUES ('admin','admin','$2a$12$8kwQg610II8DIGb.9g595.AA3PdwmrHJPDcPBFJFK3qLz/tqWmc/O'),('prueba4','prueba4','$2a$12$rMOXcIr0gygJ8nCMhP5O8OfRDpdN8wHdb1wC2l3orv090Fh8QrT0q'),('pruebaA','PRUEBA A','$2a$12$9CyYMs0lq1Ugw78RKuFTA.bAyo/gDzIaIY9ZN4xurZbLFSsXoCzBe'),('vale','Valeria Zuniga','hola1234');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'crafted_ratings'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -419,4 +415,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-04 17:12:43
+-- Dump completed on 2024-04-05  0:20:20

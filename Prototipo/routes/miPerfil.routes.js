@@ -7,7 +7,7 @@ router.get('/', isAuth, (request, response, next) => {
         permisos: request.session.permisos || [],
         username: request.session.username || '',
         nombre: request.session.nombre || '',
-        nombre_rol: request.session.rol || '', // Pendiente
+        nombre_rol: request.session.rol || '', 
 
     });
 });

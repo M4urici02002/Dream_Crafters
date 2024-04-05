@@ -52,8 +52,6 @@ exports.post_login = (request, response, next) => {
 };
 
 
-
-
 exports.get_logout = (request, response, next) => {
     request.session.destroy(() => {
         response.redirect('/login'); //Este código se ejecuta cuando la sesión se elimina.
@@ -86,3 +84,4 @@ exports.post_crearUsuario = (request, response, next) => {
             response.redirect('/gestionUsuarios/crearUsuario');
         });
 };
+

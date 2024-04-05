@@ -39,6 +39,13 @@ module.exports = class Usuario {
         , [username]);
     }
 
+    static update(username, nombre, password) {
+        return db.execute(`UPDATE usuario SET 
+            nombre = ?, password= ?
+            WHERE username = ?`, 
+            [nombre, password, username]);
+    }
+
     static getPermisos(username) {
         return db.execute(`
             SELECT permiso
