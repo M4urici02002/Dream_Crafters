@@ -1,18 +1,20 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
 
-<div class="main p-3 background-color">
+<div class="main p-3 background-color" action="/modificarUsuario" method="POST">
+  <input type="hidden" id="username" name="username" value="<%= usuario.username %>" >
+
   <div class="container form">
     <form class="crearUsuario">
       <h1 class ="titulo-form"> Modificar Usuario </h1>
         <div class="mb-5 contenido-con-margen">
           <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
-          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre">
+          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre" value="<%= usuario.nombre %>">
 
           <label for="inputPassword" class="form-label label-crearUsuario">Contraseña</label>
-          <input type="password" class="form-control input-crearUsuario" id="password" name="password">
+          <input type="password" class="form-control input-crearUsuario" id="password" name="password" value="<%= usuario.password %>">
         
-          <label for="inputUsuario" class="form-label label-crearUsuario">Rol</label>
+          <label for="inputUsuario" class="form-label label-crearUsuario">Rol</label> <!--Preseleccionar nombre rol-->
           <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
             <option> Analítico</option>
             <option> Administrador </option>
@@ -20,7 +22,7 @@
           </select>
         </div>
         <div class="btn-formUsuario">
-            <button type="submit" class="btn btn-dark">Enviar</button>
+            <button type="submit" class="btn btn-dark">Guardar</button>
         </div>
       </form>
   </div>

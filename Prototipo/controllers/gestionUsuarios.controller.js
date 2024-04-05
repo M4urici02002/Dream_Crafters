@@ -10,7 +10,7 @@ exports.get_usuarioRegistrado = async (request, response, next) => {
             JOIN asigna A ON U.username = A.username
             JOIN rol ON A.idrol = rol.idrol;
         `);
-
+        Usuario.fetchAll()
         response.render('gestionUsuarios', {
             usuarioRegistrado: users,
             permisos: request.session.permisos || [],
@@ -30,6 +30,40 @@ exports.get_crearUsuario = (request, response, next) => {
         csrfToken: request.csrfToken(),
     });
 };
+
+// Modificar usuario
+exports.get_modificarUsuario = (request, response, next) => {
+    // Buscar el usuario correspondiente en la base de datos utilizando su username
+    Usuario.fetchOne(request.params.username)
+        .then(([usuarios, fieldData]) => {
+            response.render('modificarUsuarios', {
+                // Pasar los datos de usuario y genera un token CSRF para protección contra CSRF
+                username: request.session.username || '',
+                permisos: request.session.permisos || [],
+                csrfToken: request.csrfToken(),
+                // Pasar la información del producto que se va a editar
+                usuario: usuarios[0], // Tomar el primer elemento del arreglo de usuarios (asumiendo que fetchOne devuelve solo uno)
+            });
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+};
+
+// Función para guardar los cambios realizados en la modificación del usuario
+exports.post_modificarUsuario = (request, response, next) => {
+    Usuario.update(request.body.username,         
+                    request.body.nombre, 
+                    request.body.password)
+        .then(([rows, fieldData]) => {
+            // Redirigir al usuario de vuelta a la gestión de Usuarios una vez que la actualización se complete con éxito
+            response.redirect('/gestionUsuarios');
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+};
+
 
 exports.post_crearUsuario = (request, response, next) => { //no
     console.log(request.body);
