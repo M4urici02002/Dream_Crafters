@@ -24,7 +24,7 @@
     <section class="header">
         <nav class="navbar navbar-expand-lg bg-white">
             <div class="container-fluid">
-                <a class="navbar-brand">Crafted Ratings</a>
+                <a href="/graficas" class="navbar-brand">Crafted Ratings</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -34,21 +34,18 @@
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle offset-lg-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                LUUNA
+                                Marcas
                             </a>
                             <ul class="dropdown-menu font-type">
-                                <li class="dropdown-item">
-                                    <a class="dropdown-link" href="#">LUUNA</a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a class="dropdown-link" href="#">NOOZ</a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a class="dropdown-link" href="#">M'APPA</a>
-                                </li>
+                                <% marcas.forEach(marca => { %>
+                                    <li class="dropdown-item">
+                                        <a class="dropdown-link" href="#"><%= marca.Nombre %></a>
+                                    </li>
+                                <% }) %>
                             </ul>
                         </li>
                     </ul>
+                    
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link cambio" aria-current="page" href="/miPerfil">MI PERFIL</a>

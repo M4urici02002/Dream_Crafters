@@ -24,6 +24,11 @@ const csrfProtection = csrf();
 app.use(csrfProtection); 
 
 // Rutas
+
+const { getMarcas } = require('./controllers/marcas.controller');
+// Aplica el middleware globalmente
+app.use(getMarcas);
+
 const rutasMiPerfil = require('./routes/miPerfil.routes')
 app.use('/miPerfil', rutasMiPerfil);
 
@@ -47,8 +52,6 @@ app.use(rutasUsuarios);
 
 const rutasRoles = require('./routes/gestionRoles.routes');
 app.use(rutasRoles); 
-
-
 
 const rutasEditarRol = require('./routes/editarRol.routes');
 app.use('/editarRol', rutasEditarRol);
