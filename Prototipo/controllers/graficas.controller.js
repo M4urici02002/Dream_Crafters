@@ -1,12 +1,12 @@
-const db = require('../util/database');
+// controllers/tuControlador.js
+const calificacionModel = require('../models/graficas.model');
 
 exports.calificacionEstrellas = (req, res) => {
-    db.execute('SELECT rating, COUNT(*) as cantidad FROM resena GROUP BY rating ORDER BY rating;')
+    calificacionModel.obtenerCalificaciones()
     .then(([result]) => {
-        // Ahora que tienes los resultados, puedes renderizar la vista con ellos
         res.render('calificacionEstrellas', {
             datos: result,
-            permisos: req.session.permisos || [] // Se pasa 'permisos' a la vista
+            permisos: req.session.permisos || [] 
         });
     })
     .catch((error) => {

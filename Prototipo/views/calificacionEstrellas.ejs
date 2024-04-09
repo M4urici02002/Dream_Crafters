@@ -1,20 +1,19 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
-<!-- Incluye CSS de Bootstrap Datepicker como antes -->
+<!-- CSS de Bootstrap Datepicker -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
 <div class="main p-3">
     <div class="container graficas">
-        <!-- Similar a tu vista 'graficas' -->
         <div class="btn-group d-flex" role="group" aria-label="Menu de gráficas">
-            <button type="button" id = "numeroResenas" class="btn btn-light flex-fill">Número de reseñas</button>
-            <button type="button" id = "calificacionEstrellas" class="btn btn-light active flex-fill">Calificación de estrellas</button>
-            <button type="button" id = "orderToReview" class="btn btn-light flex-fill">Order to review</button>
+            <button type="button" id="numeroResenas" class="btn btn-light flex-fill">Número de reseñas</button>
+            <button type="button" id="calificacionEstrellas" class="btn btn-light active flex-fill">Calificación de estrellas</button>
+            <button type="button" id="orderToReview" class="btn btn-light flex-fill">Order to review</button>
         </div><br>
 
         <div class="row">
             <div class="col-sm-4">
-                <!-- Menú desplegable de categorías -->
                 <select class="form-select form-select-sm" aria-label="Small select example" id="categoriaDropdown">
                     <option value="todasCategorias">Todas las categorías</option>
                     <option value="Colchones">Colchones</option>
@@ -23,105 +22,89 @@
                     <option value="Blancos">Blancos</option>
                     <option value="Niños">Niños</option>
                 </select>
-
             </div>
             <div class="col-sm-4">
-                <!-- Menú desplegable de productos -->
                 <select class="form-select form-select-sm" aria-label="Small select example" id="productoDropdown">
                     <option value="todosProductos">Todos los productos</option>
-                    <option value="Producto1">Colchón Nooz Essential -KING</option>
-                    <option value="Producto2">Colchón Nooz Essential -MATRI</option>
-                    <option value="Producto3">Colchón Nooz Essential -QUEEN</option>
-                    <option value="Producto4">Colchón Nooz Infusion -INDI</option>
-                    <option value="Producto5">Colchón Nooz Infusion -QUEEN</option>
-                    <option value="Producto6">Colchón Nooz Infusion -KING</option>
                 </select>
             </div>
             <div class="col-sm-4">
-                <!-- Especificación de las fechas -->
                 <div id="date-range-container" class="container">
-                <div class="row no-gutters" id="formsFechasInicioFin">
-                    <div class="col-sm-6">
-                    <div class="form-group">
-                        <input type="text" id="start-date" name="start-date" class="form-control" placeholder="Fecha de Inicio">
+                    <div class="row no-gutters" id="formsFechasInicioFin">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" id="start-date" name="start-date" class="form-control" placeholder="Fecha de Inicio">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" id="end-date" name="end-date" class="form-control" placeholder="Fecha de fin">
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                    <div class="col-sm-6">
-                    <div class="form-group">
-                        <input type="text" id="end-date" name="end-date" class="form-control" placeholder="Fecha de fin">
-                    </div>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
-        <!-- Canvas para la gráfica de Chart.js -->
-        <canvas id="chartEstrellas"></canvas>
 
-        <!-- Scripts necesarios para Chart.js y Bootstrap Datepicker -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <% datos.forEach(function(calificacion) { %>
+        <div class="calificacion-estrellas">
+            <p>Calificación: <%= calificacion.rating %> Estrellas</p>
+            <div id="starsContainer<%= calificacion.rating %>">
+                <% for(let i = 1; i <= 5; i++) { %>
+                    <% if(i <= calificacion.rating) { %>
+                        <i class="fas fa-star"></i> <!-- Estrella completa -->
+                    <% } else { %>
+                        <i class="far fa-star"></i> <!-- Estrella vacía -->
+                    <% } %>
+                <% } %>
+                <span>(Cantidad: <%= calificacion.cantidad %>)</span>
+            </div>
+        </div>
+        <% }); %>
 
-        <!--Scripts para el despliegue de calendario-->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
-        <script>
-            // Datos para Chart.js
-                    $(document).ready(function(){
-                    const ctx = document.getElementById('chartEstrellas').getContext('2d');
-                    const labels = JSON.parse('<%= JSON.stringify(datos.map(d => d.rating)) %>');
-                    const dataPoints = JSON.parse('<%= JSON.stringify(datos.map(d => d.cantidad)) %>');
-
-                    // Define una matriz de colores para las barras
-                    const barColors = [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                        // Añade más colores si tienes más de 6 categorías
-                    ];
-
-                    const chartEstrellas = new Chart(ctx, {
-                        type: 'bar', // o el tipo de gráfica que prefieras
-                        data: {
-                            labels: labels, // Calificaciones como etiquetas
-                            datasets: [{
-                                label: 'Cantidad de Reseñas por Calificación',
-                                data: dataPoints, // Cantidad de reseñas
-                                backgroundColor: barColors, // Usar la matriz de colores para las barras
-                                borderColor: barColors.map(color => color.replace('0.2', '1')), // Ajusta la opacidad para los bordes
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                    $('#numeroResenas').click(function() {
-                    window.location.href = '/graficas';
-                    });
-                    $('#start-date').datepicker({
-                    format: 'dd/mm/yyyy',
-                    autoclose: true
-                    });
-                    $('#end-date').datepicker({
-                    format: 'dd/mm/yyyy',
-                    autoclose: true
-                    });
-                });
-        </script>
     </div>
 </div>
 
-<%- include('includes/footer.ejs') %>
+<%- include('includes/footer.ejs') %> 
+
+<!-- Scripts para Bootstrap, y Bootstrap Datepicker -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#categoriaDropdown').change(function() {
+            var categoriaSeleccionada = $(this).val();
+            $.ajax({
+                url: '/productosPorCategoria',
+                type: 'GET',
+                data: { categoria: categoriaSeleccionada },
+                success: function(productos) {
+                    $('#productoDropdown').empty();
+                    $('#productoDropdown').append($('<option>', { value: "", text: "Selecciona un producto" }));
+                    $.each(productos, function(i, producto) {
+                        $('#productoDropdown').append($('<option>', { 
+                            value: producto.IDProducto,
+                            text: producto.Nombre
+                        }));
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error al obtener productos: ", error);
+                }
+            });
+        });
+
+        $('#start-date').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+
+        $('#end-date').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+    });
+</script>
