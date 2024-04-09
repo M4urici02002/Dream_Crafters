@@ -14,24 +14,25 @@ module.exports = class Resena {
         this.FechaContestacion = mi_FechaContestacion;
     }
 
-    //Este método servirá para devolver los objetos del almacenamiento persistente.
-    // resena.model
     static fetchAll(categoria = null) {
         if (categoria) {
             return db.execute(
-                //`SELECT r.* 
-                //FROM resena r
-                //INNER JOIN producto p ON r.IDProducto = p.IDProducto
-                //WHERE p.Categoria = ?`, [categoria]
                 `
-                SELECT r.* 
+                SELECT r.*, c.Correo 
                 FROM resena r
                 INNER JOIN encuesta e ON r.IDEncuesta = e.IDEncuesta
-                WHERE e.Categoria = ?`,[categoria]
+                INNER JOIN cliente c ON r.IDCliente = c.IDCliente
+                WHERE e.Categoria = ?
+                `,[categoria]
                 
             );
         } else {
-            return db.execute('SELECT * FROM resena');
+            return db.execute(`
+            SELECT r.*, c.Correo 
+            FROM resena r
+            INNER JOIN encuesta e ON r.IDEncuesta = e.IDEncuesta
+            INNER JOIN cliente c ON r.IDCliente = c.IDCliente
+            `);
         }
     }
 }
