@@ -85,3 +85,30 @@ exports.post_crearUsuario = (request, response, next) => {
         });
 };
 
+// Modificar usuario 
+exports.get_modificarUsuario = (request, response, next) => {
+    // Buscar el usuario correspondiente en la base de datos utilizando su username
+    Usuario.fetchOne(request.params.username)
+        .then(([usuarios, fieldData]) => {
+            response.render('modificarUsuarios', {
+                username: request.session.username || '',
+                csrfToken: request.csrfToken(),
+                permisos: request.session.permisos || [],
+                // Pasar la información del usuario que se va a editar
+                usuario: usuarios[0], // Tomar el primer elemento del arreglo de usuarios (asumiendo que fetchOne devuelve solo uno)
+            });
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+};
+exports.post_modificarUsuario = (request, response, next) => {
+    Usuario.update(request.body.username, 
+                    request.body.mombre, 
+                    request.body.password)
+        .then(([rows, fieldData]) => {
+            // Redirigir al usuario de vuelta a la gestión de usuarios una vez que la actualización se complete con éxito
+            response.redirect('/gestionUsuarios');
+        })
+        .catch((error) => {console.log(error)});
+};
