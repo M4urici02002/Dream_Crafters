@@ -52,19 +52,17 @@
             <div id="starsContainer<%= calificacion.rating %>">
                 <% for(let i = 1; i <= 5; i++) { %>
                     <% if(i <= calificacion.rating) { %>
-                        <i class="fas fa-star"></i> <!-- Estrella completa -->
+                        <i class="fa-solid fa-star" style="color: #FFD43B;" ></i> <!-- Estrella completa -->
                     <% } else { %>
-                        <i class="far fa-star"></i> <!-- Estrella vacía -->
+                        <i class="far fa-star" style="color: #FFD43B;"></i> <!-- Estrella vacía -->
                     <% } %>
-                <% } %>
+                <% } %> 
                 <span>(Cantidad: <%= calificacion.cantidad %>)</span>
             </div>
         </div>
         <% }); %>
-
     </div>
 </div>
-
 <%- include('includes/footer.ejs') %> 
 
 <!-- Scripts para Bootstrap, y Bootstrap Datepicker -->
@@ -74,29 +72,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#categoriaDropdown').change(function() {
-            var categoriaSeleccionada = $(this).val();
-            $.ajax({
-                url: '/productosPorCategoria',
-                type: 'GET',
-                data: { categoria: categoriaSeleccionada },
-                success: function(productos) {
-                    $('#productoDropdown').empty();
-                    $('#productoDropdown').append($('<option>', { value: "", text: "Selecciona un producto" }));
-                    $.each(productos, function(i, producto) {
-                        $('#productoDropdown').append($('<option>', { 
-                            value: producto.IDProducto,
-                            text: producto.Nombre
-                        }));
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error al obtener productos: ", error);
-                }
-            });
-        });
-
         $('#start-date').datepicker({
             format: 'dd/mm/yyyy',
             autoclose: true
@@ -106,5 +81,4 @@
             format: 'dd/mm/yyyy',
             autoclose: true
         });
-    });
 </script>
