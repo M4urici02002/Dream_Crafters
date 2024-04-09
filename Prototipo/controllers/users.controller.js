@@ -88,7 +88,7 @@ exports.post_crearUsuario = (request, response, next) => {
 // Modificar usuario 
 exports.get_modificarUsuario = (request, response, next) => {
     // Buscar el usuario correspondiente en la base de datos utilizando su username
-    Usuario.fetchOne(request.params.username)
+    Usuario.fetchOneWithRole(request.params.username)
         .then(([usuarios, fieldData]) => {
             response.render('modificarUsuarios', {
                 username: request.session.username || '',

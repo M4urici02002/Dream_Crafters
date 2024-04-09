@@ -7,20 +7,28 @@
 
   <div class="container form">
     <form class="crearUsuario">
-      <h1 class ="titulo-form"> Modificar Usuario </h1>
+      <h1 class ="titulo-form"> Modificar Usuario: <%= usuario.username %></h1>
         <div class="mb-5 contenido-con-margen">
           <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
           <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre" value="<%= usuario.nombre %>">
 
           <label for="inputPassword" class="form-label label-crearUsuario">Contraseña</label>
-          <input type="password" class="form-control input-crearUsuario" id="password" name="password" value="<%= usuario.password %>">
+          <input type="password" class="form-control input-crearUsuario" id="password" name="password" value="........"> 
           
-          <label for="inputUsuario" class="form-label label-crearUsuario">Rol</label> <!--Preseleccionar nombre rol-->
+          <label for="inputUsuario" class="form-label label-crearUsuario">Rol</label> 
           <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
-            <option> Analítico</option>
-            <option> Administrador </option>
-            <option selected> CRM </option>
-          </select>
+            <!--Preseleccionar nombre rol-->
+            <option <% if (usuario.nombre_rol === 'Analítico') { %>selected<% } %>>
+              Analítico
+            </option>
+            <option <% if (usuario.nombre_rol === 'Administrador') { %>selected<% } %>>
+              Administrador
+            </option>
+            <option <% if (usuario.nombre_rol === 'crm') { %>selected<% } %>>
+              CRM
+            </option>
+
+            </select>  
         </div>
         <div class="btn-formUsuario">
             <button type="submit" class="btn btn-dark">Guardar</button>
