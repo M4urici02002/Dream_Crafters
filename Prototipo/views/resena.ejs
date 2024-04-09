@@ -23,12 +23,19 @@
       <% for (let re of resena) { %>
         <div class="card">
           <div class="card-header">
-            <%=re.Descripcion%>
+            <%= re.Descripcion %>
           </div>
           <div class="card-body">
-            <h5 class="card-title"><%=re.Titulo%></h5>
-            <p class="card-text"><%=re.FechaContestacion%></p>
-            <p class="card-text"> Estrellas: <%=re.Rating%></p>    
+            <h5 class="card-title"><%= re.Titulo %></h5>
+            <p class="card-text">
+              <% for (let i = 0; i < re.Rating; i++) { %>
+                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+              <% } %>
+              <% for (let i = re.Rating; i < 5; i++) { %>
+                <i class="far fa-star" style="color: #FFD43B;"></i>
+              <% } %>
+            </p>
+            <p class="card-text"><%= re.FechaContestacion %></p>
           </div>
         </div>
       <% } %>
