@@ -45,6 +45,7 @@ module.exports = class Usuario {
             WHERE username = ?`, 
             [nombre, password, username]);
     }
+        
 
     static getPermisos(username) {
         return db.execute(`

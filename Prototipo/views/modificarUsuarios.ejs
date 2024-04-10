@@ -9,14 +9,14 @@
     <form class="crearUsuario">
       <h1 class ="titulo-form"> Modificar Usuario: <%= usuario.username %></h1>
         <div class="mb-5 contenido-con-margen">
-          <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
+          <label for="nombre" class="form-label label-crearUsuario">Nombre</label>
           <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre" value="<%= usuario.nombre %>">
 
-          <label for="inputPassword" class="form-label label-crearUsuario">Contraseña</label>
-          <input type="password" class="form-control input-crearUsuario" id="password" name="password" value="........"> 
+          <label for="password" class="form-label label-crearUsuario">Contraseña</label>
+          <input type="password" class="form-control input-crearUsuario" id="password" name="password" value="<%= usuario.password %>" disabled> 
           
-          <label for="inputUsuario" class="form-label label-crearUsuario">Rol</label> 
-          <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
+          <label for="rol" class="form-label label-crearUsuario">Rol</label> 
+          <select class="form-control input-crearUsuario" id="rol" name="rol">
             <!--Preseleccionar nombre rol-->
             <option <% if (usuario.nombre_rol === 'Analítico') { %>selected<% } %>>
               Analítico

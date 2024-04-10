@@ -104,7 +104,7 @@ exports.get_modificarUsuario = (request, response, next) => {
 };
 exports.post_modificarUsuario = (request, response, next) => {
     Usuario.update(request.body.username, 
-                    request.body.mombre, 
+                    request.body.nombre, 
                     request.body.password)
         .then(([rows, fieldData]) => {
             // Redirigir al usuario de vuelta a la gestión de usuarios una vez que la actualización se complete con éxito
