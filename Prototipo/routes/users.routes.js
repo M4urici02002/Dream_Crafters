@@ -13,4 +13,8 @@ router.get('/gestionUsuarios/crearUsuario', isAuth, usersController.get_crearUsu
 router.post('/gestionUsuarios/crearUsuario', isAuth, usersController.post_crearUsuario);
 
 
+// Modificar usuarios
+router.get('/modificarUsuarios/:username', isAuth, usersController.get_modificarUsuario);
+router.post('/modificarUsuarios', isAuth, usersController.post_modificarUsuario);
+
 module.exports = router;
