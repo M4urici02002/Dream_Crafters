@@ -18,6 +18,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 //Protección ataques de CSRF
 const csrf = require('csurf');
 const csrfProtection = csrf();
@@ -28,6 +31,16 @@ app.use(csrfProtection);
 const { getMarcas } = require('./controllers/marcas.controller');
 // Aplica el middleware globalmente
 app.use(getMarcas);
+
+app.use((req, res, next) => {
+  // Obtener la marca seleccionada de las cookies
+  const marcaSeleccionada = req.cookies['marcaSeleccionada'] || 'LUUNA'; // 'LUUNA' como valor por defecto
+
+  // Hacer la marca seleccionada disponible en todas las vistas
+  res.locals.marcaSeleccionada = marcaSeleccionada;
+  next();
+});
+
 
 const rutasMiPerfil = require('./routes/miPerfil.routes')
 app.use('/miPerfil', rutasMiPerfil);
