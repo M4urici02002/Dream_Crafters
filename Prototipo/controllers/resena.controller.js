@@ -2,11 +2,15 @@ const Resena = require('../models/resena.model');
 
 // resena.controller
 exports.get_resena = (request, response, next) => {
-    const categoria = request.query.categoria; // Obtiene la categoría de los parámetros de la URL, si existe
+    const categoria = request.query.categoria;
+    const idMarca = request.cookies['marcaSeleccionada']; // Asumiendo que se guarda el ID de la marca seleccionada en una cookie
     
-    Resena.fetchAll(categoria).then(([rows, fieldData]) => {
+    Resena.fetchAll(categoria, idMarca)
+    .then(([rows, fieldData]) => {
+        //console.log(request.cookies['marcaSeleccionada'])
         response.render('resena', {
             resena: rows,
+            categoria: categoria,
             permisos: request.session.permisos || [],
         });
     })

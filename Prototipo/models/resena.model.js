@@ -13,26 +13,35 @@ module.exports = class Resena {
         this.Enviada = mi_Enviada;
         this.FechaContestacion = mi_FechaContestacion;
     }
+    // En tu modelo de Reseña (Resena.model.js o similar)
 
-    static fetchAll(categoria = null) {
-        if (categoria) {
-            return db.execute(
-                `
-                SELECT r.*, c.Correo 
-                FROM resena r
-                INNER JOIN encuesta e ON r.IDEncuesta = e.IDEncuesta
-                INNER JOIN cliente c ON r.IDCliente = c.IDCliente
-                WHERE e.Categoria = ?
-                `,[categoria]
-                
-            );
-        } else {
-            return db.execute(`
-            SELECT r.*, c.Correo 
+    static fetchAll(categoria = null, nombreMarca = null) {
+        let query = `
+            SELECT r.*, p.Nombre as NombreProducto, c.Correo, m.Nombre as NombreMarca
             FROM resena r
-            INNER JOIN encuesta e ON r.IDEncuesta = e.IDEncuesta
+            INNER JOIN producto p ON r.IDProducto = p.IDProducto
             INNER JOIN cliente c ON r.IDCliente = c.IDCliente
-            `);
+            INNER JOIN marca m ON p.IDMarca = m.IDMarca
+            INNER JOIN encuesta e ON r.IDEncuesta = e.IDEncuesta
+        `;
+        let conditions = [];
+        let params = [];
+    
+        if (categoria) {
+            conditions.push("e.Categoria = ?");
+            params.push(categoria);
         }
+    
+        if (nombreMarca) {
+            conditions.push("m.Nombre = ?");
+            params.push(nombreMarca);
+        }
+    
+        if (conditions.length) {
+            query += " WHERE " + conditions.join(" AND ");
+        }
+    
+        return db.execute(query, params);
     }
+    
 }
