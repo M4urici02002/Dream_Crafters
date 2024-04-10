@@ -33,15 +33,13 @@
                     </ul>
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <!-- Agrega un ID al enlace del dropdown -->
                             <a id="dropdownMenuLink" class="nav-link dropdown-toggle offset-lg-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                LUUNA
+                                <%= marcaSeleccionada %>
                             </a>
                             <ul class="dropdown-menu font-type">
                                 <% marcas.forEach(marca => { %>
                                     <li class="dropdown-item">
-                                        <!-- Agrega una clase a cada enlace para los eventos de clic -->
-                                        <a class="dropdown-link dropdown-item-select" href="#"><%= marca.Nombre %></a>
+                                        <a class="dropdown-link dropdown-item-select" href="javascript:void(0)" onclick="seleccionarMarca('<%= marca.Nombre %>')"><%= marca.Nombre %></a>
                                     </li>
                                 <% }) %>
                             </ul>
@@ -63,6 +61,11 @@
     </section>
 
 <script>
+    function seleccionarMarca(nombreMarca) {
+        // Guardar la selección en una cookie
+        document.cookie = `marcaSeleccionada=${nombreMarca};path=/;max-age=31536000`; // Expira en 1 año
+        location.reload(); // Opcional: recargar la página para reflejar la selección
+    }
     document.addEventListener('DOMContentLoaded', function () {
         // Selecciona todos los enlaces dentro de los elementos del dropdown
         document.querySelectorAll('.dropdown-item-select').forEach(function (item) {
