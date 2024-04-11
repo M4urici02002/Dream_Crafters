@@ -22,6 +22,7 @@ router.get('/', isAuth, (request, response, next) => {
     response.render('login', {
         username: request.session.username || '',
         permisos: request.session.permisos || [],
+        csrfToken: request.csrfToken(),
     });
 });
 
