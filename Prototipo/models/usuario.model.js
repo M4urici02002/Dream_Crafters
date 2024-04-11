@@ -14,16 +14,7 @@ module.exports = class Usuario {
         return bcrypt.hash(this.password, 12) //cantidad de veces q se cifra
         .then(async (password_cifrado) => {
             try {
-                await db.execute(
-                    `INSERT INTO usuario (username, nombre, password) 
-                    VALUES (?, ?, ?)`, 
-                    [this.username, this.nombre, password_cifrado]
-                );
-                
-                return db.execute(
-                    'INSERT INTO asigna (username, idrol) VALUES (?, 3)', 
-                    [this.username]
-                );
+                await db.execute('CALL InsertarUsuarioYAsignarRol(?, ?, ?)', [this.username, this.nombre, password_cifrado]);
             } catch(error) {
                 console.log(error);
                 throw Error('Ese usuario ya existe!');
