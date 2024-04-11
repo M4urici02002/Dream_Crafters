@@ -1,6 +1,6 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
-<!-- CSS de Bootstrap Datepicker -->
+<!-- CSS de Bootstrap Datepicker y Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
@@ -15,12 +15,10 @@
         <div class="row">
             <div class="col-sm-4">
                 <select class="form-select form-select-sm" aria-label="Small select example" id="categoriaDropdown">
-                    <option value="todasCategorias">Todas las categorías</option>
-                    <option value="Colchones">Colchones</option>
-                    <option value="Almohadas">Almohadas</option>
-                    <option value="Muebles">Muebles</option>
-                    <option value="Blancos">Blancos</option>
-                    <option value="Niños">Niños</option>
+                    <option value="">Seleccione una categoría</option>
+                    <% categorias.forEach(categoria => { %>
+                        <option value="<%= categoria.Categoria %>"><%= categoria.Categoria %></option>
+                    <% }); %>
                 </select>
             </div>
             <div class="col-sm-4">
@@ -48,37 +46,83 @@
 
         <% datos.forEach(function(calificacion) { %>
         <div class="calificacion-estrellas">
-            <p>Calificación: <%= calificacion.rating %> Estrellas</p>
-            <div id="starsContainer<%= calificacion.rating %>">
-                <% for(let i = 1; i <= 5; i++) { %>
-                    <% if(i <= calificacion.rating) { %>
-                        <i class="fa-solid fa-star" style="color: #FFD43B;" ></i> <!-- Estrella completa -->
-                    <% } else { %>
-                        <i class="far fa-star" style="color: #FFD43B;"></i> <!-- Estrella vacía -->
-                    <% } %>
-                <% } %> 
-                <span>(Cantidad: <%= calificacion.cantidad %>)</span>
-            </div>
         </div>
         <% }); %>
-    </div>
-</div>
+
+        <div class="row mt-4">
+            <div class="col-12" style="width: 100%; height: 400px;">
+                <canvas id="chartEstrellas"></canvas>
+            </div>
+        </div>        
 <%- include('includes/footer.ejs') %> 
 
-<!-- Scripts para Bootstrap, y Bootstrap Datepicker -->
+<!-- Scripts para jQuery, Popper.js, Bootstrap, Bootstrap Datepicker, y Chart.js -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-        $('#start-date').datepicker({
-            format: 'dd/mm/yyyy',
-            autoclose: true
-        });
+    $(document).ready(function() {
+        // Configuraciones de datepicker
+        $('#start-date').datepicker({ format: 'dd/mm/yyyy', autoclose: true });
+        $('#end-date').datepicker({ format: 'dd/mm/yyyy', autoclose: true });
 
-        $('#end-date').datepicker({
-            format: 'dd/mm/yyyy',
-            autoclose: true
+        // Cargar productos basados en la categoría seleccionada
+        $('#categoriaDropdown').on('change', function() {
+            const categoriaSeleccionada = $(this).val();
+            fetch(`http://localhost:3000/graficas/productosPorCategoria?categoria=${categoriaSeleccionada}`)
+                .then(data => data.json())
+                .then(data => {
+                    data.forEach((producto) => $('#productoDropdown').append(`<option value="${producto.Nombre}">${producto.Nombre}</option>`))})
+            $('#productoDropdown').empty().append('<option value="">Seleccione un producto</option>');
+
         });
+        // Inicialización del gráfico de barras
+        const ctx = document.getElementById('chartEstrellas').getContext('2d');
+        const starRatings = ["⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐", "⭐⭐⭐⭐⭐"];
+        const labels = starRatings;
+        const dataPoints = JSON.parse('<%= JSON.stringify(datos.map(d => d.cantidad)) %>');
+
+        const chartEstrellas = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Cantidad de Reseñas por Calificación',
+                    data: dataPoints,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {},
+                    x: {}
+                }
+            }
+        });
+            $('#numeroResenas').click(function() {
+            window.location.href = '/graficas';
+        });
+    
+});
 </script>
