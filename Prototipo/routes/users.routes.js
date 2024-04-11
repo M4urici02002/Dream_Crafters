@@ -17,4 +17,12 @@ router.post('/gestionUsuarios/crearUsuario', isAuth, usersController.post_crearU
 router.get('/modificarUsuarios/:username', isAuth, usersController.get_modificarUsuario);
 router.post('/modificarUsuarios', isAuth, usersController.post_modificarUsuario);
 
+// Agregar respuesta a ruta raiz
+router.get('/', isAuth, (request, response, next) => {
+    response.render('login', {
+        username: request.session.username || '',
+        permisos: request.session.permisos || [],
+    });
+});
+
 module.exports = router;
