@@ -19,11 +19,15 @@ router.post('/modificarUsuarios', isAuth, usersController.post_modificarUsuario)
 
 // Agregar respuesta a ruta raiz
 router.get('/', isAuth, (request, response, next) => {
+    const error = request.session.error || '';
+    request.session.error = '';
     response.render('login', {
         username: request.session.username || '',
-        permisos: request.session.permisos || [],
+        registro: false,
         csrfToken: request.csrfToken(),
-    });
+        error: error,
+        permisos: request.session.permisos || [],
+    });
 });
 
 module.exports = router;
