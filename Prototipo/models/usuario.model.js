@@ -56,7 +56,7 @@ module.exports = class Usuario {
         `, [username]);
     }
     static eliminar(username) {
-        return db.execute('DELETE FROM usuario WHERE username = ?', [username]);
+        return db.execute('CALL EliminarUsuario(?)', [username]);
     }
 
 }
