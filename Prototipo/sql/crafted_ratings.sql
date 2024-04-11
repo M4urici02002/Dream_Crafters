@@ -115,7 +115,7 @@ CREATE TABLE `encuesta` (
   PRIMARY KEY (`IDEncuesta`),
   KEY `IDMarca` (`IDMarca`),
   CONSTRAINT `encuesta_ibfk_1` FOREIGN KEY (`IDMarca`) REFERENCES `marca` (`IDMarca`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +124,7 @@ CREATE TABLE `encuesta` (
 
 LOCK TABLES `encuesta` WRITE;
 /*!40000 ALTER TABLE `encuesta` DISABLE KEYS */;
-INSERT INTO `encuesta` VALUES (1,1,'Feedback de Colchon Lunna Basic 2 indi',15,'Colchon',NULL),(2,1,'Â¡Queremos tu opinion de Kit Cabina + Cabina Lote-CHAR!',15,'General',NULL),(3,1,'Feedback de Sabanas Lunna',15,'Sabanas',NULL),(4,2,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',15,'Almohadas',NULL),(5,3,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',7,'Maletas',NULL),(6,1,'Has comprado recientemente Juego De SÃ¡banas Individual Rosa Limonada, Â¿nos cuentas tu experiencia?',15,'Sabanas',NULL),(7,1,'Feedback de  Lunna Signature',15,'Colchon',NULL),(8,2,'Feedback de  Protector de colchon essential-bamboo',30,'Colchon',NULL),(9,3,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',7,'Maletas',NULL),(10,1,'Dinos tu opinion sobre tu almohada Luuna',14,'Almohadas',NULL),(14,1,'',NULL,'Cama',NULL),(15,1,'a',NULL,'Cama',NULL),(16,1,'as',NULL,'Cama',NULL),(17,1,'Que te parecio tu Cama nueva',NULL,'Cama',NULL),(18,1,'Que te parecio tu Cama nueva',NULL,'Cama',NULL),(19,1,'Que te parecio tu Cama nueva',NULL,'Cama',NULL),(20,1,'Que te parecio tu Cama nueva',NULL,'Cama',NULL),(21,1,'prueba',NULL,'Colchon',NULL);
+INSERT INTO `encuesta` VALUES (1,1,'Feedback de Colchon Lunna Basic 2 indi',15,'Colchon',NULL),(2,1,'Â¡Queremos tu opinion de Kit Cabina + Cabina Lote-CHAR!',15,'General',NULL),(3,1,'Feedback de Sabanas Lunna',15,'Sabanas',NULL),(4,2,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',15,'Almohadas',NULL),(5,3,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',7,'Maletas',NULL),(6,1,'Has comprado recientemente Juego De SÃ¡banas Individual Rosa Limonada, Â¿nos cuentas tu experiencia?',15,'Sabanas',NULL),(7,1,'Feedback de  Lunna Signature',15,'Colchon',NULL),(8,2,'Feedback de  Protector de colchon essential-bamboo',30,'Colchon',NULL),(9,3,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',7,'Maletas',NULL),(10,1,'Dinos tu opinion sobre tu almohada Luuna',14,'Almohadas',NULL),(14,1,'',NULL,'Cama',NULL),(15,1,'a',NULL,'Cama',NULL),(16,1,'as',NULL,'Cama',NULL),(17,1,'Que te parecio tu Cama nueva',NULL,'Cama',NULL),(18,1,'Que te parecio tu Cama nueva',NULL,'Cama',NULL),(19,1,'Que te parecio tu Cama nueva',NULL,'Cama',NULL),(20,1,'Que te parecio tu Cama nueva',NULL,'Cama',NULL),(21,1,'prueba',NULL,'Colchon',NULL),(22,1,'Que te parecio tu Cama nueva',NULL,'Cama',NULL),(23,1,'Prueba 444',NULL,'Blancos',NULL),(24,1,'l',NULL,'colc',NULL),(25,1,'Prueba 4447887u7j',NULL,'Cama',NULL);
 /*!40000 ALTER TABLE `encuesta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,6 +409,81 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'crafted_ratings'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `EliminarUsuario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarUsuario`(
+    IN _username VARCHAR(255)
+)
+BEGIN
+    DELETE FROM usuario WHERE username = _username;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `InsertarUsuarioYAsignarRol` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarUsuarioYAsignarRol`(
+    IN _username VARCHAR(255), 
+    IN _nombre VARCHAR(255), 
+    IN _passwordCifrado VARCHAR(255)
+)
+BEGIN
+    START TRANSACTION;
+    
+    INSERT INTO usuario (username, nombre, password) 
+    VALUES (_username, _nombre, _passwordCifrado);
+    
+    INSERT INTO asigna (username, idrol) VALUES (_username, 3);
+    
+    COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerPermisosUsuario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerPermisosUsuario`(
+    IN _username VARCHAR(255)
+)
+BEGIN
+    SELECT pr.permiso
+    FROM privilegio pr, posee po, rol r, asigna a, usuario u
+    WHERE u.username = _username AND u.username = a.username
+    AND a.idrol = r.idrol AND r.idrol = po.idrol AND po.idprivilegio = pr.idprivilegio;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -419,4 +494,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-06 20:36:58
+-- Dump completed on 2024-04-11 13:36:48
