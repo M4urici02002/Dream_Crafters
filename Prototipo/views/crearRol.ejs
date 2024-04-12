@@ -1,16 +1,16 @@
+<!-- crearRol.ejs -->
+
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
 
 <div class="main p-3 background-color">
   <div class="container form">
-    <form class="crearUsuario">
+    <form class="crearUsuario" action="/gestionRol/crearRol" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <h1 class ="titulo-form"> Crear Rol</h1>
         <div class="mb-5 contenido-con-margen">
           <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
-          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre">
-
-          <label for="inputPassword" class="form-label label-crearUsuario">Contraseña</label>
-          <input type="password" class="form-control input-crearUsuario" id="password" name="password">
+          <input type="text" class="form-control input-crearUsuario" id="nombreRol" name="nombreRol">
         
           <label for="inputUsuario" class="form-label label-crearUsuario">Asignar privilegio</label>
           <select id="inputUsuario" class="form-control input-crearUsuario" name="rol">
@@ -33,6 +33,7 @@
                 <li class="list-group-item">Consultar reseñas por categoría</li>
             </div>
          </div>
+
         </div>
         
         <div class="btn-formUsuario">
@@ -43,3 +44,4 @@
 </div>
 
 <%- include('includes/footer.ejs') %>
+
