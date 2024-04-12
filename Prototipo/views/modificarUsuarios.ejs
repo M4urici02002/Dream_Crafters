@@ -1,19 +1,19 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
 
-<div class="main p-3 background-color" action="/modificarUsuario" method="POST">
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
-  <input type="hidden" id="username" name="username" value="<%= usuario.username %>" >
-
+<div class="main p-3 background-color">
   <div class="container form">
-    <form class="crearUsuario">
+    <form class="crearUsuario" action="/modificarUsuarios" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+      <input type="hidden" id="username" name="username" value="<%= usuario.username %>" >
+
       <h1 class ="titulo-form"> Modificar Usuario: <%= usuario.username %></h1>
         <div class="mb-5 contenido-con-margen">
           <label for="nombre" class="form-label label-crearUsuario">Nombre</label>
           <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre" value="<%= usuario.nombre %>">
 
           <label for="password" class="form-label label-crearUsuario">Contraseña</label>
-          <input type="password" class="form-control input-crearUsuario" id="password" name="password" value="<%= usuario.password %>" disabled> 
+          <input type="password" class="form-control input-crearUsuario" id="password" name="password" value="........" disabled> 
           
           <label for="rol" class="form-label label-crearUsuario">Rol</label> 
           <select class="form-control input-crearUsuario" id="rol" name="rol">
