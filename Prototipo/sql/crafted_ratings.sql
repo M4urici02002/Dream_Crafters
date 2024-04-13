@@ -443,7 +443,8 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarUsuarioYAsignarRol`(
     IN _username VARCHAR(255), 
     IN _nombre VARCHAR(255), 
-    IN _passwordCifrado VARCHAR(255)
+    IN _passwordCifrado VARCHAR(255),
+    IN _idrol INT 
 )
 BEGIN
     START TRANSACTION;
@@ -451,7 +452,7 @@ BEGIN
     INSERT INTO usuario (username, nombre, password) 
     VALUES (_username, _nombre, _passwordCifrado);
     
-    INSERT INTO asigna (username, idrol) VALUES (_username, 3);
+    INSERT INTO asigna (username, idrol) VALUES (_username, _idrol);
     
     COMMIT;
 END ;;
@@ -494,4 +495,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-11 13:36:48
+-- Dump completed on 2024-04-13 13:13:39
