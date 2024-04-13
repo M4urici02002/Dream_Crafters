@@ -4,17 +4,19 @@ const bcrypt = require('bcryptjs');
 module.exports = class Usuario {
 
     //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
-    constructor(mi_username, mi_nombre, mi_password) {
+    constructor(mi_username, mi_nombre, mi_password, mi_idrol) {
         this.username = mi_username;
         this.nombre = mi_nombre;
         this.password = mi_password;
+        this.idrol = mi_idrol;
     }
 
     save() {
         return bcrypt.hash(this.password, 12) //cantidad de veces q se cifra
         .then(async (password_cifrado) => {
+            console.log(this.username, this.nombre, this.idrol, password_cifrado);
             try {
-                await db.execute('CALL InsertarUsuarioYAsignarRol(?, ?, ?)', [this.username, this.nombre, password_cifrado]);
+                await db.execute('CALL InsertarUsuarioYAsignarRol(?, ?, ?, ?)', [this.username, this.nombre, password_cifrado, this.idrol]);
             } catch(error) {
                 console.log(error);
                 throw Error('Ese usuario ya existe!');

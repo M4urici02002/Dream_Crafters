@@ -1,4 +1,6 @@
 const Usuario = require('../models/usuario.model');
+const Rol = require('../models/roles.model');
+
 const bcrypt = require('bcryptjs');
 
 exports.get_login = (request, response, next) => {
@@ -51,7 +53,6 @@ exports.post_login = (request, response, next) => {
         .catch((error) => {console.log(error);});
 };
 
-
 exports.get_logout = (request, response, next) => {
     request.session.destroy(() => {
         response.redirect('/login'); //Este código se ejecuta cuando la sesión se elimina.
@@ -61,18 +62,27 @@ exports.get_logout = (request, response, next) => {
 exports.get_crearUsuario = (request, response, next) => {
     const error = request.session.error || '';
     request.session.error = '';
-    response.render('crearUsuario', {
-        username: request.session.username || '',
-        registro: true,
-        csrfToken: request.csrfToken(),
-        error: error,
-        permisos: request.session.permisos || [],
+
+    // Llamada a fetchAll para obtener roles
+    Rol.fetchAll().then(([roles]) => {
+        response.render('crearUsuario', {
+            username: request.session.username || '',
+            registro: true,
+            csrfToken: request.csrfToken(),
+            error: error,
+            permisos: request.session.permisos || [],
+            roles: roles  // Agrega los roles obtenidos a los datos de la vista
+        });
+    }).catch(err => {
+        console.error('Error fetching roles:', err);
+        response.status(500).send('Error loading the page');
     });
 };
 
+
 exports.post_crearUsuario = (request, response, next) => {
     const nuevo_usuario = new Usuario(
-        request.body.username, request.body.name, request.body.password
+        request.body.username, request.body.name, request.body.password, request.body.idrol
     );
     nuevo_usuario.save()
         .then(() => {
