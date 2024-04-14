@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `asigna`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `asigna` (
-  `username` varchar(255) NOT NULL,
+  `username` varchar(190) NOT NULL,
   `idrol` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`username`,`idrol`),
@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `compra`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `compra` (
   `IDCompra` int NOT NULL AUTO_INCREMENT,
-  `IDProducto` varchar(255) DEFAULT NULL,
+  `IDProducto` varchar(190) DEFAULT NULL,
   `IDCliente` int DEFAULT NULL,
   `Fecha` date DEFAULT NULL,
   PRIMARY KEY (`IDCompra`),
@@ -267,7 +267,7 @@ DROP TABLE IF EXISTS `producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `producto` (
-  `IDProducto` varchar(255) NOT NULL,
+  `IDProducto` varchar(190) NOT NULL,
   `IDMarca` int DEFAULT NULL,
   `Nombre` varchar(255) DEFAULT NULL,
   `Imagen` varchar(255) DEFAULT NULL,
@@ -300,7 +300,7 @@ DROP TABLE IF EXISTS `resena`;
 CREATE TABLE `resena` (
   `IDReseña` int NOT NULL AUTO_INCREMENT,
   `IDEncuesta` int DEFAULT NULL,
-  `IDProducto` varchar(255) DEFAULT NULL,
+  `IDProducto` varchar(190) DEFAULT NULL,
   `IDCliente` int DEFAULT NULL,
   `Titulo` varchar(100) DEFAULT NULL,
   `Rating` int DEFAULT NULL,
@@ -364,11 +364,12 @@ DROP TABLE IF EXISTS `rol`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rol` (
-  `idrol` int NOT NULL,
+  `idrol` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(40) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idrol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

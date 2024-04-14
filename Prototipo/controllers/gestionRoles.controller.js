@@ -1,3 +1,5 @@
+const Rol = require('../models/rol.model');
+
 const db=require('../util/database');
 
 exports.get_gestionRoles = async (request, response, next) => {
@@ -7,9 +9,11 @@ exports.get_gestionRoles = async (request, response, next) => {
             FROM rol;
         `);
 
+        Rol.fetchAll()
         response.render('gestionRoles', {
-            roles: uroles,
+            rolRegistrado: uroles,
             permisos: request.session.permisos || [],
+            csrfToken: request.csrfToken(),
         });
     } catch (error) {
         console.log(error);
@@ -18,10 +22,24 @@ exports.get_gestionRoles = async (request, response, next) => {
 };
 
 
-// Crear usuario
+// Crear rol
 exports.get_crearRol = (request, response, next) => {
     response.render('crearRol',{
         permisos: request.session.permisos || [],
+        csrfToken: request.csrfToken(),
     });
 };
 
+exports.post_crearRol = (request, response, next) => { //no
+    console.log(request.body);
+    const rol = new RolRegistrado(
+        request.body.nombreRol,
+    );
+
+    rol.save()
+        .then(([rows, fieldData]) => {
+            response.redirect('/gestionRoles');
+        }).catch((error) => {
+            console.log(error);
+        });
+};
