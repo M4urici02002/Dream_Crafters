@@ -7,7 +7,7 @@ module.exports = class Usuario {
     constructor(mi_username, mi_nombre, mi_password, mi_idrol) {
         this.username = mi_username;
         this.nombre = mi_nombre;
-        this.password = mi_password;
+        this.password = mi_password; 
         this.idrol = mi_idrol;
     }
 
@@ -60,5 +60,15 @@ module.exports = class Usuario {
     static eliminar(username) {
         return db.execute('CALL EliminarUsuario(?)', [username]);
     }
+
+    // Método para actualizar la contraseña del usuario en la base de datos
+    static updatePassword(username, newPassword) {
+        return db.execute(`
+            UPDATE usuario
+            SET password = ?
+            WHERE username = ?
+        `, [newPassword, username]);
+    }
+
 
 }

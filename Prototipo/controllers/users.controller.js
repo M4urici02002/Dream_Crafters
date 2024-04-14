@@ -13,7 +13,7 @@ exports.get_login = (request, response, next) => {
         error: error,
         permisos: request.session.permisos || [],
     });
-};
+}; 
 
 exports.post_login = (request, response, next) => {
     Usuario.fetchOneWithRole(request.body.username)
@@ -122,3 +122,41 @@ exports.post_modificarUsuario = (request, response, next) => {
         })
         .catch((error) => {console.log(error)});
 };
+
+
+// Cambiar contraseña
+exports.get_modificarContrasena = (request, response, next) => {
+    Usuario.fetchOneWithRole(request.params.username)
+        .then(([usuarios, fieldData]) => {
+            response.render('modificarUsuario', {
+                username: request.session.username || '',
+                csrfToken: request.csrfToken(),
+                permisos: request.session.permisos || [],
+                // Pasar la información del usuario que se va a editar
+                usuario: usuarios[0], // Tomar el primer elemento del arreglo de usuarios (asumiendo que fetchOne devuelve solo uno)
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            // Manejo de errores
+            response.status(500).send("Error al obtener el usuario para editar");
+        });
+};
+
+exports.post_modificarConstrasena = (request, response, next) => {
+    const username = request.body.username;
+    const newPassword = request.body.password; // Nueva contraseña ingresada por el usuario
+
+    // Lógica para actualizar la contraseña del usuario en la base de datos
+    Usuario.updatePassword(username, newPassword)
+        .then(([rows, fieldData]) => {
+            // Redirigir al usuario de vuelta a la gestión de usuarios una vez que la actualización se complete con éxito
+            response.redirect('/miPerfil');
+        })
+        .catch((error) => {
+            console.log(error);
+            // Manejo de errores
+            response.status(500).send("Error al actualizar la contraseña del usuario");
+        });
+};
+
