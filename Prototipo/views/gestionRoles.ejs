@@ -14,6 +14,7 @@
             
             <!--Search bar-->
             <div class="input-group mb-3 buscarUsuario">
+                <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
                 <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
                 <button class="btn btn-dark" type="button">
                 <i class="fas fa-search"></i>
@@ -36,7 +37,7 @@
     </div> 
 
     <!--Tarjetas de usuario-->
-    <% for (let rol of roles) { %>
+    <% for (let rol of rolRegistrado) { %>
         <div class="row tarjetaUsuario">
             <div class="col-lg-2 col-md-3 col-sm-3">
                 <p class="username-usuario-tarjeta"><br><%=rol.idrol%></p>

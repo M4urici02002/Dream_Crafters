@@ -72,6 +72,9 @@ app.use('/editarRol', rutasEditarRol);
 const rutasUser = require('./routes/users.routes');
 app.use('/', rutasUser);
 
+const rutasRol = require('./routes/rol.routes');
+app.use('/', rutasRol);
+
 // Si no existe la URL html de error 404
 // Si no existe la URL html de error 404
 app.use((request, response, next) => {
