@@ -58,7 +58,7 @@
                 </a> 
                 &nbsp;&nbsp;
                 <!--Eliminar usuario-->
-                <button type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
+                <button onclick="eliminar('<%= rol.nombre %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
                     Eliminar
                 </button>
             </div>
@@ -68,5 +68,43 @@
 
   </div>
 </div>
+
+<script>
+    const eliminar = (nombre) => {
+        const respuesta = confirm("¿Deseas eliminar este rol de manera permanente?");
+        if (respuesta) {
+            console.log("Eliminando rol: ", nombre);
+            const csrf = document.getElementsByName('_csrf')[0].value;
+            fetch('/gestionRoles/eliminar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'csrf-token': csrf,
+                },
+                body: JSON.stringify({nombre: nombre})
+            }).then((result) => {
+                if (result.ok) {
+                    // Eliminar el rol solo después de recibir una respuesta de éxito
+                    result.json().then(data => {
+                        document.getElementsByName(`rol-${nombre}`)[0].remove();
+                        const notification = document.getElementsByName('notification')[0];
+                        notification.innerHTML = `
+                            <div class="alert alert-success" role="alert">
+                                El rol ${nombre} fue eliminado correctamente.
+                            </div>
+                        `;
+                    });
+                    window.location.reload(); // Recargar la página
+                } else {
+                    alert('Hubo un error al intentar eliminar el rol.');
+                }
+            }).catch((error) => {
+                console.error('Error: ', error);
+                alert('Error al eliminar el rol.');
+            });
+        }
+    }
+</script>
+
 
 <%- include('includes/footer.ejs') %>

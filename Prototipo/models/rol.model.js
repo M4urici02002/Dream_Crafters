@@ -15,8 +15,11 @@ module.exports = class Rol {
         }
     }
     
-
     static fetchAll() {
         return db.execute('Select * from rol')
+    }
+
+    static eliminar(nombreRol) {
+        return db.execute('DELETE FROM rol WHERE nombre = ?', [nombreRol]);
     }
 }
