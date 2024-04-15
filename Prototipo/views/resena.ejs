@@ -7,14 +7,12 @@
   <form action="/resena" method="get">
     <select name="categoria" class="form-select d-inline-block categorias" aria-label="Small select example" id="productoDropdown">
         <option value="">Todas las reseñas</option>
-        <option value="Almohadas">Almohadas</option>
-        <option value="Colchon">Colchon</option>
-        <option value="General">General</option>
-        <option value="Maletas">Maletas</option>
-        <option value="Sabanas">Sábanas</option>
+        <% listaCategorias.forEach(categoria => { %>
+            <option value="<%= categoria.Categoria %>"><%= categoria.Categoria %></option>
+        <% }) %>
     </select>
     <button class="btn btn-dark d-inline-block" type="submit">Filtrar</button>
-  </form>
+</form>
 </div>
 
 
@@ -44,5 +42,22 @@
     </div>
   </div>
 </div>
+<script>
+  document.getElementById('dropdownMenuLink').addEventListener('change', function() {
+    const marcaSeleccionada = this.value;
+    fetch(`/api/categorias?marca=${marcaSeleccionada}`)
+        .then(response => response.json())
+        .then(data => {
+            const select = document.getElementById('productoDropdown');
+            select.innerHTML = '<option value="">Todas las reseñas</option>';
+            data.listaCategorias.forEach(categoria => {
+                select.innerHTML += `<option value="${categoria.Categoria}">${categoria.Categoria}</option>`;
+            });
+        })
+        .catch(error => console.error('Error al cargar categorías:', error));
+});
+
+
+</script>
 
 <%- include('includes/footer.ejs') %>

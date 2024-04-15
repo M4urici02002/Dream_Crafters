@@ -51,6 +51,9 @@ app.use('/configuracion', rutasConfiguracion);
 const rutasTemplate = require('./routes/template.routes');
 app.use(rutasTemplate);
 
+const categoriaController = require('./controllers/categoria.controller');
+app.use(categoriaController.getCategorias);
+
 const rutasResena = require('./routes/resena.routes');
 app.use('/resena', rutasResena);
 
