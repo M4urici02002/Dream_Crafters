@@ -16,19 +16,16 @@
           <input type="password" class="form-control input-crearUsuario" id="password" name="password" value="........" disabled> 
           
           <label for="rol" class="form-label label-crearUsuario">Rol</label> 
-          <select class="form-control input-crearUsuario" id="rol" name="rol">
-            <!--Preseleccionar nombre rol-->
-            <option <% if (usuario.nombre_rol === 'Analítico') { %>selected<% } %>>
-              Analítico
-            </option>
-            <option <% if (usuario.nombre_rol === 'Administrador') { %>selected<% } %>>
-              Administrador
-            </option>
-            <option <% if (usuario.nombre_rol === 'crm') { %>selected<% } %>>
-              CRM
-            </option>
+          <select id="inputUsuario" class="form-control input-crearUsuario" name="idrol">
+            <% roles.forEach(rol => { %>
+                <option value="<%= rol.idrol %>" <% if (usuario.nombre_rol === rol.nombre) { %> selected <% } %>>
+                    <%= rol.nombre %>
+                </option>
+            <% }); %>
+          </select>
+          
 
-            </select>  
+          
         </div>
         <div class="btn-formUsuario">
             <button type="submit" class="btn btn-dark">Guardar</button>

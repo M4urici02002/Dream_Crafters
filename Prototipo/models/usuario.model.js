@@ -30,13 +30,9 @@ module.exports = class Usuario {
       return db.execute("Select * from usuario WHERE username = ?", [username]);
     }
 
-  static update(username, nombre) {
-    return db.execute(
-      `UPDATE usuario SET 
-            nombre = ?
-            WHERE username = ?`,
-      [nombre, username]
-    );
+  
+  static update(username, nombre, idrol) {
+    return db.execute('CALL ModificarUsuarioYRol(?, ?, ?)', [username, nombre, idrol]);
   }
 
   static getPermisos(username) {
@@ -54,6 +50,7 @@ module.exports = class Usuario {
     return db.execute(
       `
             SELECT usuario.username, usuario.nombre, usuario.password, rol.nombre AS nombre_rol
+    
             FROM usuario
             INNER JOIN asigna ON usuario.username = asigna.username
             INNER JOIN rol ON asigna.idrol = rol.idrol
