@@ -14,7 +14,7 @@ module.exports = class Usuario {
     save() {
         return bcrypt.hash(this.password, 12) //cantidad de veces q se cifra
         .then(async (password_cifrado) => {
-            console.log(this.username, this.nombre, this.idrol, password_cifrado);
+            console.log("Usuario creado: ",this.username, this.nombre, this.idrol);
             try {
                 await db.execute('CALL InsertarUsuarioYAsignarRol(?, ?, ?, ?)', [this.username, this.nombre, password_cifrado, this.idrol]);
             } catch(error) {

@@ -75,7 +75,7 @@ exports.get_crearUsuario = (request, response, next) => {
         });
     }).catch(err => {
         console.error('Error fetching roles:', err);
-        response.status(500).send('Error loading the page');
+        response.status(500).send('Error cargando la pagina');
     });
 };
 
