@@ -51,6 +51,9 @@ app.use('/configuracion', rutasConfiguracion);
 const rutasTemplate = require('./routes/template.routes');
 app.use(rutasTemplate);
 
+const categoriaController = require('./controllers/categoria.controller');
+app.use(categoriaController.getCategorias);
+
 const rutasResena = require('./routes/resena.routes');
 app.use('/resena', rutasResena);
 
@@ -71,6 +74,9 @@ app.use('/editarRol', rutasEditarRol);
 
 const rutasUser = require('./routes/users.routes');
 app.use('/', rutasUser);
+
+const rutasRol = require('./routes/rol.routes');
+app.use('/', rutasRol);
 
 // Si no existe la URL html de error 404
 // Si no existe la URL html de error 404

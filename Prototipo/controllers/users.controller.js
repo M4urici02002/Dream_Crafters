@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 const Usuario = require("../models/usuario.model");
 const bcrypt = require("bcryptjs");
+=======
+const Usuario = require('../models/usuario.model');
+const Rol = require('../models/rol.model');
+
+const bcrypt = require('bcryptjs');
+>>>>>>> e46711b2ea000b0ab080cc93c079313e2377af34
 
 exports.get_login = (request, response, next) => {
   const error = request.session.error || "";
@@ -61,6 +68,7 @@ exports.get_logout = (request, response, next) => {
 };
 
 exports.get_crearUsuario = (request, response, next) => {
+<<<<<<< HEAD
   const error = request.session.error || "";
   request.session.error = "";
   response.render("crearUsuario", {
@@ -70,9 +78,30 @@ exports.get_crearUsuario = (request, response, next) => {
     error: error,
     permisos: request.session.permisos || [],
   });
+=======
+    const error = request.session.error || '';
+    request.session.error = '';
+
+    // Llamada a fetchAll para obtener roles
+    Rol.fetchAll().then(([roles]) => {
+        response.render('crearUsuario', {
+            username: request.session.username || '',
+            registro: true,
+            csrfToken: request.csrfToken(),
+            error: error,
+            permisos: request.session.permisos || [],
+            roles: roles  // Agrega los roles obtenidos a los datos de la vista
+        });
+    }).catch(err => {
+        console.error('Error fetching roles:', err);
+        response.status(500).send('Error cargando la pagina');
+    });
+>>>>>>> e46711b2ea000b0ab080cc93c079313e2377af34
 };
 
+
 exports.post_crearUsuario = (request, response, next) => {
+<<<<<<< HEAD
   const nuevo_usuario = new Usuario(
     request.body.username,
     request.body.name,
@@ -88,6 +117,20 @@ exports.post_crearUsuario = (request, response, next) => {
       request.session.error = "Ese usuario ya existe";
       response.redirect("/gestionUsuarios/crearUsuario");
     });
+=======
+    const nuevo_usuario = new Usuario(
+        request.body.username, request.body.name, request.body.password, request.body.idrol
+    );
+    nuevo_usuario.save()
+        .then(() => {
+            response.redirect('/gestionUsuarios');
+        })
+        .catch((error) => {
+            console.log(error);
+            request.session.error = 'Ese usuario ya existe';
+            response.redirect('/gestionUsuarios/crearUsuario');
+        });
+>>>>>>> e46711b2ea000b0ab080cc93c079313e2377af34
 };
 
 // Modificar usuario

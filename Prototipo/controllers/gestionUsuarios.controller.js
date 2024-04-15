@@ -22,31 +22,6 @@ exports.get_usuarioRegistrado = async (request, response, next) => {
     }
 };
 
-
-// Crear usuario
-exports.get_crearUsuario = (request, response, next) => {
-    response.render('crearUsuario',{
-        permisos: request.session.permisos || [],
-        csrfToken: request.csrfToken(),
-    });
-};
-
-exports.post_crearUsuario = (request, response, next) => { //no
-    console.log(request.body);
-    const usuario = new UsuarioRegistrado(
-        request.body.username, 
-        request.body.nombre,
-        request.body.rol,
-    );
-
-    usuario.save()
-        .then(([rows, fieldData]) => {
-            response.redirect('/gestionUsuarios');
-        }).catch((error) => {
-            console.log(error);
-        });
-};
-
 exports.post_eliminar = (request, response, next) => {
     console.log("Username a eliminar:", request.body.username); // Añade esto para depuración
     Usuario.eliminar(request.body.username)

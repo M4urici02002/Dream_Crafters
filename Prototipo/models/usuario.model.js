@@ -9,6 +9,7 @@ module.exports = class Usuario {
     this.password = mi_password;
   }
 
+<<<<<<< HEAD
   save() {
     return bcrypt
       .hash(this.password, 12) //cantidad de veces q se cifra
@@ -32,6 +33,31 @@ module.exports = class Usuario {
   static fetchOne(username) {
     return db.execute("Select * from usuario WHERE username = ?", [username]);
   }
+=======
+    //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
+    constructor(mi_username, mi_nombre, mi_password, mi_idrol) {
+        this.username = mi_username;
+        this.nombre = mi_nombre;
+        this.password = mi_password;
+        this.idrol = mi_idrol;
+    }
+
+    save() {
+        return bcrypt.hash(this.password, 12) //cantidad de veces q se cifra
+        .then(async (password_cifrado) => {
+            console.log("Usuario creado: ",this.username, this.nombre, this.idrol);
+            try {
+                await db.execute('CALL InsertarUsuarioYAsignarRol(?, ?, ?, ?)', [this.username, this.nombre, password_cifrado, this.idrol]);
+            } catch(error) {
+                console.log(error);
+                throw Error('Ese usuario ya existe!');
+            }
+        });
+    }
+    static fetchAll() {
+        return db.execute('Select * from usuario')
+    }
+>>>>>>> e46711b2ea000b0ab080cc93c079313e2377af34
 
   static update(username, nombre) {
     return db.execute(

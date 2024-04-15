@@ -1,3 +1,5 @@
+const Rol = require('../models/rol.model');
+
 const db=require('../util/database');
 
 exports.get_gestionRoles = async (request, response, next) => {
@@ -7,9 +9,11 @@ exports.get_gestionRoles = async (request, response, next) => {
             FROM rol;
         `);
 
+        Rol.fetchAll()
         response.render('gestionRoles', {
-            roles: uroles,
+            rolRegistrado: uroles,
             permisos: request.session.permisos || [],
+            csrfToken: request.csrfToken(),
         });
     } catch (error) {
         console.log(error);
@@ -18,10 +22,39 @@ exports.get_gestionRoles = async (request, response, next) => {
 };
 
 
-// Crear usuario
+// Crear rol
 exports.get_crearRol = (request, response, next) => {
     response.render('crearRol',{
         permisos: request.session.permisos || [],
+        csrfToken: request.csrfToken(),
     });
+};
+
+exports.post_crearRol = (request, response, next) => { //no
+    console.log(request.body);
+    const rol = new RolRegistrado(
+        request.body.nombreRol,
+    );
+
+    rol.save()
+        .then(([rows, fieldData]) => {
+            response.redirect('/gestionRoles');
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+// Eliminar rol
+exports.post_eliminar = (request, response, next) => {
+    console.log("Rol a eliminar:", request.body.nombre); // Corregido para usar "nombre"
+    Rol.eliminar(request.body.nombre)
+        .then(() => {
+            return Rol.fetchAll();
+        }).then(([roles, fieldData]) => {
+            return response.status(200).json({roles: roles});
+        }).catch((error) => {
+            console.error('Error al eliminar el rol:', error);
+            return response.status(500).json({ error: 'Error al eliminar el rol' });
+        });
 };
 

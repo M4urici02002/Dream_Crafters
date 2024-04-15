@@ -82,3 +82,9 @@
     margin-bottom: 10px;
     margin-right: 10px;
 }
+
+.errorcrearusuario {
+    text-align: center;
+    color: red;
+    margin-bottom: 20px;
+  }

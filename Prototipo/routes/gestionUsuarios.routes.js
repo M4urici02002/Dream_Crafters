@@ -7,6 +7,8 @@ const isAuth = require('../util/is-auth');
 
 const gestionUsuariosController= require('../controllers/gestionUsuarios.controller');
 router.get('/gestionUsuarios', isAuth, gestionUsuariosController.get_usuarioRegistrado);
+
+
 // Ruta para eliminar un usuario
 router.post('/gestionUsuarios/eliminar', isAuth, gestionUsuariosController.post_eliminar);
 
