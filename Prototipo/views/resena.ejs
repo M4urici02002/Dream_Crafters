@@ -15,10 +15,11 @@
 </form>
 </div>
 
-
+ <% let contadorresenas = 0 %>
   <div class="container">
     <div class="col">
       <% for (let re of resena) { %>
+        <% contadorresenas += 1 %>
         <div class="card">
           <div class="card-header">
             <%= re.Descripcion %>
@@ -41,7 +42,11 @@
       <% } %>
     </div>
   </div>
+  <% if(contadorresenas == 0) { %>
+    <div class="centrarmensajeresena">No hay reseñas disponibles</div>
+  <% } %>
 </div>
+
 <script>
   document.getElementById('dropdownMenuLink').addEventListener('change', function() {
     const marcaSeleccionada = this.value;
