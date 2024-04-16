@@ -20,41 +20,53 @@ exports.post_login = (request, response, next) => {
     .then(([usuarios, fieldData]) => {
       if (usuarios.length == 1) {
         const usuario = usuarios[0];
-        bcrypt
-          .compare(request.body.password, usuario.password)
-          .then((doMatch) => {
-            if (doMatch) {
-              Usuario.getPermisos(usuario.username)
-                .then(([permisos, fieldData]) => {
-                  console.log(permisos);
-                  console.log(usuario);
-                  request.session.permisos = permisos;
-                  request.session.username = usuario.username;
-                  request.session.nombre = usuario.nombre;
-                  request.session.rol = usuario.nombre_rol; // Guardar el rol en la sesión
-                  request.session.isLoggedIn = true;
-                  response.redirect("/graficas");
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            } else {
-              request.session.error = "Usuario y/o contraseña incorrectos";
-              response.redirect("/login");
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        if (request.body.username === usuario.username) {
+          // Continuar con la verificación de la contraseña
+          bcrypt
+            .compare(request.body.password, usuario.password)
+            .then((doMatch) => {
+              if (doMatch) {
+                // Continuar si la contraseña es correcta
+                Usuario.getPermisos(usuario.username)
+                  .then(([permisos, fieldData]) => {
+                    console.log(permisos);
+                    console.log(usuario);
+                    request.session.permisos = permisos;
+                    request.session.username = usuario.username;
+                    request.session.nombre = usuario.nombre;
+                    request.session.rol = usuario.nombre_rol; // Guardar el rol en la sesión
+                    request.session.isLoggedIn = true;
+                    response.redirect("/graficas");
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              } else {
+                // La contraseña no coincide
+                request.session.error = "Usuario y/o contraseña incorrectos";
+                response.redirect("/login");
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          // El nombre de usuario no coincide exactamente
+          request.session.error = "Usuario y/o contraseña incorrectos";
+          response.redirect("/login");
+        }
       } else {
+        // No se encontró el usuario
         request.session.error = "Usuario y/o contraseña incorrectos";
         response.redirect("/login");
       }
     })
     .catch((error) => {
       console.log(error);
+      response.status(500).send('Error al intentar iniciar sesión');
     });
 };
+
 
 exports.get_logout = (request, response, next) => {
   request.session.destroy(() => {
