@@ -96,9 +96,15 @@ $(document).ready(function() {
     });
 });
 
-$('#calificacionEstrellas').click(function() {
-        window.location.href = '/graficas/calificacionEstrellas';
-    });
+        $("#numeroResenas").click(function () {
+          window.location.href = "/graficas";
+        });
+        $("#calificacionEstrellas").click(function () {
+            window.location.href = "/graficas/calificacionEstrellas";
+        });
+        $("#orderToReview").click(function () {
+            window.location.href = "/graficas/orderToReview";
+        });
 </script>
 
 <%- include('includes/footer.ejs') %>

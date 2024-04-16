@@ -42,7 +42,6 @@ exports.productosPorCategoria = (req, res) => {
 exports.obtenerCalificacionesFiltradas = (req, res) => {
   const { categoria, producto, fechaInicio, fechaFin } = req.query;
 
-  // Asume una función en tu modelo que acepte estos parámetros y devuelva los datos filtrados
   calificacionesModel
     .obtenerCalificacionesFiltradas(categoria, producto, fechaInicio, fechaFin)
     .then(([data]) => {
@@ -51,5 +50,58 @@ exports.obtenerCalificacionesFiltradas = (req, res) => {
     .catch((err) => {
       console.error("Error al obtener calificaciones filtradas:", err);
       res.status(500).send("Error al obtener los datos filtrados");
+    });
+};
+
+exports.obtenerResenasContestadas = (req, res) => {
+  Promise.all([
+      calificacionesModel.obtenerCategorias(),
+      calificacionesModel.reseñasContestadas()
+  ]).then(([categoriasResult, resenasResult]) => {
+      const categorias = categoriasResult[0]; // Ajusta según la estructura real de tus datos
+      const resenasData = resenasResult[0]; // Asumimos que los datos vienen en un arreglo y tomamos el primer elemento
+  
+      res.json({
+          categorias: categorias,
+          resenas: {
+              contestadas: resenasData.Contestadas,
+              noContestadas: resenasData.No_Contestadas
+          }
+      }); 
+
+  }).catch(err => {
+      console.error("Error al obtener datos:", err);
+      res.status(500).send("Error al procesar la solicitud");
+  });
+};
+
+exports.showOrderToReview = (req, res, next) => {
+  calificacionesModel.obtenerCategorias()
+      .then(([categorias]) => {
+          res.render('orderToReview', {
+              categorias: categorias,
+              permisos: req.session.permisos || [],
+              path: '/graficas/orderToReview'
+          });
+      })
+      .catch(err => {
+          console.error('Error al cargar la página:', err);
+          res.status(500).send('Error al cargar la página de análisis');
+      });
+};
+
+exports.obtenerResenasContestadasFiltradas = (req, res) => {
+  const { categoria, producto, fechaInicio, fechaFin } = req.query;
+
+  calificacionesModel.obtenerResenasContestadasFiltradas(categoria, producto, fechaInicio, fechaFin)
+    .then(([results]) => {
+      res.json({
+        contestadas: results[0].Contestadas,
+        noContestadas: results[0].No_Contestadas
+      });
+    })
+    .catch((err) => {
+      console.error("Error al obtener las reseñas contestadas y no contestadas filtradas:", err);
+      res.status(500).send("Error al procesar la solicitud");
     });
 };

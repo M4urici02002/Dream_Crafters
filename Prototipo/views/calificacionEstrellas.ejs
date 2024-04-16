@@ -169,9 +169,6 @@
             },
           },
         });
-        $("#numeroResenas").click(function () {
-          window.location.href = "/graficas";
-        });
         function actualizarGrafica() {
           console.log("Actualizando");
           const categoriaSeleccionada = $("#categoriaDropdown").val();
@@ -200,6 +197,15 @@
           "change",
           actualizarGrafica
         );
+        $("#numeroResenas").click(function () {
+          window.location.href = "/graficas";
+        });
+        $("#calificacionEstrellas").click(function () {
+            window.location.href = "/graficas/calificacionEstrellas";
+        });
+        $("#orderToReview").click(function () {
+            window.location.href = "/graficas/orderToReview";
+        });
       });
     </script>
   </div>

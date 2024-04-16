@@ -1,45 +1,43 @@
-<%- include('includes/navbar.ejs') %>
-<%- include('includes/sidebar.ejs') %>
+<%- include('includes/navbar.ejs') %> <%- include('includes/sidebar.ejs') %>
 
 <div class="main p-3">
-
-<div class="container margenresena">
-  <form action="/resena" method="get">
-    <select name="categoria" class="form-select d-inline-block categorias" aria-label="Small select example" id="productoDropdown">
+  <div class="container margenresena">
+    <form action="/resena" method="get">
+      <select
+        name="categoria"
+        class="form-select d-inline-block categorias"
+        aria-label="Small select example"
+        id="productoDropdown"
+      >
         <option value="">Todas las reseñas</option>
         <option value="Almohadas">Almohadas</option>
         <option value="Colchon">Colchon</option>
         <option value="General">General</option>
         <option value="Maletas">Maletas</option>
         <option value="Sabanas">Sábanas</option>
-    </select>
-    <button class="btn btn-dark d-inline-block" type="submit">Filtrar</button>
-  </form>
-</div>
-
+      </select>
+      <button class="btn btn-dark d-inline-block" type="submit">Filtrar</button>
+    </form>
+  </div>
 
   <div class="container">
     <div class="col">
       <% for (let re of resena) { %>
-        <div class="card">
-          <div class="card-header">
-            <%= re.Descripcion %>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title"><%= re.Titulo %></h5>
-            <p class="card-text">
-              <% for (let i = 0; i < re.Rating; i++) { %>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-              <% } %>
-              <% for (let i = re.Rating; i < 5; i++) { %>
-                <i class="far fa-star" style="color: #FFD43B;"></i>
-              <% } %>
-            </p>
-            <p class="card-text"><%= re.Correo %></p>
-            <p class="card-text"><%= re.FechaContestacion %></p>
-
-          </div>
+      <div class="card">
+        <div class="card-header"><%= re.Descripcion %></div>
+        <div class="card-body">
+          <h5 class="card-title"><%= re.Titulo %></h5>
+          <p class="card-text">
+            <% for (let i = 0; i < re.Rating; i++) { %>
+            <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+            <% } %> <% for (let i = re.Rating; i < 5; i++) { %>
+            <i class="far fa-star" style="color: #ffd43b"></i>
+            <% } %>
+          </p>
+          <p class="card-text"><%= re.Correo %></p>
+          <p class="card-text"><%= re.FechaContestacion %></p>
         </div>
+      </div>
       <% } %>
     </div>
   </div>

@@ -27,4 +27,22 @@ router.get(
   graficasController.obtenerCalificacionesFiltradas
 );
 
+router.get(
+  "/orderToReview",
+  isAuth,
+  graficasController.showOrderToReview
+);
+
+router.get(
+  "/obtenerReseñasContestadas",
+  isAuth,
+  graficasController.obtenerResenasContestadas
+);
+
+router.get(
+  "/obtenerResenasContestadasFiltradas",
+  isAuth,
+  graficasController.obtenerResenasContestadasFiltradas
+);
+
 module.exports = router;
