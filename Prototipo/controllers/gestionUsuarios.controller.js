@@ -9,6 +9,7 @@ exports.get_usuarioRegistrado =  (request, response, next) => {
             usuarioRegistrado: users,
             permisos: request.session.permisos || [],
             csrfToken: request.csrfToken(),
+            mensaje: request.session.mensaje || "",
         });
     }).catch((error) => {
             console.log(error);

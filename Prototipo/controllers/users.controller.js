@@ -122,6 +122,7 @@ exports.get_modificarUsuario = (request, response, next) => {
           csrfToken: request.csrfToken(),
           permisos: request.session.permisos || [],
           roles: roles,
+          mensaje: request.session.mensaje || "",
           // Pasar la información del usuario que se va a editar
           usuario: usuarios[0], // Tomar el primer elemento del arreglo de usuarios (asumiendo que fetchOne devuelve solo uno)
     
@@ -136,7 +137,11 @@ exports.post_modificarUsuario = (request, response, next) => {
   Usuario.update(request.body.username, request.body.nombre, request.body.idrol)
     .then(([rows, fieldData]) => {
       // Redirigir al usuario de vuelta a la gestión de usuarios una vez que la actualización se complete con éxito
+      
+      request.session.mensaje="Se ha modificado"
+      
       response.redirect("/gestionUsuarios");
+
     })
     .catch((error) => {
       console.log(error);
