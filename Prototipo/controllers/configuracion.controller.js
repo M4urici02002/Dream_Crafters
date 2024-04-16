@@ -15,6 +15,7 @@ exports.post_configuracion = (request, response, next) => {
 
     // Verificar que la contraseña nueva y la confirmación coincidan
     if (newPassword !== confirmPassword) {
+        console.log(newPassword, " + ", confirmPassword);
         return console.log('La nueva contraseña y la confirmación no coinciden');
     }
 

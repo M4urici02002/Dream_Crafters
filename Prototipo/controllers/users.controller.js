@@ -145,7 +145,8 @@ exports.get_modificarContrasena = (request, response, next) => {
 
 exports.post_modificarConstrasena = (request, response, next) => {
     const username = request.body.username;
-    const newPassword = request.body.password; // Nueva contraseña ingresada por el usuario
+    const newPassword = request.body.password; // Nueva contraseña ingresada por el 
+    const confirmPassword = request.body.confirmPassword;
 
     // Lógica para actualizar la contraseña del usuario en la base de datos
     Usuario.updatePassword(username, newPassword)
