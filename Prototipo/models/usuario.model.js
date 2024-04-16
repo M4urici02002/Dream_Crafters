@@ -23,7 +23,16 @@ module.exports = class Usuario {
         });
     }
     static fetchAll() {
-        return db.execute('Select * from usuario')
+        return db.execute('Select * from usuario');
+    }
+
+    static fetchUsuariosConRoles() {
+      return db.execute(`
+        SELECT U.username, U.nombre, rol.nombre AS rol_nombre
+        FROM usuario U
+        JOIN asigna A ON U.username = A.username
+        JOIN rol ON A.idrol = rol.idrol;
+      `);
     }
 
     static fetchOne(username) {
