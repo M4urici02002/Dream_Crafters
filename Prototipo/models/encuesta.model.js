@@ -21,4 +21,19 @@ module.exports = class Encuesta {
       );
     }
   }
+
+  static update(_diasParaEnvio, _IDEncuesta) {
+    return db.execute(
+      `UPDATE Encuesta SET 
+          diasParaEnvio = _diasParaEnvio
+          WHERE IDEncuesta=_IDEncuesta;
+          `,
+      [_diasParaEnvio, _IDEncuesta]
+    );
+  }
+
+  static fetchOne(IDEncuesta) {
+    return db.execute("Select * from Encuesta WHERE IDEncuesta = ?", 
+    [IDEncuesta]);
+  }
 };

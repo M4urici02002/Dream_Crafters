@@ -1,7 +1,7 @@
-const Usuario = require('../models/usuario.model');
-const Rol = require('../models/rol.model');
+const Usuario = require("../models/usuario.model");
+const Rol = require("../models/rol.model");
 
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
 exports.get_login = (request, response, next) => {
   const error = request.session.error || "";
@@ -63,61 +63,67 @@ exports.get_logout = (request, response, next) => {
 };
 
 exports.get_crearUsuario = (request, response, next) => {
-    const error = request.session.error || '';
-    request.session.error = '';
+  const error = request.session.error || "";
+  request.session.error = "";
 
-    // Llamada a fetchAll para obtener roles
-    Rol.fetchAll().then(([roles]) => {
-        response.render('crearUsuario', {
-            username: request.session.username || '',
-            registro: true,
-            csrfToken: request.csrfToken(),
-            error: error,
-            permisos: request.session.permisos || [],
-            roles: roles  // Agrega los roles obtenidos a los datos de la vista
-        });
-    }).catch(err => {
-        console.error('Error fetching roles:', err);
-        response.status(500).send('Error cargando la pagina');
+  // Llamada a fetchAll para obtener roles
+  Rol.fetchAll()
+    .then(([roles]) => {
+      response.render("crearUsuario", {
+        username: request.session.username || "",
+        registro: true,
+        csrfToken: request.csrfToken(),
+        error: error,
+        permisos: request.session.permisos || [],
+        roles: roles, // Agrega los roles obtenidos a los datos de la vista
+      });
+    })
+    .catch((err) => {
+      console.error("Error fetching roles:", err);
+      response.status(500).send("Error cargando la pagina");
     });
 };
 
-
 exports.post_crearUsuario = (request, response, next) => {
-    const nuevo_usuario = new Usuario(
-        request.body.username, request.body.name, request.body.password, request.body.idrol
-    );
-    nuevo_usuario.save()
-        .then(() => {
-            response.redirect('/gestionUsuarios');
-        })
-        .catch((error) => {
-            console.log(error);
-            request.session.error = 'Ese usuario ya existe';
-            response.redirect('/gestionUsuarios/crearUsuario');
-        });
+  const nuevo_usuario = new Usuario(
+    request.body.username,
+    request.body.name,
+    request.body.password,
+    request.body.idrol
+  );
+  nuevo_usuario
+    .save()
+    .then(() => {
+      response.redirect("/gestionUsuarios");
+    })
+    .catch((error) => {
+      console.log(error);
+      request.session.error = "Ese usuario ya existe";
+      response.redirect("/gestionUsuarios/crearUsuario");
+    });
 };
 
 // Modificar usuario
 exports.get_modificarUsuario = (request, response, next) => {
-
-  Rol.fetchAll().then(([roles]) => { 
-    // Buscar el usuario correspondiente en la base de datos utilizando su username
-    return Usuario.fetchOneWithRole(request.params.username)
-      .then(([usuarios, fieldData]) => {
-        response.render("modificarUsuarios", {
-          username: request.session.username || "",
-          csrfToken: request.csrfToken(),
-          permisos: request.session.permisos || [],
-          roles: roles,
-          // Pasar la información del usuario que se va a editar
-          usuario: usuarios[0], // Tomar el primer elemento del arreglo de usuarios (asumiendo que fetchOne devuelve solo uno)
-    
-        });
-      });
-  }).catch((error) => {
+  Rol.fetchAll()
+    .then(([roles]) => {
+      // Buscar el usuario correspondiente en la base de datos utilizando su username
+      return Usuario.fetchOneWithRole(request.params.username).then(
+        ([usuarios, fieldData]) => {
+          response.render("modificarUsuarios", {
+            username: request.session.username || "",
+            csrfToken: request.csrfToken(),
+            permisos: request.session.permisos || [],
+            roles: roles,
+            // Pasar la información del usuario que se va a editar
+            usuario: usuarios[0], // Tomar el primer elemento del arreglo de usuarios (asumiendo que fetchOne devuelve solo uno)
+          });
+        }
+      );
+    })
+    .catch((error) => {
       console.log(error);
-  });
+    });
 };
 
 exports.post_modificarUsuario = (request, response, next) => {
@@ -133,15 +139,19 @@ exports.post_modificarUsuario = (request, response, next) => {
 
 exports.post_crearUsuario = (request, response, next) => {
   const nuevo_usuario = new Usuario(
-      request.body.username, request.body.name, request.body.password, request.body.idrol
+    request.body.username,
+    request.body.name,
+    request.body.password,
+    request.body.idrol
   );
-  nuevo_usuario.save()
-      .then(() => {
-          response.redirect('/gestionUsuarios');
-      })
-      .catch((error) => {
-          console.log(error);
-          request.session.error = 'Ese usuario ya existe';
-          response.redirect('/gestionUsuarios/crearUsuario');
-      });
+  nuevo_usuario
+    .save()
+    .then(() => {
+      response.redirect("/gestionUsuarios");
+    })
+    .catch((error) => {
+      console.log(error);
+      request.session.error = "Ese usuario ya existe";
+      response.redirect("/gestionUsuarios/crearUsuario");
+    });
 };
