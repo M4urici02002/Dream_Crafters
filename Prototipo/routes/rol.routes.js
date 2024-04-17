@@ -17,6 +17,7 @@ router.get('/', isAuth, (request, response, next) => {
         csrfToken: request.csrfToken(),
         error: error,
         permisos: request.session.permisos || [],
+        privilegios: request.session.privilegios || '',
     });
 });
 
