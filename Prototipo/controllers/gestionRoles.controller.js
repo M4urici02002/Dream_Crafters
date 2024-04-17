@@ -9,7 +9,7 @@ exports.get_gestionRoles = async (request, response, next) => {
             FROM rol;
         `);
 
-        Rol.fetchAll()
+        Rol.fetchAll() 
         response.render('gestionRoles', {
             rolRegistrado: uroles,
             permisos: request.session.permisos || [],

@@ -19,4 +19,14 @@ module.exports = class Rol {
     static fetchAll() {
         return db.execute('Select * from rol')
     }
+
+
+    static async privilegioAll() {
+        try {
+            const [privilegios] = await db.query('SELECT * FROM privilegio');
+            return privilegios;
+        } catch (error) {
+            throw new Error('Error al obtener los privilegios de la base de datos');
+        }
+    }
 }

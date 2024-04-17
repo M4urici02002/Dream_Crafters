@@ -7,6 +7,9 @@ const isAuth = require('../util/is-auth');
 router.get('/gestionRoles/crearRol', isAuth, rolController.get_crearRol);
 router.post('/gestionRoles/crearRol', isAuth, rolController.post_crearRol);
 
+// Modificar usuario
+
+
 // Agregar respuesta a ruta raiz
 router.get('/', isAuth, (request, response, next) => {
     const error = request.session.error || '';
@@ -17,6 +20,7 @@ router.get('/', isAuth, (request, response, next) => {
         csrfToken: request.csrfToken(),
         error: error,
         permisos: request.session.permisos || [],
+        privilegios: request.session.privilegios || '',
     });
 });
 
