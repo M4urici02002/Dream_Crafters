@@ -46,15 +46,12 @@ exports.post_crearRol = (request, response, next) => { //no
 
 // Eliminar rol
 exports.post_eliminar = (request, response, next) => {
-    console.log("Rol a eliminar:", request.body.nombre); // Corregido para usar "nombre"
-    Rol.eliminar(request.body.nombre)
+    console.log("Rol a eliminar:", request.body.idrol);
+    Rol.eliminar(request.body.idrol)
         .then(() => {
             return Rol.fetchAll();
         }).then(([roles, fieldData]) => {
             return response.status(200).json({roles: roles});
-        }).catch((error) => {
-            console.error('Error al eliminar el rol:', error);
-            return response.status(500).json({ error: 'Error al eliminar el rol' });
-        });
+        }).catch((error) => {console.log(error)})
 };
 
