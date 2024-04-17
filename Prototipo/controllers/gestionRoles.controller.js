@@ -35,7 +35,7 @@ exports.post_crearRol = (request, response, next) => { //no
     const rol = new RolRegistrado(
         request.body.nombreRol,
     );
-
+ 
     rol.save()
         .then(([rows, fieldData]) => {
             response.redirect('/gestionRoles');

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const path = require('path');
-
+ 
 const isAuth = require('../util/is-auth');
 
 const gestionRolesController= require('../controllers/gestionRoles.controller');

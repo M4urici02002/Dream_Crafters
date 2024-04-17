@@ -4,7 +4,7 @@ module.exports = class Rol {
 
     constructor(mi_nombreRol) {
         this.nombreRol = mi_nombreRol;
-    }
+    } 
 
     async save() {
         try {
