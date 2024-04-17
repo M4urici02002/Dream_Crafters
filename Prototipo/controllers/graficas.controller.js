@@ -105,3 +105,50 @@ exports.obtenerResenasContestadasFiltradas = (req, res) => {
       res.status(500).send("Error al procesar la solicitud");
     });
 };
+
+exports.mostrarGraficas = (req, res) => {
+  calificacionesModel.obtenerCategorias()
+    .then(categoriasResult => {
+      res.render("graficas", { // Asegúrate que el nombre del archivo EJS es correcto
+        categorias: categoriasResult[0],
+        permisos: req.session.permisos || []
+      });
+    })
+    .catch(err => {
+      console.error("Error al obtener categorías:", err);
+      res.status(500).send("Error al cargar la página");
+    });
+};
+
+exports.numeroResenas = (req, res,nxt) => {
+  Promise.all([
+    calificacionesModel.obtenerCategorias(),
+    calificacionesModel.obtenerNumeroResenas()
+  ])
+  .then(([categoriasResult, resenasResult]) => {
+    res.render("graficas", { // Asegúrate de que el nombre de la vista sea correcto
+      categorias: categoriasResult[0],
+      resenas: resenasResult[0],
+      permisos: req.session.permisos || [],
+    });
+  })
+  .catch((err) => {
+    console.error("Error al obtener los datos:", err);
+    res.status(500).send("Error al obtener los datos");
+  });
+};
+
+exports.numeroResenasFiltradas = (req, res) => {
+  const { categoria, producto, fechaInicio, fechaFin } = req.query;
+  
+  calificacionesModel.obtenerNumeroResenasFiltradas(categoria, producto, fechaInicio, fechaFin)
+    .then(([resenasFiltradasResult]) => {
+      res.json({
+        datos: resenasFiltradasResult
+      });
+    })
+    .catch((err) => {
+      console.error("Error al obtener reseñas filtradas:", err);
+      res.status(500).send("Error al obtener los datos filtrados");
+    });
+};

@@ -12,7 +12,6 @@ exports.obtenerCategorias = () => {
     "SELECT DISTINCT Categoria FROM Producto ORDER BY Categoria;"
   );
 };
-
 // Función para obtener productos por categoría
 exports.obtenerProductosPorCategoria = (categoria) => {
   return db.execute(
@@ -88,4 +87,38 @@ exports.obtenerResenasContestadasFiltradas = (categoria, producto, fechaInicio, 
   }
 
   return db.execute(query, params);
+};
+
+// Obteniendo el número de todas las reseñas revisadas a lo largo del tiempo
+exports.obtenerNumeroResenas = () => {
+  return db.execute(
+    "SELECT DATE(FechaContestacion) as Fecha, COUNT(*) as TotalResenas FROM Resena WHERE FechaContestacion IS NOT NULL GROUP BY DATE(FechaContestacion) ORDER BY Fecha;"
+  );
+};
+
+exports.obtenerNumeroResenasFiltradas = (categoria, producto, fechaInicio, fechaFin) => {
+  let query = `SELECT DATE(r.FechaContestacion) as Fecha, COUNT(*) as TotalResenas
+                 FROM Resena r
+                 JOIN Producto p ON r.IDProducto = p.IDProducto
+                 WHERE r.FechaContestacion IS NOT NULL`;
+  const params = [];
+
+  if (categoria) {
+    query += " AND p.Categoria = ?";
+    params.push(categoria);
+}
+if (producto) {
+    query += " AND p.Nombre = ?";
+    params.push(producto);
+}
+if (fechaInicio) {
+  query += " AND r.FechaContestacion >= ?";
+  params.push(fechaInicio);
+}
+if (fechaFin) {
+  query += " AND r.FechaContestacion <= ?";
+  params.push(fechaFin);
+}
+
+return db.execute(query, params);
 };

@@ -5,44 +5,56 @@ const graficasController = require("../controllers/graficas.controller");
 
 // Ruta principal de 'graficas'
 router.get("/", isAuth, (request, response, next) => {
-  response.render("graficas", {
-    permisos: request.session.permisos || [],
-  });
+response.render("graficas", {
+permisos: request.session.permisos || [],
+});
 });
 
 // Ruta unificada para calificación por estrellas, categorías y productos
 router.get(
-  "/calificacionEstrellas",
-  isAuth,
-  graficasController.calificacionEstrellas
+"/calificacionEstrellas",
+isAuth,
+graficasController.calificacionEstrellas
 );
 router.get(
-  "/productosPorCategoria",
-  isAuth,
-  graficasController.productosPorCategoria
+"/productosPorCategoria",
+isAuth,
+graficasController.productosPorCategoria
 );
 router.get(
-  "/calificacionesFiltradas",
-  isAuth,
-  graficasController.obtenerCalificacionesFiltradas
+"/calificacionesFiltradas",
+isAuth,
+graficasController.obtenerCalificacionesFiltradas
 );
 
 router.get(
-  "/orderToReview",
-  isAuth,
-  graficasController.showOrderToReview
+"/orderToReview",
+isAuth,
+graficasController.showOrderToReview
 );
 
 router.get(
-  "/obtenerReseñasContestadas",
-  isAuth,
-  graficasController.obtenerResenasContestadas
+"/obtenerReseñasContestadas",
+isAuth,
+graficasController.obtenerResenasContestadas
 );
 
 router.get(
-  "/obtenerResenasContestadasFiltradas",
-  isAuth,
-  graficasController.obtenerResenasContestadasFiltradas
+"/obtenerResenasContestadasFiltradas",
+isAuth,
+graficasController.obtenerResenasContestadasFiltradas
 );
+
+router.get(
+  "/numeroResenas",
+  isAuth,
+  graficasController.numeroResenas
+  );
+
+  router.get(
+    "/numeroResenasFiltradas",
+    isAuth,
+    graficasController.numeroResenasFiltradas
+    );
 
 module.exports = router;
