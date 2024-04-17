@@ -85,7 +85,12 @@
                         </div>
                     `;
                 } else {
-                    alert('Hubo un error al intentar eliminar el rol.');
+                    alert('El rol está asignado a uno o más usuarios y no puede ser eliminado.');
+                    document.getElementById('notification').innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            EROR: El rol "${nombre}" no fue eliminado.
+                        </div>
+                    `;
                 }
             }).catch((error) => {
                 console.error('Error:', error);

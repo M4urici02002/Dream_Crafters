@@ -45,13 +45,28 @@ exports.post_crearRol = (request, response, next) => { //no
 };
 
 // Eliminar rol
-exports.post_eliminar = (request, response, next) => {
-    console.log("Rol a eliminar:", request.body.idrol);
-    Rol.eliminar(request.body.idrol)
-        .then(() => {
-            return Rol.fetchAll();
-        }).then(([roles, fieldData]) => {
-            return response.status(200).json({roles: roles});
-        }).catch((error) => {console.log(error)})
+exports.verificarAsignacion = async (request, response, next) => {
+    const { idrol } = request.body;
+
+    try {
+        // Verificar si el rol tiene asignaciones
+        const totalAsignaciones = await Rol.asignaciones(idrol);
+
+        if (totalAsignaciones > 0) {
+            // Si tiene asignaciones, enviar un mensaje de error
+            console.log('El rol está asignado a uno o más usuarios y no puede ser eliminado.');
+            return response.status(400).json({ error: 'El rol está asignado a uno o más usuarios y no puede ser eliminado.' });
+        } else {
+            // Si no tiene asignaciones, proceder con la eliminación del rol
+            console.log("Rol a eliminar:", request.body.idrol);
+            await Rol.eliminar(idrol);
+
+            return response.status(200).json({ message: 'El rol fue eliminado correctamente.' });
+        }
+
+    } catch (error) {
+        console.error('Error al eliminar el rol:', error);
+        return response.status(500).json({ error: 'Error al eliminar el rol.' });
+    }
 };
 

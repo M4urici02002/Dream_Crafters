@@ -22,4 +22,17 @@ module.exports = class Rol {
     static eliminar(idrol) {
         return db.execute('DELETE FROM rol WHERE idrol = ?', [idrol]);
     }
+
+    static async asignaciones(idrol) {
+        try {
+            const result = await db.query('SELECT COUNT(*) AS total FROM asigna WHERE idrol = ?', [idrol]);
+            const totalAsignaciones = result[0][0].total;
+            console.log(totalAsignaciones);
+            return totalAsignaciones;
+        } catch (error) {
+            console.error('Error al verificar las asignaciones del rol:', error);
+            throw error;
+        }
+    }    
+    
 }
