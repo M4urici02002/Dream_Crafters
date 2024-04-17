@@ -15,8 +15,8 @@
 </form>
 </div>
 
- <% let contadorresenas = 0 %>
-  <div class="container">
+<% let contadorresenas = 0 %>
+<div class="container">
     <div class="col">
       <% for (let re of resena) { %>
         <% contadorresenas += 1 %>
@@ -25,7 +25,10 @@
             <%= re.Descripcion %>
           </div>
           <div class="card-body">
-            <h5 class="card-title"><%= re.Titulo %></h5>
+            <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
+            <i class="fa-regular eye-icon visibility <%= re.Visibilidad ? 'fa-eye' : 'fa-eye-slash' %>" data-reseña-id="<%= re.IDReseña  %>" style="cursor: pointer;"></i>
+            <input type="hidden" name="idReseña" value="<%= re.IDReseña  %>">
+            <h5 class="card-title"><%= re.Titulo %></h5> 
             <p class="card-text">
               <% for (let i = 0; i < re.Rating; i++) { %>
                 <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
@@ -48,21 +51,43 @@
 </div>
 
 <script>
-  document.getElementById('dropdownMenuLink').addEventListener('change', function() {
-    const marcaSeleccionada = this.value;
-    fetch(`/api/categorias?marca=${marcaSeleccionada}`)
-        .then(response => response.json())
-        .then(data => {
-            const select = document.getElementById('productoDropdown');
-            select.innerHTML = '<option value="">Todas las reseñas</option>';
-            data.listaCategorias.forEach(categoria => {
-                select.innerHTML += `<option value="${categoria.Categoria}">${categoria.Categoria}</option>`;
+document.addEventListener("DOMContentLoaded", function() {
+    const eyeIcons = document.querySelectorAll('.eye-icon');
+
+    eyeIcons.forEach(function(eyeIcon) {
+        eyeIcon.addEventListener('click', function() {
+            const reseñaId = eyeIcon.getAttribute('data-reseña-id'); // Obtener el ID de la reseña
+            const isVisible = eyeIcon.classList.contains('fa-eye-slash') ? 1 : 0; 
+            const csrf = document.getElementById('_csrf').value;
+
+            // Enviar la información de visibilidad al servidor mediante una solicitud fetch
+            fetch('/resena/actualizarVisibilidad', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'csrf-token': csrf 
+                },
+                body: JSON.stringify({ reseñaId: reseñaId, isVisible: isVisible })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update visibility.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.message); // Mensaje de éxito
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
-        })
-        .catch(error => console.error('Error al cargar categorías:', error));
+
+            // Alternar las clases del icono del ojo para cambiar su apariencia
+            eyeIcon.classList.toggle('fa-eye');
+            eyeIcon.classList.toggle('fa-eye-slash');
+        });
+    });
 });
-
-
 </script>
 
 <%- include('includes/footer.ejs') %>

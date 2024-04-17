@@ -55,7 +55,7 @@ const categoriaController = require('./controllers/categoria.controller');
 app.use(categoriaController.getCategorias);
 
 const rutasResena = require('./routes/resena.routes');
-app.use('/resena', rutasResena);
+app.use(rutasResena);
 
 const rutasGraficas = require('./routes/graficas.routes');
 app.use('/graficas', rutasGraficas);

@@ -5,6 +5,7 @@ const path = require('path');
 const isAuth = require('../util/is-auth');
 
 const resenaController= require('../controllers/resena.controller');
-router.get('/', isAuth, resenaController.get_resena);
+router.get('/resena', isAuth, resenaController.get_resena);
+router.post('/resena/actualizarVisibilidad', isAuth, resenaController.post_actualizarVisibilidad);
 
 module.exports = router;

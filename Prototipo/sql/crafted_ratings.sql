@@ -39,7 +39,7 @@ CREATE TABLE `asigna` (
 
 LOCK TABLES `asigna` WRITE;
 /*!40000 ALTER TABLE `asigna` DISABLE KEYS */;
-INSERT INTO `asigna` VALUES ('admin',1,'2024-04-04 14:50:14'),('vale',2,'2024-04-03 05:47:39');
+INSERT INTO `asigna` VALUES ('admin',1,'2024-04-04 14:50:14'),('crmPaola',2,'2024-04-17 17:50:15'),('vale',2,'2024-04-03 05:47:39');
 /*!40000 ALTER TABLE `asigna` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,6 +307,7 @@ CREATE TABLE `resena` (
   `Descripcion` varchar(255) DEFAULT NULL,
   `Enviada` tinyint(1) DEFAULT NULL,
   `FechaContestacion` date DEFAULT NULL,
+  `Visibilidad` tinyint DEFAULT NULL,
   PRIMARY KEY (`IDReseña`),
   KEY `IDEncuesta` (`IDEncuesta`),
   KEY `IDProducto` (`IDProducto`),
@@ -323,7 +324,7 @@ CREATE TABLE `resena` (
 
 LOCK TABLES `resena` WRITE;
 /*!40000 ALTER TABLE `resena` DISABLE KEYS */;
-INSERT INTO `resena` VALUES (1,1,'AN1133V',1,'Buen precio',5,'ReseÃ±a del colchÃ³n Luuna original',1,'2023-10-20'),(2,6,'SH7003',2,'No me gisto',1,'Feedback de Sabanas Lunna',1,'2023-12-09'),(3,2,'MA0012',3,'Buena maleta',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',1,'2023-09-27'),(4,4,'AN1134VCH',4,'Incomoda',3,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',1,'2024-04-15'),(5,7,'SI1003',4,'Muy relajante',5,'Feedback de  Lunna Signature',1,'2023-07-31'),(6,9,'MA4003',5,'Muy resistente',5,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',1,'2023-11-18'),(7,10,'AN1133V',6,'Muy comoda y fresca',5,'Dinos tu opinion sobre tu almohada Luuna',1,'2024-01-25'),(8,2,'LU1003B2',7,'Esta muy fresco',5,'Dinos tu opinion sobre tu colchon Luuna',1,'2023-05-14'),(9,3,'SH7003',8,'Suaves ',5,'Dinos tu opinion sobre tu sabana Luuna',1,'2023-08-09'),(10,5,'MA0014',2,'Resistentes',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-GREEO!',1,'2023-05-14'),(11,NULL,'LB3231',1,'Increíble Comodidad',5,'Nunca había dormido mejor.',1,'2023-10-20'),(12,NULL,'MA4012',5,'Expectativas superadas',4,'Buena calidad a buen precio.',1,'2023-10-20'),(13,NULL,'NP6323',2,'Buen soporte',4,'Perfecto para mi espalda.',1,'2023-10-20'),(14,NULL,'MA0016',3,'Color perfecto',3,'Exactamente lo que quería.',1,'2023-10-20'),(15,NULL,'LB2231',4,'Entrega rápida',1,'Llegó antes de lo esperado.',1,'2023-10-20'),(16,NULL,'MA0017',6,'Fácil de armar',5,'Instrucciones claras y sencillas.',1,'2023-10-20'),(17,NULL,'NP6321',7,'Justo lo necesario',4,'Cumple con su propósito.',1,'2023-10-20'),(18,NULL,'SI1003',8,'Calidad promedio',3,'Es bueno, pero podría mejorar.',0,'2023-10-20'),(19,NULL,'AN1133V',9,'Satisface las necesidades',4,'Hace lo que dice.',1,'2023-10-20'),(20,NULL,'LU1001B2',10,'Mejor de lo esperado',5,'Gran calidad y precio.',1,'2023-10-20'),(21,NULL,'LU1002B2',11,'Muy cómodo',5,'Ideal para el descanso diario.',1,'2023-10-20'),(22,NULL,'LU1003B2',12,'Duradero y resistente',4,'Ha aguantado muy bien.',1,'2023-10-20'),(23,NULL,'LU1004B2',13,'Estilo moderno',5,'Complementa mi habitación.',1,'2023-10-20'),(24,NULL,'MA0012',14,'Fácil limpieza',4,'No requiere mucho mantenimiento.',1,'2023-10-20'),(25,NULL,'MA0013',15,'Agradable al tacto',1,'Materiales de primera.',1,'2023-10-20'),(26,NULL,'MA0014',16,'Entrega lenta',2,'Tardó más de lo anunciado.',0,'2023-10-20'),(27,NULL,'MA0015',17,'Precio justo',4,'Vale cada centavo.',1,'2023-10-20'),(28,NULL,'SI1004',18,'No es lo que esperaba',2,'Decepcionado con el producto.',0,'2023-10-20'),(29,NULL,'AN1133VCH',19,'Excelente para regalo',5,'Fue un regalo y le encantó.',1,'2023-10-20'),(30,NULL,'AN1134VCH',20,'Buen servicio al cliente',4,'Resolvieron mis dudas rápido.',1,'2023-10-20'),(31,NULL,'SH7003',21,'Recomendado',2,'Lo compraría de nuevo sin dudarlo.',1,'2023-10-20'),(32,NULL,'LB1231',22,'Mejorable',3,'Bueno, pero hay mejores opciones.',1,'2023-10-20'),(33,NULL,'NP6324',23,'Sobresaliente',2,'Excedió mis expectativas.',1,'2023-10-20'),(34,NULL,'MA4003',24,'No muy resistente',1,'Se dañó relativamente rápido.',0,'2023-10-20'),(35,NULL,'MA4012',25,'Justo y necesario',4,'Satisfecho con la compra.',1,'2023-10-20');
+INSERT INTO `resena` VALUES (1,1,'AN1133V',1,'Buen precio',5,'ReseÃ±a del colchÃ³n Luuna original',1,'2023-10-20',1),(2,6,'SH7003',2,'No me gisto',1,'Feedback de Sabanas Lunna',1,'2023-12-09',1),(3,2,'MA0012',3,'Buena maleta',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-CHAR!',1,'2023-09-27',1),(4,4,'AN1134VCH',4,'Incomoda',3,'Â¡Queremos tu opinion sobre Almohadas Nooz Essential de Microfibra-KING!',1,'2024-04-15',1),(5,7,'SI1003',4,'Muy relajante',5,'Feedback de  Lunna Signature',1,'2023-07-31',0),(6,9,'MA4003',5,'Muy resistente',5,'Has comprado recientemente Master maleta Mappa Hard Shell Lote-SAN-GRA Â¿nos cuentas tu experiencia?',1,'2023-11-18',1),(7,10,'AN1133V',6,'Muy comoda y fresca',5,'Dinos tu opinion sobre tu almohada Luuna',1,'2024-01-25',1),(8,2,'LU1003B2',7,'Esta muy fresco',5,'Dinos tu opinion sobre tu colchon Luuna',1,'2023-05-14',0),(9,3,'SH7003',8,'Suaves ',5,'Dinos tu opinion sobre tu sabana Luuna',1,'2023-08-09',1),(10,5,'MA0014',2,'Resistentes',5,'Â¡Queremos tu opinion sobre Kit Cabina + Cabina Lote-GREEO!',1,'2023-05-14',1),(11,NULL,'LB3231',1,'Increíble Comodidad',5,'Nunca había dormido mejor.',1,'2023-10-20',1),(12,NULL,'MA4012',5,'Expectativas superadas',4,'Buena calidad a buen precio.',1,'2023-10-20',1),(13,NULL,'NP6323',2,'Buen soporte',4,'Perfecto para mi espalda.',1,'2023-10-20',1),(14,NULL,'MA0016',3,'Color perfecto',3,'Exactamente lo que quería.',1,'2023-10-20',1),(15,NULL,'LB2231',4,'Entrega rápida',1,'Llegó antes de lo esperado.',1,'2023-10-20',1),(16,NULL,'MA0017',6,'Fácil de armar',5,'Instrucciones claras y sencillas.',1,'2023-10-20',1),(17,NULL,'NP6321',7,'Justo lo necesario',4,'Cumple con su propósito.',1,'2023-10-20',1),(18,NULL,'SI1003',8,'Calidad promedio',3,'Es bueno, pero podría mejorar.',0,'2023-10-20',1),(19,NULL,'AN1133V',9,'Satisface las necesidades',4,'Hace lo que dice.',1,'2023-10-20',1),(20,NULL,'LU1001B2',10,'Mejor de lo esperado',5,'Gran calidad y precio.',1,'2023-10-20',1),(21,NULL,'LU1002B2',11,'Muy cómodo',5,'Ideal para el descanso diario.',1,'2023-10-20',1),(22,NULL,'LU1003B2',12,'Duradero y resistente',4,'Ha aguantado muy bien.',1,'2023-10-20',1),(23,NULL,'LU1004B2',13,'Estilo moderno',5,'Complementa mi habitación.',1,'2023-10-20',1),(24,NULL,'MA0012',14,'Fácil limpieza',4,'No requiere mucho mantenimiento.',1,'2023-10-20',1),(25,NULL,'MA0013',15,'Agradable al tacto',1,'Materiales de primera.',1,'2023-10-20',1),(26,NULL,'MA0014',16,'Entrega lenta',2,'Tardó más de lo anunciado.',0,'2023-10-20',1),(27,NULL,'MA0015',17,'Precio justo',4,'Vale cada centavo.',1,'2023-10-20',1),(28,NULL,'SI1004',18,'No es lo que esperaba',2,'Decepcionado con el producto.',0,'2023-10-20',1),(29,NULL,'AN1133VCH',19,'Excelente para regalo',5,'Fue un regalo y le encantó.',1,'2023-10-20',1),(30,NULL,'AN1134VCH',20,'Buen servicio al cliente',4,'Resolvieron mis dudas rápido.',1,'2023-10-20',1),(31,NULL,'SH7003',21,'Recomendado',2,'Lo compraría de nuevo sin dudarlo.',1,'2023-10-20',1),(32,NULL,'LB1231',22,'Mejorable',3,'Bueno, pero hay mejores opciones.',1,'2023-10-20',1),(33,NULL,'NP6324',23,'Sobresaliente',2,'Excedió mis expectativas.',1,'2023-10-20',1),(34,NULL,'MA4003',24,'No muy resistente',1,'Se dañó relativamente rápido.',0,'2023-10-20',1),(35,NULL,'MA4012',25,'Justo y necesario',4,'Satisfecho con la compra.',1,'2023-10-20',1);
 /*!40000 ALTER TABLE `resena` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -368,7 +369,7 @@ CREATE TABLE `rol` (
   `nombre` varchar(40) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idrol`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -402,7 +403,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('admin','admin','$2a$12$8kwQg610II8DIGb.9g595.AA3PdwmrHJPDcPBFJFK3qLz/tqWmc/O'),('vale','Valeria Zuniga','hola1234');
+INSERT INTO `usuario` VALUES ('admin','admin','$2a$12$8kwQg610II8DIGb.9g595.AA3PdwmrHJPDcPBFJFK3qLz/tqWmc/O'),('crmPaola','Soy CRM','$2a$12$KN3sBhfGSJWnRWHbL3ywzeHBI.A5LnQeO3zn.hXH5R0VrJHB.ObiK'),('vale','Valeria Zuniga','hola1234');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -497,30 +498,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `ObtenerPermisosUsuario` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerPermisosUsuario`(
-    IN _username VARCHAR(255)
-)
-BEGIN
-    SELECT pr.permiso
-    FROM privilegio pr, posee po, rol r, asigna a, usuario u
-    WHERE u.username = _username AND u.username = a.username
-    AND a.idrol = r.idrol AND r.idrol = po.idrol AND po.idprivilegio = pr.idprivilegio;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -531,4 +508,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-15 12:02:46
+-- Dump completed on 2024-04-17 11:51:24

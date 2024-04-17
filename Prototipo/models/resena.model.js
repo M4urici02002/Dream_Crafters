@@ -3,7 +3,7 @@ const db = require('../util/database');
 module.exports = class Resena {
 
     //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
-    constructor(mi_IDEncuesta, mi_IDProducto, mi_IDCliente, mi_Titulo, mi_Rating, mi_Descripcion,mi_Enviada,mi_FechaContestacion) {
+    constructor(mi_IDEncuesta, mi_IDProducto, mi_IDCliente, mi_Titulo, mi_Rating, mi_Descripcion,mi_Enviada,mi_FechaContestacion, mi_Visibilidad) {
         this.IDEncuesta = mi_IDEncuesta;
         this.IDProducto = mi_IDProducto;
         this.IDCliente = mi_IDCliente;
@@ -12,9 +12,9 @@ module.exports = class Resena {
         this.Descripcion = mi_Descripcion;
         this.Enviada = mi_Enviada;
         this.FechaContestacion = mi_FechaContestacion;
+        this.Visibilidad = mi_Visibilidad;
     }
     // En tu modelo de Reseña (Resena.model.js o similar)
-
     static fetchAll(categoria = null, nombreMarca = null) {
         let query = `
             SELECT r.*, p.Nombre as NombreProducto, c.Correo, m.Nombre as NombreMarca
@@ -42,6 +42,13 @@ module.exports = class Resena {
         }
     
         return db.execute(query, params);
+    }
+
+    static updateVisibility(reseñaId, isVisible) {
+        return db.execute(
+            'UPDATE resena SET Visibilidad = ? WHERE IDReseña = ?', 
+            [isVisible, reseñaId]
+        );
     }
     
 }
