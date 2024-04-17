@@ -9,7 +9,14 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 550;
     font-size: 18px;
+    display: flex;
+    justify-content: space-between;
 }
+
+.visibility {
+    float: right;
+    margin-right: 30px;
+  }
 
 .card-text {
     font-family: 'Montserrat', sans-serif;

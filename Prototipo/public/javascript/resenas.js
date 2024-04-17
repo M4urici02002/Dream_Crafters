@@ -12,3 +12,4 @@ document.addEventListener("DOMContentLoaded", function() {
       sessionStorage.setItem('categoriaSeleccionada', this.value);
     });
 });
+
