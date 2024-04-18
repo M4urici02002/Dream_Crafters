@@ -1,0 +1,180 @@
+<%- include('includes/navbar.ejs') %> <%- include('includes/sidebar.ejs') %>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  rel="stylesheet"
+/>
+
+<div class="main p-3">
+  <div class="container graficas">
+    <div class="btn-group d-flex" role="group" aria-label="Menu de gráficas">
+      <button type="button" id="numeroResenas" class="btn btn-light flex-fill">
+        Número de reseñas
+      </button>
+      <button
+        type="button"
+        id="calificacionEstrellas"
+        class="btn btn-light flex-fill"
+      >
+        Calificación de estrellas
+      </button>
+      <button
+        type="button"
+        id="orderToReview"
+        class="btn btn-light active flex-fill"
+      >
+        Order to review
+      </button>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-sm-4">
+        <select
+          class="form-select form-select-sm"
+          aria-label="Small select example"
+          id="categoriaDropdown"
+        >
+          <option value="">Seleccione una categoría</option>
+          <% categorias.forEach(categoria => { %>
+          <option value="<%= categoria.Categoria %>">
+            <%= categoria.Categoria %>
+          </option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <select class="form-select form-select-sm" id="productoDropdown">
+          <option value="">Todos los productos</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <div id="date-range-container" class="container">
+          <div class="row no-gutters" id="formsFechasInicioFin">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="start-date"
+                  name="start-date"
+                  class="form-control"
+                  placeholder="Fecha de Inicio"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="end-date"
+                  name="end-date"
+                  class="form-control"
+                  placeholder="Fecha de fin"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12" style="width: 100%; height: 400px">
+        <canvas id="orderToReviewGrafica"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#start-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
+    $("#end-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
+
+    $("#categoriaDropdown").change(function () {
+      const categoriaSeleccionada = $(this).val();
+      fetch(
+        `http://146.190.155.149//graficas/productosPorCategoria?categoria=${categoriaSeleccionada}`
+      )
+        .then((response) => response.json())
+        .then((productos) => {
+          const productoDropdown = $("#productoDropdown");
+          productoDropdown
+            .empty()
+            .append(
+              '<option value="">Todos los productos</option>'
+            );
+          productos.forEach((producto) => {
+            productoDropdown.append(
+              `<option value="${producto.Nombre}">${producto.Nombre}</option>`
+            );
+          });
+        });
+    });
+    const datos = JSON.parse(
+          "<%= JSON.stringify(datos) %>"
+        );
+          console.log(datos)
+    const ctx = document
+    .getElementById("orderToReviewGrafica")
+    .getContext("2d");
+    const surveyChart = new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: ["Respondida", "No Respondida"],
+        datasets: [
+          {
+            data: datos,
+            backgroundColor: ["#61366E", "#FFCD00"],
+            borderColor: ["#61366E", "#FFCD00"],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: { responsive: true, maintainAspectRatio: false },
+    });
+
+    function actualizarGraficaResenas() {
+      console.log("Actualizando Gráfica de Reseñas");
+      const categoriaSeleccionada = $("#categoriaDropdown").val();
+      const productoSeleccionado = $("#productoDropdown").val().replace("+","%2B");
+      const fechaInicio = $("#start-date").val();
+      const fechaFin = $("#end-date").val();
+      fetch(
+        `http://146.190.155.149//graficas/obtenerResenasContestadasFiltradas?categoria=${categoriaSeleccionada}&producto=${productoSeleccionado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          surveyChart.data.datasets[0].data = [
+            data.contestadas,
+            data.noContestadas,
+          ];
+          surveyChart.update();
+        })
+        .catch((error) =>
+          console.error("Error al actualizar la gráfica de reseñas:", error)
+        );
+    }
+
+    $("#categoriaDropdown, #productoDropdown, #start-date, #end-date").on('change',
+      actualizarGraficaResenas
+    );
+    $("#numeroResenas").click(function () {
+      window.location.href = "/graficas";
+    });
+    $("#calificacionEstrellas").click(function () {
+      window.location.href = "/graficas/calificacionEstrellas";
+    });
+    $("#orderToReview").click(function () {
+      window.location.href = "/graficas/orderToReview";
+    });
+  });
+</script>
+<%- include('includes/footer.ejs') %>

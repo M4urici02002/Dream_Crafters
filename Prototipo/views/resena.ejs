@@ -1,11 +1,14 @@
-<%- include('includes/navbar.ejs') %>
-<%- include('includes/sidebar.ejs') %>
+<%- include('includes/navbar.ejs') %> <%- include('includes/sidebar.ejs') %>
 
 <div class="main p-3">
-
-<div class="container margenresena">
-  <form action="/resena" method="get">
-    <select name="categoria" class="form-select d-inline-block categorias" aria-label="Small select example" id="productoDropdown">
+  <div class="container margenresena">
+    <form action="/resena" method="get">
+      <select
+        name="categoria"
+        class="form-select d-inline-block categorias"
+        aria-label="Small select example"
+        id="productoDropdown"
+      >
         <option value="">Todas las reseñas</option>
         <% listaCategorias.forEach(categoria => { %>
             <option value="<%= categoria.Categoria %>"><%= categoria.Categoria %></option>
@@ -91,3 +94,4 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <%- include('includes/footer.ejs') %>
+

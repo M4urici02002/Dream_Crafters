@@ -110,7 +110,7 @@
         $("#categoriaDropdown").on("change", function () {
           const categoriaSeleccionada = $(this).val();
           fetch(
-            `http://localhost:3000/graficas/productosPorCategoria?categoria=${categoriaSeleccionada}`
+            `http://146.190.155.149//graficas/productosPorCategoria?categoria=${categoriaSeleccionada}`
           )
             .then((data) => data.json())
             .then((data) => {
@@ -169,26 +169,25 @@
             },
           },
         });
-        $("#numeroResenas").click(function () {
-          window.location.href = "/graficas";
-        });
         function actualizarGrafica() {
           console.log("Actualizando");
           const categoriaSeleccionada = $("#categoriaDropdown").val();
-          const productoSeleccionado = $("#productoDropdown").val();
+          const productoSeleccionado = $("#productoDropdown").val().replace("+","%2B");
           const fechaInicio = $("#start-date").val();
           const fechaFin = $("#end-date").val();
 
           fetch(
-            `http://localhost:3000/graficas/calificacionesFiltradas?categoria=${categoriaSeleccionada}&producto=${productoSeleccionado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+            `http://146.190.155.149//graficas/calificacionesFiltradas?categoria=${categoriaSeleccionada}&producto=${productoSeleccionado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
           )
             .then((response) => response.json())
             .then((data) => {
               const updatedLabels = data.map((d) => `${d.rating} estrellas`);
               const updatedData = data.map((d) => d.cantidad);
+              console.log(updatedData);
+              console.log(data);
 
               chartEstrellas.data.labels = updatedLabels;
-              chartEstrellas.data.datasets.data = updatedData;
+              chartEstrellas.data.datasets[0].data = updatedData;
               chartEstrellas.update();
             })
             .catch((error) =>
@@ -200,6 +199,15 @@
           "change",
           actualizarGrafica
         );
+        $("#numeroResenas").click(function () {
+          window.location.href = "/graficas";
+        });
+        $("#calificacionEstrellas").click(function () {
+            window.location.href = "/graficas/calificacionEstrellas";
+        });
+        $("#orderToReview").click(function () {
+            window.location.href = "/graficas/orderToReview";
+        });
       });
     </script>
   </div>
