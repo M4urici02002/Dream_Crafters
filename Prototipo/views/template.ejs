@@ -51,6 +51,15 @@
                     <option>Otro</option>
                 </select>
             </div>
+
+            <!-- INSERTAR AQUI -->
+            <!-- INSERTAR AQUI -->
+            <div class="preguntas-agregadas">
+                <h2>Preguntas Agregadas:</h2>
+                <ul id="listaPreguntas"></ul>
+            </div>
+
+
             <div class="btn-template">
                 <button type="submit" class="btn btn-dark">Enviar</button>
             </div>
@@ -72,10 +81,10 @@
                     <!-- En tu vista agregarPregunta.ejs -->
                     <p>IDEncuesta: <%= IDEncuesta %></p>
         
-                    <label for="inputUsuario" class="form-label label-crearUsuario preguntas">Preguntas</label>
-                    <select id="inputUsuario" class="form-control input-crearUsuario preguntas-input" name="rol">
+                    <label for="inputPregunta" class="form-label label-crearUsuario preguntas">Preguntas</label>
+                    <select id="inputPregunta" class="form-control input-crearUsuario preguntas-input" name="rol">
                     <% preguntas.forEach(pregunta => { %>
-                        <option value="<%= pregunta.IDPregunta %>">
+                    <option value='<%= pregunta.IDPregunta %>'>
                             <%= pregunta.Descripcion %>
                         </option>
                      <% }); %>
@@ -109,4 +118,38 @@
             window.location.href = "/graficas";
         } 
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // Arreglo para almacenar las preguntas agregadas dinámicamente
+    let preguntasAgregadas = [];
+
+    // Selector del formulario para agregar preguntas
+    const formularioAgregarPregunta = document.querySelector('.crearUsuario');
+
+    // Selector del contenedor de preguntas agregadas
+    const contenedorPreguntasAgregadas = document.querySelector('.preguntas-agregadas ul');
+
+    // Manejador de evento para agregar pregunta
+    formularioAgregarPregunta.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Obtener el valor seleccionado del dropdown
+        const preguntaSeleccionada = document.querySelector('#inputPregunta');
+        console.log(preguntaSeleccionada)
+        // Agregar la pregunta al arreglo
+        preguntasAgregadas.push(preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text);
+
+        // Limpiar el dropdown para evitar confusiones
+        document.querySelector('#inputPregunta').selectedIndex = 0;
+
+        // Actualizar el contenido del contenedor de preguntas agregadas
+        contenedorPreguntasAgregadas.innerHTML = preguntasAgregadas.map(pregunta => `<li>${pregunta}</li>`).join('');
+
+        // Opcional: Mostrar mensaje de éxito o realizar otras acciones
+        console.log('Pregunta agregada:', preguntaSeleccionada);
+        console.log('Preguntas agregadas:', preguntasAgregadas);
+    });
+});
+
+
 </script>
