@@ -47,7 +47,7 @@
       </div>
       <div class="col-sm-4">
         <select class="form-select form-select-sm" id="productoDropdown">
-          <option value="todosProductos">Todos los productos</option>
+          <option value="">Todos los productos</option>
         </select>
       </div>
       <div class="col-sm-4">
@@ -108,7 +108,7 @@
           productoDropdown
             .empty()
             .append(
-              '<option value="todosProductos">Todos los productos</option>'
+              '<option value="">Todos los productos</option>'
             );
           productos.forEach((producto) => {
             productoDropdown.append(
@@ -117,7 +117,10 @@
           });
         });
     });
-
+    const datos = JSON.parse(
+          "<%= JSON.stringify(datos) %>"
+        );
+          console.log(datos)
     const ctx = document
     .getElementById("orderToReviewGrafica")
     .getContext("2d");
@@ -127,7 +130,7 @@
         labels: ["Respondida", "No Respondida"],
         datasets: [
           {
-            data: [0, 0],
+            data: datos,
             backgroundColor: ["#61366E", "#FFCD00"],
             borderColor: ["#61366E", "#FFCD00"],
             borderWidth: 1,
@@ -140,7 +143,7 @@
     function actualizarGraficaResenas() {
       console.log("Actualizando Gráfica de Reseñas");
       const categoriaSeleccionada = $("#categoriaDropdown").val();
-      const productoSeleccionado = $("#productoDropdown").val();
+      const productoSeleccionado = $("#productoDropdown").val().replace("+","%2B");
       const fechaInicio = $("#start-date").val();
       const fechaFin = $("#end-date").val();
       fetch(
@@ -148,6 +151,7 @@
       )
         .then((response) => response.json())
         .then((data) => {
+          console.log(data)
           surveyChart.data.datasets[0].data = [
             data.contestadas,
             data.noContestadas,

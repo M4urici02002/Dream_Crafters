@@ -172,7 +172,7 @@
         function actualizarGrafica() {
           console.log("Actualizando");
           const categoriaSeleccionada = $("#categoriaDropdown").val();
-          const productoSeleccionado = $("#productoDropdown").val();
+          const productoSeleccionado = $("#productoDropdown").val().replace("+","%2B");
           const fechaInicio = $("#start-date").val();
           const fechaFin = $("#end-date").val();
 
@@ -183,9 +183,11 @@
             .then((data) => {
               const updatedLabels = data.map((d) => `${d.rating} estrellas`);
               const updatedData = data.map((d) => d.cantidad);
+              console.log(updatedData);
+              console.log(data);
 
               chartEstrellas.data.labels = updatedLabels;
-              chartEstrellas.data.datasets.data = updatedData;
+              chartEstrellas.data.datasets[0].data = updatedData;
               chartEstrellas.update();
             })
             .catch((error) =>

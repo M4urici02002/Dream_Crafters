@@ -81,7 +81,7 @@ exports.obtenerResenasContestadasFiltradas = (categoria, producto, fechaInicio, 
       query += " AND r.FechaContestacion >= ?";
       params.push(fechaInicio);
   }
-  if (fechaFin) {
+  if (fechaFin) { 
       query += " AND r.FechaContestacion <= ?";
       params.push(fechaFin);
   }

@@ -5,9 +5,7 @@ const graficasController = require("../controllers/graficas.controller");
 
 // Ruta principal de 'graficas'
 router.get("/", isAuth, (request, response, next) => {
-response.render("graficas", {
-permisos: request.session.permisos || [],
-});
+response.redirect("/graficas/numeroResenas")
 });
 
 // Ruta unificada para calificación por estrellas, categorías y productos
@@ -46,7 +44,7 @@ graficasController.obtenerResenasContestadasFiltradas
 );
 
 router.get(
-  "/numeroResenas",
+  "/numeroResenas", 
   isAuth,
   graficasController.numeroResenas
   );

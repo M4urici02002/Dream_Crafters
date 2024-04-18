@@ -41,6 +41,8 @@ exports.productosPorCategoria = (req, res) => {
 
 exports.obtenerCalificacionesFiltradas = (req, res) => {
   const { categoria, producto, fechaInicio, fechaFin } = req.query;
+  console.log(categoria)
+  console.log(producto)
 
   calificacionesModel
     .obtenerCalificacionesFiltradas(categoria, producto, fechaInicio, fechaFin)
@@ -76,12 +78,15 @@ exports.obtenerResenasContestadas = (req, res) => {
 };
 
 exports.showOrderToReview = (req, res, next) => {
-  calificacionesModel.obtenerCategorias()
-      .then(([categorias]) => {
+  Promise.all([calificacionesModel.obtenerCategorias(), calificacionesModel.resenasContestadas()])
+  
+      .then(([categorias, resenas]) => {
+        console.log(categorias)
           res.render('orderToReview', {
-              categorias: categorias,
+              categorias: categorias[0],
               permisos: req.session.permisos || [],
-              path: '/graficas/orderToReview'
+              path: '/graficas/orderToReview',
+              datos:[Number(resenas[0][0].Contestadas),Number(resenas[0][0].No_Contestadas)]
           });
       })
       .catch(err => {
@@ -92,7 +97,7 @@ exports.showOrderToReview = (req, res, next) => {
 
 exports.obtenerResenasContestadasFiltradas = (req, res) => {
   const { categoria, producto, fechaInicio, fechaFin } = req.query;
-
+  console.log(categoria,producto)
   calificacionesModel.obtenerResenasContestadasFiltradas(categoria, producto, fechaInicio, fechaFin)
     .then(([results]) => {
       res.json({
@@ -103,20 +108,6 @@ exports.obtenerResenasContestadasFiltradas = (req, res) => {
     .catch((err) => {
       console.error("Error al obtener las reseñas contestadas y no contestadas filtradas:", err);
       res.status(500).send("Error al procesar la solicitud");
-    });
-};
-
-exports.mostrarGraficas = (req, res) => {
-  calificacionesModel.obtenerCategorias()
-    .then(categoriasResult => {
-      res.render("graficas", { // Asegúrate que el nombre del archivo EJS es correcto
-        categorias: categoriasResult[0],
-        permisos: req.session.permisos || []
-      });
-    })
-    .catch(err => {
-      console.error("Error al obtener categorías:", err);
-      res.status(500).send("Error al cargar la página");
     });
 };
 
@@ -135,7 +126,7 @@ exports.numeroResenas = (req, res,nxt) => {
   .catch((err) => {
     console.error("Error al obtener los datos:", err);
     res.status(500).send("Error al obtener los datos");
-  });
+  }); 
 };
 
 exports.numeroResenasFiltradas = (req, res) => {
