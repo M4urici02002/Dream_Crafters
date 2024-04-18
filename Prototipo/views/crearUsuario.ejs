@@ -31,8 +31,26 @@
         <div class="btn-formUsuario">
             <button type="submit" class="btn btn-dark">Enviar</button>
         </div>
+        <div id="messageContainer" style="display: none;" class="alert alert-info">
+        </div>
       </form>
   </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const form = document.querySelector('.crearUsuario');
+      form.addEventListener('submit', function(event) {
+          event.preventDefault(); // Evita el envío inmediato del formulario
+
+          const messageContainer = document.getElementById('messageContainer');
+          messageContainer.innerText = 'Usuario creado exitosamente'; // Establece el mensaje que quieres mostrar
+          messageContainer.style.display = 'block'; // Muestra el contenedor del mensaje
+
+          setTimeout(function() {
+              form.submit(); // Envía el formulario después de 3 segundos
+          }, 3000); // 3000 milisegundos = 3 segundos
+      });
+  });
+</script>
 
 <%- include('includes/footer.ejs') %>
