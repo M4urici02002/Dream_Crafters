@@ -7,6 +7,9 @@ const isAuth = require('../util/is-auth');
 router.get('/gestionRoles/crearRol', isAuth, rolController.get_crearRol);
 router.post('/gestionRoles/crearRol', isAuth, rolController.post_crearRol);
 
+router.get('/gestionRoles/editarRol', isAuth, rolController.get_editarRol);
+router.post('/gestionRoles/editarRol', isAuth, rolController.post_crearRol);
+
 // Agregar respuesta a ruta raiz
 router.get('/', isAuth, (request, response, next) => {
     const error = request.session.error || '';

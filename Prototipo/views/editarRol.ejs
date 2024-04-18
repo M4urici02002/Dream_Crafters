@@ -9,22 +9,15 @@
           <label for="inputNombre" class="form-label label-crearUsuario">Nuevo Nombre</label>
           <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre" placeholder="{{nombreActual}}">
 
-          <label for="inputUsuario" class="form-label label-crearUsuario">Modificar privilegios</label>
+          <label for="inputNombre" class="form-label label-crearUsuario">Modificar Privilegio</label>
           <div id="inputUsuario" class="form-control input-crearUsuario">
-            <div>
-              <input type="checkbox" id="analitico" name="rol" value="Analítico">
-              <label for="analitico">CanView (Puede acceder a la vista, sin modificar)</label>
-            </div>
-            <div>
-              <input type="checkbox" id="administrador" name="rol" value="Administrador">
-              <label for="administrador">CanAdmin (Controlar Usuarios)</label>
-            </div>
-            <div>
-              <input type="checkbox" id="crm" name="rol" value="CRM">
-              <label for="crm">CanCreate (Generar Encuestas)</label>
-            </div>
-          </div>
-
+            <% privilegios.forEach(function(privilegio) { %>
+                <div>
+                    <input type="checkbox" id="<%= privilegio.permiso %>" name="rol" value="<%= privilegio.permiso %>">
+                    <label for="<%= privilegio.permiso %>"><%= privilegio.permiso %></label>
+                </div>
+            <% }); %>
+        </div>
           <label for="listaPrivilegios" class="form-label label-crearUsuario">Privilegios</label>
           <div class="card privilegio">
             <div class="card-body list-group-numbered" id="listaPrivilegios">
@@ -52,7 +45,7 @@
         if (checkbox.checked) {
           const item = document.createElement('li');
           item.classList.add('list-group-item');
-          item.textContent = document.querySelector(`label[for="${checkbox.id}"]`).textContent;
+          item.textContent = checkbox.value;
           lista.appendChild(item);
         }
       });
@@ -63,5 +56,6 @@
     });
   });
 </script>
+
 
 <%- include('includes/footer.ejs') %>

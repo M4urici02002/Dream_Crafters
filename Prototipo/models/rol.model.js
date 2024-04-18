@@ -39,6 +39,7 @@ module.exports = class Rol {
     static async privilegioAll() {
         try {
             const [privilegios] = await db.query('SELECT * FROM privilegio');
+            console.log(privilegios);  // Agregar esta línea para ver la salida
             return privilegios;
         } catch (error) {
             throw new Error('Error al obtener los privilegios de la base de datos');

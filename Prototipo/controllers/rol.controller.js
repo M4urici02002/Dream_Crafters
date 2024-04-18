@@ -8,7 +8,7 @@ exports.get_crearRol = async (request, response, next) => {
             csrfToken: request.csrfToken(),
             error: request.session.error || '',
             permisos: request.session.permisos || [],
-            privilegios: privilegios
+            privilegios: privilegios,
         });
     } catch (error) {
         console.error(error);
@@ -31,4 +31,22 @@ exports.post_crearRol = (request, response, next) => {
             request.session.error = 'Ese rol ya existe';
             response.redirect('/gestionRoles/crearRol');
         });
+};
+
+exports.get_editarRol = async (request, response, next) => {
+    try {
+        const privilegios = await Rol.privilegioAll(); 
+        console.log(privilegios)
+        response.render('editarRol', {  // Usa la vista 'editarRol'
+            nombreRol: request.session.nombreRol || '',
+            csrfToken: request.csrfToken(),
+            error: request.session.error || '',
+            permisos: request.session.permisos || [],
+            privilegios: privilegios,  // Pasa los permisos a la vista
+        });
+    } catch (error) {
+        console.error(error);
+        request.session.error = 'Error al obtener los permisos';
+        response.redirect('/gestionRoles');
+    }
 };
