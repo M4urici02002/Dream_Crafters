@@ -57,7 +57,7 @@ exports.obtenerCalificacionesFiltradas = (
 
 exports.resenasContestadas = () => {
   return db.execute(
-      "SELECT SUM(CASE WHEN FechaContestacion IS NOT NULL THEN 1 ELSE 0 END) AS Contestadas, SUM(CASE WHEN FechaContestacion IS NULL THEN 1 ELSE 0 END) AS No_Contestadas FROM Resena"
+      "SELECT SUM(CASE WHEN FechaContestacion IS NOT NULL THEN 1 ELSE 0 END) AS Contestadas, SUM(CASE WHEN FechaContestacion IS NULL THEN 1 ELSE 0 END) AS No_Contestadas FROM resena"
   );
 };
 
@@ -65,7 +65,7 @@ exports.obtenerResenasContestadasFiltradas = (categoria, producto, fechaInicio, 
   let query = `SELECT
         SUM(CASE WHEN FechaContestacion IS NOT NULL THEN 1 ELSE 0 END) AS Contestadas,
         SUM(CASE WHEN FechaContestacion IS NULL THEN 1 ELSE 0 END) AS No_Contestadas
-    FROM Resena r
+    FROM resena r
     JOIN producto p ON r.IDProducto = p.IDProducto
     WHERE 1=1`;
     let params = [];
@@ -92,13 +92,13 @@ exports.obtenerResenasContestadasFiltradas = (categoria, producto, fechaInicio, 
 // Obteniendo el número de todas las reseñas revisadas a lo largo del tiempo
 exports.obtenerNumeroResenas = () => {
   return db.execute(
-    "SELECT DATE(FechaContestacion) as Fecha, COUNT(*) as TotalResenas FROM Resena WHERE FechaContestacion IS NOT NULL GROUP BY DATE(FechaContestacion) ORDER BY Fecha;"
+    "SELECT DATE(FechaContestacion) as Fecha, COUNT(*) as TotalResenas FROM resena WHERE FechaContestacion IS NOT NULL GROUP BY DATE(FechaContestacion) ORDER BY Fecha;"
   );
 };
 
 exports.obtenerNumeroResenasFiltradas = (categoria, producto, fechaInicio, fechaFin) => {
   let query = `SELECT DATE(r.FechaContestacion) as Fecha, COUNT(*) as TotalResenas
-                 FROM Resena r
+                 FROM resena r
                  JOIN producto p ON r.IDProducto = p.IDProducto
                  WHERE r.FechaContestacion IS NOT NULL`;
   const params = [];
