@@ -9,13 +9,13 @@ exports.obtenerCalificaciones = () => {
 
 exports.obtenerCategorias = () => {
   return db.execute(
-    "SELECT DISTINCT Categoria FROM Producto ORDER BY Categoria;"
+    "SELECT DISTINCT Categoria FROM producto ORDER BY Categoria;"
   );
 };
 // Función para obtener productos por categoría
 exports.obtenerProductosPorCategoria = (categoria) => {
   return db.execute(
-    "SELECT IDProducto, Nombre FROM Producto WHERE Categoria = ? ORDER BY Nombre;",
+    "SELECT IDProducto, Nombre FROM producto WHERE Categoria = ? ORDER BY Nombre;",
     [categoria]
   );
 };
@@ -27,8 +27,8 @@ exports.obtenerCalificacionesFiltradas = (
   fechaFin
 ) => {
   let query = `SELECT r.rating, COUNT(*) as cantidad
-                 FROM Resena r
-                 JOIN Producto p ON r.IDProducto = p.IDProducto
+                 FROM resena r
+                 JOIN producto p ON r.IDProducto = p.IDProducto
                  WHERE 1=1`;
   const params = [];
   if (categoria) {
@@ -66,7 +66,7 @@ exports.obtenerResenasContestadasFiltradas = (categoria, producto, fechaInicio, 
         SUM(CASE WHEN FechaContestacion IS NOT NULL THEN 1 ELSE 0 END) AS Contestadas,
         SUM(CASE WHEN FechaContestacion IS NULL THEN 1 ELSE 0 END) AS No_Contestadas
     FROM Resena r
-    JOIN Producto p ON r.IDProducto = p.IDProducto
+    JOIN producto p ON r.IDProducto = p.IDProducto
     WHERE 1=1`;
     let params = [];
     if (categoria) {
@@ -99,7 +99,7 @@ exports.obtenerNumeroResenas = () => {
 exports.obtenerNumeroResenasFiltradas = (categoria, producto, fechaInicio, fechaFin) => {
   let query = `SELECT DATE(r.FechaContestacion) as Fecha, COUNT(*) as TotalResenas
                  FROM Resena r
-                 JOIN Producto p ON r.IDProducto = p.IDProducto
+                 JOIN producto p ON r.IDProducto = p.IDProducto
                  WHERE r.FechaContestacion IS NOT NULL`;
   const params = [];
 
