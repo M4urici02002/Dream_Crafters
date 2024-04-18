@@ -37,14 +37,14 @@
         <button
           type="button"
           id="numeroResenas"
-          class="btn btn-light flex-fill"
+          class="btn btn-light active flex-fill"
         >
           Número de reseñas
         </button>
         <button
           type="button"
           id="calificacionEstrellas"
-          class="btn btn-light active flex-fill"
+          class="btn btn-light flex-fill"
         >
           Calificación de estrellas
         </button>
@@ -57,27 +57,22 @@
         </button>
       </div>
       <br />
-
       <div class="row">
         <div class="col-sm-4">
           <select
-            class="form-select form-select-sm"
-            aria-label="Small select example"
-            id="categoriaDropdown"
-          >
-            <option value="">Seleccione una categoría</option>
-            <% if (categorias) { %>
-                <% categorias.forEach(function(categoria) { %>
-                  <option value="<%= categoria.Categoria %>"><%= categoria.Categoria %></option>
-                <% }); %>
-              <% } else { %>
-                <option value="">No hay categorías disponibles</option>
-              <% } %>
-          </select>
-        </div> 
-
-      <div class="row">
-        <div class="col-sm-4"></div>
+          class="form-select form-select-sm"
+          aria-label="Small select example"
+          id="categoriaDropdown"
+        >
+          <option value="">Seleccione una categoría</option>
+          <% if (categorias) { %>
+              <% categorias.forEach(function(categoria) { %>
+                <option value="<%= categoria.Categoria %>"><%= categoria.Categoria %></option>
+              <% }); %>
+            <% } else { %>
+              <option value="">No hay categorías disponibles</option>
+            <% } %>
+        </select></div>
         <div class="col-sm-4">
           <select
             class="form-select form-select-sm"
@@ -119,7 +114,7 @@
 
       <div class="row mt-4">
         <div class="col-12" style="width: 100%; height: 400px">
-          <canvas id="numeroResenas"></canvas>
+          <canvas id="numeroResenasGrafica"></canvas>
         </div>
       </div>
     </div>
@@ -134,7 +129,7 @@
     $("#start-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
     $("#end-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
 
-    var ctx = document.getElementById("numeroResenas").getContext("2d");
+    var ctx = document.getElementById("numeroResenasGrafica").getContext("2d");
     var chartEstrellas = new Chart(ctx, {
       type: "line", // Choose the type of chart: line, bar, etc.
       data: {
@@ -150,6 +145,8 @@
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           yAxes: [
             {
@@ -208,10 +205,13 @@
       "change",
       actualizarGrafica
     );
+    console.log("hola")
     $("#numeroResenas").click(function () {
+      console.log('graficas')
       window.location.href = "/graficas";
     });
     $("#calificacionEstrellas").click(function () {
+      console.log('estrellas')
       window.location.href = "/graficas/calificacionEstrellas";
     });
     $("#orderToReview").click(function () {
