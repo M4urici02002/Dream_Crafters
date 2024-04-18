@@ -82,35 +82,11 @@ exports.get_agregarPregunta = (request, response, next) => {
     });
 };    
 
-
-exports.get_diasParaEnvio = (request, response, next) => {
-    const IDEncuesta = request.session.IDEncuesta; 
-    
-    response.render('diasParaEnvio', {
-            username: request.session.username || '',
-            permisos: request.session.permisos || [],
-            csrfToken: request.csrfToken(),
-            IDEncuesta: IDEncuesta,
-        });
-};
-
-exports.post_diasParaEnvio = async (request, response, next) => {
-    const IDEncuesta = request.session.IDEncuesta;
-    const nuevosDiasParaEnvio = request.body.diasParaEnvio;
-
-    // ESTO FALTA COMO OBTENER DE LA BD !!!!!!!!!!!!
-    const IDMarca = request.session.IDMarca;
-    const titulo = request.session.titulo;
-    const categoria = request.session.categoria;
-
-    try {
-        // Actualizar los días para envío en la base de datos
-        await Encuesta.updateDiasParaEnvio(IDEncuesta, nuevosDiasParaEnvio, IDMarca, titulo, categoria);
-        
-        // Redireccionar a la página principal
-        response.redirect("/template");
-    } catch (error) {
-        console.log(error);
-        response.status(500).send("Error al actualizar los días para envío en la base de datos");
-    }
-};
+// exports.post_guardarEncuesta = (request, response, next) => {
+//     try {
+//         // Redireccionar a la página principal
+//         response.redirect("/graficas");
+//     } catch (error) {
+//         console.log(error);
+//     }
+// };
