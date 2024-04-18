@@ -4,17 +4,19 @@
 <div class="main p-3 background-color">
   <div class="container form">
     <form action = "/template" method = "POST" class="crearUsuario">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+      <input type="hidden" id="IDEncuesta" name="IDEncuesta" value="<%= IDEncuesta %>" >
+
       <h1 class ="titulo-form"> Registar días para envío de la encuesta</h1>
-      
         <div class="mb-5 contenido-con-margen">
             <p><br>Después de realizar una compra y cumplir los días para envío de encuesta asignados, el cliente recibirá un correo con con la encuesta correspondiente al producto comprado.</p>
           
             <label for="diasParaEnvio" class="form-label label-crearUsuario">Días para envío: </label>
                 <select class="form-select form-select-sm" aria-label="Small select example" id="diasParaEnvio" name="diasParaEnvio">
-                    <option>15 días</option>
-                    <option>7 días</option>
-                    <option>10 días</option>
-                    <option>20 días</option>
+                    <option>15</option>
+                    <option>7</option>
+                    <option>10</option>
+                    <option>20</option>
                 </select>  
         </div>
         <div class="btn-formUsuario">

@@ -22,49 +22,38 @@ exports.get_categoriasMarca = async (request, response, next) => {
     }
 };
 
-/*exports.post_categoriasMarca = (request, response, next) => {
-    console.log(request.body);
-    const mi_encuesta = new Encuesta(
-        request.body.titulo, 
-        request.body.categoria,
-        request.body.IDMarca // Pass IDMarca from the form
-    );
-
-    mi_encuesta.save()
-        .then(([rows, fieldData]) => {
-            response.redirect('/template/editarEncuesta');
-        }).catch((error) => {
-            console.log(error);
-        });
-};*/
-
 // In your post_categoriasMarca controller
 exports.post_categoriasMarca = async (request, response, next) => {
     console.log(request.body);
-    const mi_encuesta = new Encuesta(
-        null,
-        request.body.IDMarca,
-        request.body.titulo,
-        null,
-        request.body.categoria
-    );
 
     try {
-        // Save the encuesta to the database and retrieve the generated IDEncuesta
-        const [result] = await mi_encuesta.save();
-        const IDEncuesta = result.insertId; // Retrieve the auto-generated ID
+        // Guarda la encuesta en la base de datos
+        const result = await Encuesta.save(
+            request.body.IDMarca,
+            request.body.titulo,
+            request.body.diasParaEnvio,
+            request.body.categoria,
+        );
+        if (!request.body.IDMarca || !request.body.titulo || !request.body.diasParaEnvio || !request.body.categoria) {
+            throw new Error("Error: Faltan parámetros en la solicitud.");
+        }
 
-        // Store IDEncuesta in session
+        // Extrae el ID de la encuesta insertada del resultado
+        const IDEncuesta = result[0].insertId;
+
+        // Almacena IDEncuesta en la sesión
         request.session.IDEncuesta = IDEncuesta;
 
-        // Redirect to the edit page
+        // Redirige a la página de edición
         response.redirect('/template/editarEncuesta');
     } catch (error) {
         console.log(error);
-        // Handle error
         response.status(500).send('Internal Server Error');
     }
 };
+
+
+
 
 exports.get_EditarEncuesta = (request, response, next) => {
     const IDEncuesta = request.session.IDEncuesta;
@@ -95,10 +84,33 @@ exports.get_agregarPregunta = (request, response, next) => {
 
 
 exports.get_diasParaEnvio = (request, response, next) => {
+    const IDEncuesta = request.session.IDEncuesta; 
     
     response.render('diasParaEnvio', {
             username: request.session.username || '',
             permisos: request.session.permisos || [],
             csrfToken: request.csrfToken(),
+            IDEncuesta: IDEncuesta,
         });
+};
+
+exports.post_diasParaEnvio = async (request, response, next) => {
+    const IDEncuesta = request.session.IDEncuesta;
+    const nuevosDiasParaEnvio = request.body.diasParaEnvio;
+
+    // ESTO FALTA COMO OBTENER DE LA BD !!!!!!!!!!!!
+    const IDMarca = request.session.IDMarca;
+    const titulo = request.session.titulo;
+    const categoria = request.session.categoria;
+
+    try {
+        // Actualizar los días para envío en la base de datos
+        await Encuesta.updateDiasParaEnvio(IDEncuesta, nuevosDiasParaEnvio, IDMarca, titulo, categoria);
+        
+        // Redireccionar a la página principal
+        response.redirect("/template");
+    } catch (error) {
+        console.log(error);
+        response.status(500).send("Error al actualizar los días para envío en la base de datos");
+    }
 };
