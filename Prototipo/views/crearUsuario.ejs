@@ -14,7 +14,8 @@
           <input type="text" class="form-control input-crearUsuario" id="name" name="name" required="">
 
           <label for="inputPassword" class="form-label label-crearUsuario" for="password">Contraseña</label>
-          <input type="password" class="form-control input-crearUsuario" id="password" name="password" required="">
+          <input type="password" class="form-control input-crearUsuario" id="password" name="password" required pattern="^(?=.*\d)[A-Za-z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres y contener al menos un número.">
+
         
           <label for="inputUsuario" class="form-label label-crearUsuario">Rol</label>
           <select id="inputUsuario" class="form-control input-crearUsuario" name="idrol">
@@ -51,6 +52,15 @@
           }, 3000); // 3000 milisegundos = 3 segundos
       });
   });
+  document.getElementById('password').oninput = function() {
+    const regex = /^(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!regex.test(this.value)) {
+        this.setCustomValidity('La contraseña debe tener al menos 8 caracteres y contener al menos un número.');
+    } else {
+        this.setCustomValidity('');
+    }
+};
+
 </script>
 
 <%- include('includes/footer.ejs') %>
