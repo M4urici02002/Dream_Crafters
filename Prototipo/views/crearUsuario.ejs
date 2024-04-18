@@ -8,10 +8,10 @@
       <h1 class ="titulo-form"> Crear Usuario</h1>
         <div class="mb-5 contenido-con-margen">
           <label for="inputUsuario" class="form-label label-crearUsuario" for="username">Nombre de usuario</label>
-          <input type="text" class="form-control input-crearUsuario" id="username" name="username" required="">
+          <input type="text" class="form-control input-crearUsuario" id="username" name="username" required="" maxlength="36">
         
           <label for="inputNombre" class="form-label label-crearUsuario" for="name">Nombre</label>
-          <input type="text" class="form-control input-crearUsuario" id="name" name="name" required="">
+          <input type="text" class="form-control input-crearUsuario" id="name" name="name" required="" maxlength="36">
 
           <label for="inputPassword" class="form-label label-crearUsuario" for="password">Contraseña</label>
           <input type="password" class="form-control input-crearUsuario" id="password" name="password" required pattern="^(?=.*\d)[A-Za-z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres y contener al menos un número.">
