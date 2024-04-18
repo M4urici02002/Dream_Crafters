@@ -7,16 +7,17 @@
       <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <h1 class ="titulo-form"> Crear Encuesta</h1>
         <div class="mb-5 contenido-con-margen">
+          <input type="hidden" name="IDMarca" value="1">
           <label for="titulo" class="form-label label-crearUsuario">Titulo de la encuesta</label>
           <input type="text" class="form-control input-crearUsuario" id="titulo" name="titulo">
-
+          
+          <input type="hidden" name="diasParaEnvio" value="15">
           <label for="categoria" class="form-label label-crearUsuario">Categoría</label>
             <select class="form-select form-select-sm" aria-label="Small select example" id="categoria" name="categoria">
                 <% for(let categoria of categoriasMarca) { %>
                     <option value="<%= categoria.Categoria %>"><%= categoria.Categoria %>, <%= categoria.nombre_marca %> </option>
                 <% } %>
             </select>  
-            <input type="hidden" name="IDMarca" value="1">
         </div>
         <div class="btn-formUsuario">
             <button type="submit" class="btn btn-dark">Enviar</button>

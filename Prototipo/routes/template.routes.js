@@ -11,5 +11,7 @@ router.get('/template/editarEncuesta', isAuth, templateController.get_EditarEncu
 router.get('/template/agregarPregunta', isAuth, templateController.get_agregarPregunta);
 
 router.get('/template/diasParaEnvio', isAuth, templateController.get_diasParaEnvio);
+router.post('/template/diasParaEnvio', isAuth, templateController.post_diasParaEnvio);
+
 
 module.exports = router;
