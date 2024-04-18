@@ -52,24 +52,11 @@ exports.post_categoriasMarca = async (request, response, next) => {
     }
 };
 
-
-
-
 exports.get_EditarEncuesta = (request, response, next) => {
     const IDEncuesta = request.session.IDEncuesta;
 
-    response.render('template', {
-        username: request.session.username || '',
-        permisos: request.session.permisos || [],
-        csrfToken: request.csrfToken(),
-        IDEncuesta: IDEncuesta 
-    });
-};
-
-exports.get_agregarPregunta = (request, response, next) => {
-    const IDEncuesta = request.session.IDEncuesta; 
     Pregunta.fetchAllByIDEncuesta(IDEncuesta).then(([preguntas]) => {
-        response.render('agregarPregunta', {
+        response.render('template', {
             username: request.session.username || '',
             permisos: request.session.permisos || [],
             csrfToken: request.csrfToken(),
