@@ -25,7 +25,7 @@
     <div id="notificationExitoModificacionUsuario"></div>
 
     <% if (mensaje) { %>
-        <div class="alert alert-success" role="alert">
+        <div id="successAlert" class="alert alert-success" role="alert">
             <%= mensaje %>
         </div>
     <% } %>
@@ -111,6 +111,20 @@
             });
         }
     }
+    window.onload = function() {
+        // Comprobar si el elemento existe
+        if (document.getElementById('successAlert')) {
+            setTimeout(function() {
+                // Acceder al elemento y cambiar su estilo para que desaparezca
+                var alertDiv = document.getElementById('successAlert');
+                alertDiv.style.opacity = '0';
+                // Opcionalmente, eliminar el elemento del DOM después de que desaparezca visualmente
+                setTimeout(function() {
+                    alertDiv.remove();
+                }, 600); // Tiempo para la transición de opacidad
+            }, 4000); // 4000 ms = 4 segundos
+        }
+    };
 
 </script>
 
