@@ -36,7 +36,7 @@ exports.obtenerCalificacionesFiltradas = (
     params.push(categoria);
   }
   if (producto) {
-    query += " AND P.Nombre = ?";
+    query += " AND p.Nombre = ?";
     params.push(producto);
   }
 
