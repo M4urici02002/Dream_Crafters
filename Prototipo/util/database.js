@@ -4,9 +4,9 @@ const mysql = require('mysql2');
 
 const pool = mysql.createPool({
     host: '127.0.0.1',
-    user: 'nicohood',
+    user: 'root',
     database: 'crafted_ratings', // Nombre del esquema en mySQL workbench
-    password: 'mAuRiX2920_'// Contraseña de tu conexion 
+    password: '.Pm2paola'// Contraseña de tu conexion 
 });
 
 module.exports = pool.promise();

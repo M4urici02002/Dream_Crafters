@@ -24,17 +24,4 @@ module.exports = class Encuesta {
         throw new Error("Error al guardar la encuesta en la base de datos: " + error.message);
     }
   }
-
-  static async updateDiasParaEnvio(IDEncuesta, nuevosDiasParaEnvio, IDMarca, titulo, categoria) {
-    try {
-        const result = await db.execute(
-            `UPDATE encuesta SET diasParaEnvio = ?, IDMarca = ?, titulo = ?, categoria = ? WHERE IDEncuesta = ?`,
-            [nuevosDiasParaEnvio, IDMarca, titulo, categoria, IDEncuesta]
-        );
-        return result;
-    } catch (error) {
-        throw new Error("Error al actualizar los días para envío en la base de datos: " + error.message);
-    }
-  }
-
 };

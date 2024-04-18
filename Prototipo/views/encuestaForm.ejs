@@ -11,13 +11,22 @@
           <label for="titulo" class="form-label label-crearUsuario">Titulo de la encuesta</label>
           <input type="text" class="form-control input-crearUsuario" id="titulo" name="titulo">
           
-          <input type="hidden" name="diasParaEnvio" value="15">
           <label for="categoria" class="form-label label-crearUsuario">Categoría</label>
             <select class="form-select form-select-sm" aria-label="Small select example" id="categoria" name="categoria">
                 <% for(let categoria of categoriasMarca) { %>
                     <option value="<%= categoria.Categoria %>"><%= categoria.Categoria %>, <%= categoria.nombre_marca %> </option>
                 <% } %>
             </select>  
+        
+          <label for="diasParaEnvio" class="form-label label-crearUsuario">Días para envío: </label>
+              <select class="form-select form-select-sm" aria-label="Small select example" id="diasParaEnvio" name="diasParaEnvio">
+                  <option>15</option>
+                  <option>7</option>
+                  <option>10</option>
+                  <option>20</option>
+              </select>  
+              <p><br>Nota: Después de realizar una compra y cumplir los días para envío de encuesta asignados, el cliente recibirá un correo con con la encuesta correspondiente al producto comprado.</p>
+          
         </div>
         <div class="btn-formUsuario">
             <button type="submit" class="btn btn-dark">Enviar</button>
