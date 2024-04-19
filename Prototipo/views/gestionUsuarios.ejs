@@ -14,7 +14,7 @@
             <!--Search bar-->
             <div class="input-group mb-3 buscarUsuario">
                 <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
-                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+                <input id="buscar" class="input is-info" type="text" placeholder="Buscar..."/><br><br>
                 <button class="btn btn-dark" type="button">
                 <i class="fas fa-search"></i>
                 </button>
@@ -122,6 +122,33 @@
             }, 4000); // 4000 ms = 4 segundos
         }
     };
+
+
+
+
+
+
+    const accion_asincrona = () => {
+        const valor_busqueda = document.getElementById('buscar').value;
+        console.log("buscando... " + valor_busqueda);
+        //función que manda la petición asíncrona
+        fetch('/gestionUsuarios/buscar/' + valor_busqueda, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((result) => {
+            console.log(result);
+            return result.json(); //Regresa otra promesa
+        }).then((data) => {
+            console.log(data);
+            //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+            //...
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
+    document.getElementById('buscar').onkeyup = accion_asincrona;
 
 </script>
 
