@@ -14,7 +14,7 @@
             <!--Search bar-->
             <div class="input-group mb-3 buscarUsuario">
                 <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
-                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+                <input id="buscar" class="input is-info" type="text" placeholder="Buscar..."/><br><br>
                 <button class="btn btn-dark" type="button">
                 <i class="fas fa-search"></i>
                 </button>
@@ -25,59 +25,56 @@
     <div id="notificationExitoModificacionUsuario"></div>
 
     <% if (mensaje) { %>
-        <div class="alert alert-success" role="alert">
+        <div id="successAlert" class="alert alert-success" role="alert">
             <%= mensaje %>
         </div>
     <% } %>
     
     <!--Encabezado-->
     <div id="tarjetaUsuarioEncabezado" class="row tarjetaUsuario">
-        <div class="col-lg-2 col-md-3 col-sm-3 d-flex justify-content-center align-items-center">
+        <div class="col-lg-4 col-md-3 col-sm-3 d-flex justify-content-left align-items-center">
             <svg class="bi bi-person-fill text-white" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             </svg>
             <p class="username-usuario-tarjeta-titulo"><br>Username</p>
         </div>
-        <div class="col-sm-2">
-           <p class="text-tarjeta-usuario"><br>Nombre Usuario</p>
+        <div class="col-lg-3 col-sm-2">
+           <p class="text-tarjeta-usuario"><br>Nombre</p>
         </div>
         <div class="col-sm-2">
             <p class="text-tarjeta-usuario"><br>Rol</p> 
         </div>
     </div> 
+    <div id="busqueda_ajax">
+        <!--Tarjetas de usuario-->
+        <% for (let usuario of usuarioRegistrado) { %>
+            <div id="usuario-<%= usuario.username %>" class="row tarjetaUsuario">
+                <div class="col-lg-4 col-md-3 col-sm-3">
+                    <p class="username-usuario-tarjeta"><br><%=usuario.username%></p>
+                </div>
+                <div class="col-lg-3 col-sm-2">
+                   <p class="text-tarjeta-usuario"><br><%=usuario.nombre%></p>
+                </div>
+                <div class="col-sm-2">
+                   <p class="text-tarjeta-usuario"><br><%=usuario.rol_nombre%></p> 
+                </div>
 
-    <!--Tarjetas de usuario-->
-    <% for (let usuario of usuarioRegistrado) { %>
-        <div id="usuario-<%= usuario.username %>" class="row tarjetaUsuario">
-            <div class="col-lg-2 col-md-3 col-sm-3">
-                <p class="username-usuario-tarjeta"><br><%=usuario.username%></p>
+                <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
+                   <!--Modificar usuario-->
+                   <% if (usuario.username != 'admin') { %>
+                    <a href="/modificarUsuarios/<%= usuario.username %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+                        Modificar
+                    </a> 
+                    &nbsp;&nbsp;
+                    <!--Eliminar usuario-->
+                    <button onclick="eliminar('<%= usuario.username %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
+                        Eliminar
+                    </button>
+                    <% } %>    
+                </div>
             </div>
-            <div class="col-sm-2">
-               <p class="text-tarjeta-usuario"><br><%=usuario.nombre%></p>
-            </div>
-            <div class="col-sm-2">
-               <p class="text-tarjeta-usuario"><br><%=usuario.rol_nombre%></p> 
-            </div>
-
-            <div class="col-lg-2 col-md-1">
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
-               <!--Modificar usuario-->
-               <% if (usuario.username != 'admin') { %>
-                <a href="/modificarUsuarios/<%= usuario.username %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
-                    Modificar
-                </a> 
-                &nbsp;&nbsp;
-                <!--Eliminar usuario-->
-                <button onclick="eliminar('<%= usuario.username %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
-                    Eliminar
-                </button>
-                <% } %>    
-            </div>
-        </div>
-    <% } %>    
-
+        <% } %>  
+    </div>  
   </div>
 </div>
 
@@ -98,10 +95,22 @@
                 if (result.ok) {
                     document.getElementById(`usuario-${username}`).remove();
                     document.getElementById('notification').innerHTML = `
-                        <div class="alert alert-success" role="alert">
+                        <div id="eliminarusuario22" class="alert alert-success" role="alert">
                             El usuario ${username} fue eliminado correctamente.
                         </div>
                     `;
+    
+                    // Configurar el temporizador para la notificación recién creada
+                    setTimeout(function() {
+                        var alertDiv = document.getElementById('eliminarusuario22');
+                        if (alertDiv) {
+                            alertDiv.style.opacity = '0';
+                            setTimeout(function() {
+                                alertDiv.remove();
+                            }, 600); // Tiempo adicional para la transición de desvanecimiento
+                        }
+                    }, 4000); // Desaparece después de 4 segundos
+    
                 } else {
                     alert('Hubo un error al intentar eliminar el usuario.');
                 }
@@ -111,7 +120,77 @@
             });
         }
     }
+    
+    window.onload = function() {
+        // Manejar la alerta de éxito si existe
+        var alertDiv = document.getElementById('successAlert');
+        if (alertDiv) {
+            setTimeout(function() {
+                alertDiv.style.opacity = '0';
+                setTimeout(function() {
+                    alertDiv.remove();
+                }, 600); // Tiempo adicional para la transición de desvanecimiento
+            }, 4000); // Desaparece después de 4 segundos
+        }
+    };
+    
 
+
+    const accion_asincrona = () => {
+        const valor_busqueda = document.getElementById('buscar').value;
+        console.log("Buscando... " + valor_busqueda);
+
+        fetch('/gestionUsuarios/buscar/' + encodeURIComponent(valor_busqueda), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+            console.log(response);
+            return response.json(); // Convierte la respuesta en JSON
+        }).then(data => {
+            console.log(data);
+            // Aquí puedes actualizar el DOM según los resultados obtenidos
+            let html = '';
+            html += `  
+            
+        <% for (let usuario of usuarioRegistrado) { %>
+            <div id="usuario-<%= usuario.username %>" class="row tarjetaUsuario">
+                <div class="col-lg-4 col-md-3 col-sm-3">
+                    <p class="username-usuario-tarjeta"><br><%=usuario.username%></p>
+                </div>
+                <div class="col-lg-3 col-sm-2">
+                   <p class="text-tarjeta-usuario"><br><%=usuario.nombre%></p>
+                </div>
+                <div class="col-sm-2">
+                   <p class="text-tarjeta-usuario"><br><%=usuario.rol_nombre%></p> 
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
+                   <!--Modificar usuario-->
+                   <% if (usuario.username != 'admin') { %>
+                    <a href="/modificarUsuarios/<%= usuario.username %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+                        Modificar
+                    </a> 
+                    &nbsp;&nbsp;
+                    <!--Eliminar usuario-->
+                    <button onclick="eliminar('<%= usuario.username %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
+                        Eliminar
+                    </button>
+                    <% } %>    
+                </div>
+            </div>
+        <% } %>  
+        html += </div>;`
+        document.getElementById('busqueda_ajax').innerHTML = html;
+
+
+        }).catch(error => {
+            console.error("Error en la petición fetch:", error);
+        });
+    };
+
+    document.getElementById('buscar').addEventListener('keyup', accion_asincrona);
 </script>
 
 <%- include('includes/footer.ejs') %>

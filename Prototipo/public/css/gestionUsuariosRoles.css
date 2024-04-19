@@ -88,3 +88,11 @@
     color: red;
     margin-bottom: 20px;
   }
+.usernamemargin{
+    margin-right: 30px;
+}
+
+#buscar{
+    padding: 5px;
+    outline-width: 1px;
+}

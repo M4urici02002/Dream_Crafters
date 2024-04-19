@@ -29,3 +29,11 @@ exports.post_eliminar = (request, response, next) => {
             return response.status(200).json({usuarios: usuarios});
         }).catch((error) => {console.log(error)})
 };
+
+exports.get_buscar = (request, response, next) => {
+    Usuario.search(request.params.valor_busqueda)
+    .then(([users, fieldData]) => {
+        return response.status(200).json({users: users});
+    })
+    .catch((error) => {console.log(error)});
+};

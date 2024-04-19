@@ -12,8 +12,8 @@ module.exports = class Pregunta {
     // En tu modelo de Reseña (Resena.model.js o similar)
     static fetchAllByIDEncuesta(IDEncuesta) {
         return db.execute(`
-            SELECT Descripcion, IDEncuesta, p.Categoria, e.Categoria FROM pregunta p, encuesta e 
-            WHERE p.categoria = e.categoria AND IDEncuesta = ?;
+            SELECT p.Descripcion, e.IDEncuesta, p.IDPregunta, p.Categoria, Tipo, e.Categoria FROM pregunta p, encuesta e 
+            WHERE p.categoria = e.categoria AND IDEncuesta = 1;
         `, [IDEncuesta]);
     }
 }
