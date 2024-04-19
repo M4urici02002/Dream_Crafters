@@ -33,7 +33,7 @@ exports.post_eliminar = (request, response, next) => {
 exports.get_buscar = (request, response, next) => {
     Usuario.search(request.params.valor_busqueda)
     .then(([users, fieldData]) => {
-        return response.status(200).json({usuarioRegistrado: users});
+        return response.status(200).json({users: users});
     })
     .catch((error) => {console.log(error)});
 };
