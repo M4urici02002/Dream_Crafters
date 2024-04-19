@@ -123,7 +123,7 @@ exports.post_modificarUsuario = (request, response, next) => {
         .catch((error) => {console.log(error)});
 };
 
-
+/*
 // Cambiar contraseña
 exports.get_modificarContrasena = (request, response, next) => {
     Usuario.fetchOneWithRole(request.params.username)
@@ -160,4 +160,4 @@ exports.post_modificarConstrasena = (request, response, next) => {
             response.status(500).send("Error al actualizar la contraseña del usuario");
         });
 };
-
+*/

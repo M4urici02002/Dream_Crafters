@@ -2,8 +2,8 @@ const Usuario = require('../models/usuario.model');
 
 exports.get_configuracion = (request, response, next) => {
     response.render('configuracion', {
+        username: request.session.username || '',
         nombre: request.session.nombre || '',
-        nombre_rol: request.session.rol || '',
         password: request.session.password || '',
         csrfToken: request.csrfToken(),
         permisos: request.session.permisos || [],
