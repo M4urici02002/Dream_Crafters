@@ -71,4 +71,15 @@ module.exports = class Usuario {
   static eliminar(username) {
     return db.execute("CALL EliminarUsuario(?)", [username]);
   }
+  static search(valor_busqueda) {
+    return db.execute(`
+    SELECT U.username, U.nombre, rol.nombre AS rol_nombre
+    FROM usuario U
+    JOIN asigna A ON U.username = A.username
+    JOIN rol ON A.idrol = rol.idrol
+    where rol.nombre LIKE ? OR  U.username LIKE ? OR U.nombre LIKE ?;
+    `, 
+    ['%' + valor_busqueda + '%', '%' + valor_busqueda + '%', '%' + valor_busqueda + '%']);
+  }
+
 };
