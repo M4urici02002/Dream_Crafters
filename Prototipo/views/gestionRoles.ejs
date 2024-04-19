@@ -14,10 +14,6 @@
             <!--Search bar-->
             <div class="input-group mb-3 buscarUsuario">
                 <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
-                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
-                <button class="btn btn-dark" type="button">
-                <i class="fas fa-search"></i>
-                </button>
             </div>
         </div>
     </div>
@@ -42,7 +38,7 @@
             <div class="col-lg-2 col-md-3 col-sm-3">
                 <p class="username-usuario-tarjeta"><br><%= rol.idrol %></p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-6">
                <p class="text-tarjeta-usuario"><br><%= rol.nombre %></p>
             </div>
 

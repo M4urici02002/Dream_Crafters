@@ -34,6 +34,7 @@ body {
   background-color: #f8fafc;
   color: #0d0c22;
   transition: .5s ease;
+  
 }
 
 .input::placeholder {
@@ -48,13 +49,25 @@ body {
 }
 
 /* Estilo de iconos */
-.icon {
+.icon-login {
   position: absolute;
   left: 1rem;
   fill: none;
   width: 1rem;
   height: 1rem;
 }
+
+/* Estilo de iconos */
+.icon {
+  position: absolute;
+  right: 1rem; /* Adjusted position */
+  top: 50%;
+  transform: translateY(-50%);
+  fill: none;
+  width: 1rem;
+  height: 1rem;
+}
+
 
 /* Estilos y alineación del contenedor de login */
 .centrar {
@@ -115,5 +128,4 @@ button:hover {
 }
 .login-error{
   color: #fff;
-
 }

@@ -140,6 +140,10 @@ select.form-select option,
     background-color: #FF5733; 
     color: white; 
     margin-right: 20px; 
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .btn-custom:hover {
@@ -153,10 +157,50 @@ select.form-select option,
     color: white; 
     margin-right: 20px; 
     margin-bottom: 50px;
-    padding: 15px;
+    padding: 10px;
 }
 
 .btn-custom-pregunta:hover {
     background-color: #133464!important; 
     color: white !important; 
+}
+
+#listaPreguntas {
+    list-style: none;
+    padding-left: 40px;
+    padding-right:40px;
+}
+
+/* Add margin to each question */
+.preguntas-agregadas ul li {
+    margin-top: 40px; /* Adjust the top margin as needed */
+}
+
+
+/* Estilo para agregar pregunta  */
+.crearPregunta {
+    border: 1px solid black; /* Agregar contorno al formulario */
+    padding: 20px; /* Agregar espacio interno al formulario */
+    margin-bottom: 20px; /* Agregar espacio inferior al formulario */
+}
+
+/* Estilo para el botón */
+/* Estilo para el botón */
+.btn-custom-agregar-pregunta {
+    background-color: black; 
+    color: white; 
+    margin: 0 auto; /* Set margin to auto for horizontal centering */
+    padding: 10px 20px; 
+    font-size: 16px; 
+    display: block; /* Ensure the button takes up the full width of its container */
+}
+
+.btn-custom-agregar-pregunta:hover {
+    background-color: #2d2d2d; /* Cambiar el color al pasar el mouse */
+    color: white;
+}
+
+.btn-small{
+    font-size: 10px;
+    margin-left: 15px;
 }
