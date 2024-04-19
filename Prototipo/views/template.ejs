@@ -109,6 +109,7 @@
     document.addEventListener('DOMContentLoaded', function () {
     // Arreglo para almacenar las preguntas agregadas dinámicamente
     let preguntasAgregadas = [];
+    let idPreguntasAgregadas = [];
 
     // Selector del formulario para agregar preguntas
     const formularioAgregarPregunta = document.querySelector('.crearPregunta');
@@ -123,11 +124,17 @@
         // Obtener el valor seleccionado del dropdown
         const preguntaSeleccionada = document.querySelector('#inputPregunta');
 
+        const idPreguntaAgregada = document.querySelector('#inputPregunta');
+
         // Agregar la pregunta al arreglo
         preguntasAgregadas.push({
             pregunta: preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text,
             respuesta: '' // Inicialmente la respuesta es una cadena vacía
         });
+        
+        // Agregar el ID de la pregunta seleccionada al arreglo idPreguntasAgregadas
+        idPreguntasAgregadas.push(preguntaSeleccionada.value);
+
 
         // Limpiar el dropdown para evitar confusiones
         document.querySelector('#inputPregunta').selectedIndex = 0;
@@ -146,8 +153,7 @@
         `).join('');
 
         // Opcional: Mostrar mensaje de éxito o realizar otras acciones
-        console.log('Pregunta agregada:', preguntaSeleccionada);
-        console.log('Preguntas agregadas:', preguntasAgregadas);
+        console.log('idPreguntasAgregadas:', idPreguntasAgregadas);
     });
 });
 
