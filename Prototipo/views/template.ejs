@@ -6,7 +6,7 @@
         <form class="template">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <img src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg" class="img-fluid img-marca" alt="Imagen logo marca">
-            <h2 id="tituloPrincipal">Hola, (Nombre del comprador)</h2>
+            <h2 id="tituloPrincipal">Hola, NombreCliente</h2>
             <div class="row mb-3">
                 <div class="col-md-4 img-producto">
                     <img src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg" class="img-fluid" alt="Imagen del producto">
@@ -15,7 +15,6 @@
 
             <!-- Pregunta 1 -->
             <div class="pregunta-rating">
-                <p>IDEncuesta: <%= IDEncuesta %></p>
                 <label for="marca">¿Qué te ha parecido tu producto Luuna?</label>
                 <div class="row mb-3">
                         <div class="rating">
@@ -52,16 +51,13 @@
                 </select>
             </div>
 
-            <!-- INSERTAR AQUI -->
-            <!-- INSERTAR AQUI -->
             <div class="preguntas-agregadas">
-                <h2>Preguntas Agregadas:</h2>
                 <ul id="listaPreguntas"></ul>
             </div>
 
 
             <div class="btn-template">
-                <button type="submit" class="btn btn-dark">Enviar</button>
+                <button type="submit" class="btn btn-custom-pregunta">Enviar</button>
             </div>
             <footer class="footer-template">
                 <div class="container">
@@ -75,26 +71,17 @@
             </footer>
         </form>
         <div class="container form">
-            <form class="crearUsuario">
-                <h1 class ="titulo-form preguntas-titulo"> Agregar Pregunta</h1>
-                <div class="mb-5 contenido-con-margen">
-                    <!-- En tu vista agregarPregunta.ejs -->
-                    <p>IDEncuesta: <%= IDEncuesta %></p>
-        
-                    <label for="inputPregunta" class="form-label label-crearUsuario preguntas">Preguntas</label>
-                    <select id="inputPregunta" class="form-control input-crearUsuario preguntas-input" name="rol">
+            <form class="crearPregunta">
+                <div class="mb-5 contenido-con-margen">        
+                    <label for="inputPregunta" class="form-label label-crearPregunta preguntas" hidden>Preguntas</label>
+                    <select id="inputPregunta" class="form-control input-crearPregunta preguntas-input" name="rol">
                     <% preguntas.forEach(pregunta => { %>
                     <option value='<%= pregunta.IDPregunta %>'>
                             <%= pregunta.Descripcion %>
                         </option>
                      <% }); %>
-                    
                     </select>
-                
-                
-                </div>
-                <div class="btn-formUsuario">
-                    <button type="submit" class="btn btn-custom-pregunta">Agregar pregunta <i class="fas fa-plus"></i>
+                    <button type="submit" class="btn btn-custom-agregar-pregunta">Agregar pregunta <i class="fas fa-plus"></i>
                     </button>
                 </div>
                 </form>
@@ -124,7 +111,7 @@
     let preguntasAgregadas = [];
 
     // Selector del formulario para agregar preguntas
-    const formularioAgregarPregunta = document.querySelector('.crearUsuario');
+    const formularioAgregarPregunta = document.querySelector('.crearPregunta');
 
     // Selector del contenedor de preguntas agregadas
     const contenedorPreguntasAgregadas = document.querySelector('.preguntas-agregadas ul');
@@ -135,15 +122,28 @@
 
         // Obtener el valor seleccionado del dropdown
         const preguntaSeleccionada = document.querySelector('#inputPregunta');
-        console.log(preguntaSeleccionada)
+
         // Agregar la pregunta al arreglo
-        preguntasAgregadas.push(preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text);
+        preguntasAgregadas.push({
+            pregunta: preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text,
+            respuesta: '' // Inicialmente la respuesta es una cadena vacía
+        });
 
         // Limpiar el dropdown para evitar confusiones
         document.querySelector('#inputPregunta').selectedIndex = 0;
 
         // Actualizar el contenido del contenedor de preguntas agregadas
-        contenedorPreguntasAgregadas.innerHTML = preguntasAgregadas.map(pregunta => `<li>${pregunta}</li>`).join('');
+        contenedorPreguntasAgregadas.innerHTML = preguntasAgregadas.map((pregunta, index) => `
+        <li>
+            ${pregunta.pregunta} 
+            <button type="button" class="btn btn-danger btn-small" onclick="eliminarPregunta(${index})">
+            <i class="fas fa-trash"></i> <!-- Icono de Font Awesome para bote de basura -->
+            </button>
+            <textarea id="textbox-${index}" class="pregunta-textbox form-control" data-index="${index}" placeholder="Escribe tu respuesta aquí" onchange="guardarRespuesta(this)"></textarea>
+        </li>
+
+
+        `).join('');
 
         // Opcional: Mostrar mensaje de éxito o realizar otras acciones
         console.log('Pregunta agregada:', preguntaSeleccionada);
@@ -151,5 +151,12 @@
     });
 });
 
+// Función para guardar la respuesta en el arreglo de preguntas
+function guardarRespuesta(textbox) {
+    const index = textbox.dataset.index;
+    preguntasAgregadas[index].respuesta = textbox.value;
+    console.log('Respuesta guardada:', textbox.value);
+    console.log('Preguntas agregadas:', preguntasAgregadas);
+}
 
 </script>
