@@ -38,8 +38,8 @@
             </svg>
             <p class="username-usuario-tarjeta-titulo"><br>Username</p>
         </div>
-        <div class="col-lg-2 col-sm-2">
-           <p class="text-tarjeta-usuario"><br>Nombre Usuario</p>
+        <div class="col-lg-3 col-sm-2">
+           <p class="text-tarjeta-usuario"><br>Nombre</p>
         </div>
         <div class="col-sm-2">
             <p class="text-tarjeta-usuario"><br>Rol</p> 
@@ -52,14 +52,14 @@
             <div class="col-lg-4 col-md-3 col-sm-3">
                 <p class="username-usuario-tarjeta"><br><%=usuario.username%></p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-lg-3 col-sm-2">
                <p class="text-tarjeta-usuario"><br><%=usuario.nombre%></p>
             </div>
             <div class="col-sm-2">
                <p class="text-tarjeta-usuario"><br><%=usuario.rol_nombre%></p> 
             </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
+            <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
                <!--Modificar usuario-->
                <% if (usuario.username != 'admin') { %>
                 <a href="/modificarUsuarios/<%= usuario.username %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
