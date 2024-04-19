@@ -126,38 +126,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+  $(document).ready(function () {
+    // Configuraciones de datepicker
     $("#start-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
     $("#end-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
-
-    var ctx = document.getElementById("numeroResenasGrafica").getContext("2d");
-    var chartEstrellas = new Chart(ctx, {
-      type: "line", // Choose the type of chart: line, bar, etc.
-      data: {
-        labels: [], // Placeholder for labels
-        datasets: [
-          {
-            label: "Número de Reseñas",
-            data: [], // Placeholder for data
-            backgroundColor: "rgba(54, 162, 235, 0.2)",
-            borderColor: "rgba(54, 162, 235, 1)",
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
-      },
-    });
 
     // Cargar productos basados en la categoría seleccionada
     $("#categoriaDropdown").on("change", function () {
@@ -165,8 +137,8 @@
       fetch(
         `http://localhost:3000/graficas/productosPorCategoria?categoria=${categoriaSeleccionada}`
       )
-        .then((data) => data.json())
-        .then((data) => {
+       .then((data) => data.json())
+       .then((data) => {
           data.forEach((producto) =>
             $("#productoDropdown").append(
               `<option value="${producto.Nombre}">${producto.Nombre}</option>`
@@ -174,50 +146,74 @@
           );
         });
       $("#productoDropdown")
-        .empty()
-        .append('<option value="">Seleccione un producto</option>');
+       .empty()
+       .append('<option value="">Seleccione un producto</option>');
     });
+
+    // Inicialización del gráfico de línea
+    const ctx = document.getElementById("numeroResenasGrafica").getContext("2d");
+    const data = JSON.parse("<%= JSON.stringify(resenas.map(r => r.TotalResenas)) %>");
+    const chartNumeroResenas = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: "<%= JSON.stringify(resenas.map(r => r.Fecha)) %>",
+        datasets: [{
+          label: "Total Reseñas",
+          data: data,
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgba(54, 162, 235, 1)",
+          borderWidth: 1,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
     function actualizarGrafica() {
       console.log("Actualizando");
       const categoriaSeleccionada = $("#categoriaDropdown").val();
-      const productoSeleccionado = $("#productoDropdown").val();
+      const productoSeleccionado = $("#productoDropdown").val().replace("+","%2B");
       const fechaInicio = $("#start-date").val();
       const fechaFin = $("#end-date").val();
 
-      fetch(
-        `http://localhost:3000/graficas/calificacionesFiltradas?categoria=${categoriaSeleccionada}&producto=${productoSeleccionado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          const updatedLabels = data.map((d) => `${d.rating} estrellas`);
-          const updatedData = data.map((d) => d.cantidad);
-
-          chartEstrellas.data.labels = updatedLabels;
-          chartEstrellas.data.datasets.data = updatedData;
-          chartEstrellas.update();
+      fetch(`http://localhost:3000/graficas/numeroResenasFiltradas?categoria=${categoriaSeleccionada}&producto=${productoSeleccionado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
+       .then(response => response.json())
+       .then(data => {
+          chartNumeroResenas.data.labels = data.datos.map(d => d.Fecha);
+          chartNumeroResenas.data.datasets.forEach((dataset) => {
+            dataset.data = data.datos.map(d => d.TotalResenas);
+          });
+          chartNumeroResenas.update();
         })
-        .catch((error) =>
-          console.error("Error al actualizar la gráfica:", error)
-        );
+       .catch(error => console.error("Error al actualizar la gráfica:", error));
     }
+
     // Escuchar cambios en los dropdowns y datepickers
     $("#categoriaDropdown, #productoDropdown, #start-date, #end-date").on(
       "change",
       actualizarGrafica
     );
-    console.log("hola")
+
     $("#numeroResenas").click(function () {
-      console.log('graficas')
       window.location.href = "/graficas";
     });
     $("#calificacionEstrellas").click(function () {
-      console.log('estrellas')
       window.location.href = "/graficas/calificacionEstrellas";
     });
     $("#orderToReview").click(function () {
       window.location.href = "/graficas/orderToReview";
     });
-  </script>
+  });
+</script>
 
   <%- include('includes/footer.ejs') %>
 </div>

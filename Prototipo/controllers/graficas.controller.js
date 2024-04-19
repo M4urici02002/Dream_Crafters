@@ -55,6 +55,26 @@ exports.obtenerCalificacionesFiltradas = (req, res) => {
     });
 };
 
+
+
+exports.showOrderToReview = (req, res, next) => {
+  Promise.all([calificacionesModel.obtenerCategorias(), calificacionesModel.resenasContestadas()])
+  
+      .then(([categorias, resenas]) => {
+        console.log(categorias)
+          res.render('orderToReview', {
+              categorias: categorias[0],
+              permisos: req.session.permisos || [],
+              path: '/graficas/orderToReview',
+              datos:[Number(resenas[0][0].Contestadas),Number(resenas[0][0].No_Contestadas)]
+          });
+      })
+      .catch(err => {
+          console.error('Error al cargar la página:', err);
+          res.status(500).send('Error al cargar la página de análisis');
+      });
+};
+
 exports.obtenerResenasContestadas = (req, res) => {
   Promise.all([
       calificacionesModel.obtenerCategorias(),
@@ -75,24 +95,6 @@ exports.obtenerResenasContestadas = (req, res) => {
       console.error("Error al obtener datos:", err);
       res.status(500).send("Error al procesar la solicitud");
   });
-};
-
-exports.showOrderToReview = (req, res, next) => {
-  Promise.all([calificacionesModel.obtenerCategorias(), calificacionesModel.resenasContestadas()])
-  
-      .then(([categorias, resenas]) => {
-        console.log(categorias)
-          res.render('orderToReview', {
-              categorias: categorias[0],
-              permisos: req.session.permisos || [],
-              path: '/graficas/orderToReview',
-              datos:[Number(resenas[0][0].Contestadas),Number(resenas[0][0].No_Contestadas)]
-          });
-      })
-      .catch(err => {
-          console.error('Error al cargar la página:', err);
-          res.status(500).send('Error al cargar la página de análisis');
-      });
 };
 
 exports.obtenerResenasContestadasFiltradas = (req, res) => {
@@ -142,4 +144,4 @@ exports.numeroResenasFiltradas = (req, res) => {
       console.error("Error al obtener reseñas filtradas:", err);
       res.status(500).send("Error al obtener los datos filtrados");
     });
-};
+}; 

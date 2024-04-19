@@ -97,13 +97,14 @@ exports.obtenerNumeroResenas = () => {
 };
 
 exports.obtenerNumeroResenasFiltradas = (categoria, producto, fechaInicio, fechaFin) => {
-  let query = `SELECT DATE(r.FechaContestacion) as Fecha, COUNT(*) as TotalResenas
-                 FROM resena r
-                 JOIN producto p ON r.IDProducto = p.IDProducto
-                 WHERE r.FechaContestacion IS NOT NULL`;
-  const params = [];
+  let query = `SELECT DATE(r.FechaContestacion) as Fecha, COUNT(*) as TotalReseñas
+             FROM resena r
+             JOIN producto p ON r.IDProducto = p.IDProducto
+             WHERE r.FechaContestacion IS NOT NULL`;
 
-  if (categoria) {
+const params = [];
+
+if (categoria) {
     query += " AND p.Categoria = ?";
     params.push(categoria);
 }
@@ -112,13 +113,15 @@ if (producto) {
     params.push(producto);
 }
 if (fechaInicio) {
-  query += " AND r.FechaContestacion >= ?";
-  params.push(fechaInicio);
+    query += " AND r.FechaContestacion >= ?";
+    params.push(fechaInicio);
 }
 if (fechaFin) {
-  query += " AND r.FechaContestacion <= ?";
-  params.push(fechaFin);
+    query += " AND r.FechaContestacion <= ?";
+    params.push(fechaFin);
 }
 
+query += " GROUP BY DATE(r.FechaContestacion)";
+
 return db.execute(query, params);
-};
+}; 
