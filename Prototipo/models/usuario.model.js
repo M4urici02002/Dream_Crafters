@@ -6,7 +6,7 @@ module.exports = class Usuario {
     constructor(mi_username, mi_nombre, mi_password, mi_idrol) {
         this.username = mi_username;
         this.nombre = mi_nombre;
-        this.password = mi_password;
+        this.password = mi_password; 
         this.idrol = mi_idrol;
     }
 
@@ -35,9 +35,21 @@ module.exports = class Usuario {
       `);
     }
 
-    static fetchOne(username) {
-      return db.execute("Select * from usuario WHERE username = ?", [username]);
+    static async fetchOne(username) {
+        try {
+            const [rows] = await db.execute('SELECT * FROM usuario WHERE username = ?', [username]);
+            if (rows.length > 0) {
+                const usuario = rows[0]; // Tomar el primer usuario de los resultados
+                return usuario;
+            } else {
+                return null; // Devolver null si no se encuentra ningún usuario con el nombre de usuario proporcionado
+            }
+        } catch (error) {
+            console.error('Error al buscar usuario:', error);
+            throw error; // Lanzar error para que se maneje en el controlador
+        }
     }
+    
 
   
   static update(username, nombre, idrol) {
@@ -81,5 +93,15 @@ module.exports = class Usuario {
     `, 
     ['%' + valor_busqueda + '%', '%' + valor_busqueda + '%', '%' + valor_busqueda + '%']);
   }
+
+    // Método para actualizar la contraseña del usuario en la base de datos
+    static updatePassword(username, newPassword) {
+        return db.execute(`
+            UPDATE usuario
+            SET password = ?
+            WHERE username = ?
+        `, [newPassword, username]);
+    }
+
 
 };
