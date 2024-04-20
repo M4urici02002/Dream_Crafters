@@ -123,7 +123,7 @@ exports.post_modificarUsuario = (request, response, next) => {
         .catch((error) => {console.log(error)});
 };
 
-/*
+
 // Cambiar contraseña
 exports.get_modificarContrasena = (request, response, next) => {
     Usuario.fetchOneWithRole(request.params.username)
@@ -145,8 +145,7 @@ exports.get_modificarContrasena = (request, response, next) => {
 
 exports.post_modificarConstrasena = (request, response, next) => {
     const username = request.body.username;
-    const newPassword = request.body.password; // Nueva contraseña ingresada por el 
-    const confirmPassword = request.body.confirmPassword;
+    const newPassword = request.body.password; // Nueva contraseña ingresada por el usuario
 
     // Lógica para actualizar la contraseña del usuario en la base de datos
     Usuario.updatePassword(username, newPassword)
@@ -160,4 +159,4 @@ exports.post_modificarConstrasena = (request, response, next) => {
             response.status(500).send("Error al actualizar la contraseña del usuario");
         });
 };
-*/
+

@@ -3,6 +3,22 @@
 
 <div class="main p-3">
   <div class="container">
+
+    <% if (successMessage) { %>
+      <!-- Mensaje de éxito -->
+      <div class="alert alert-success" role="alert">
+          <%= successMessage %>
+      </div>
+    <% } %>
+
+    <!-- Mensaje de error -->
+    <% if (typeof errorMessage !== 'undefined' && errorMessage !== null) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= errorMessage %>
+        </div>
+    <% } %>
+
+
     <div class="row miPerfil">
       <div class="col-md-4 d-flex justify-content-center align-items-center">
         <div>
@@ -13,17 +29,17 @@
       </div>
       
       <div class="col-md-8">
-        <form action="/miPerfil/configuracion" method="POST">
+        <form action="/configuracion" method="POST">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="mb-5 contenido-con-margen">
                 <label for="inputNombre" class="form-label label-miPerfil">Contraseña actual</label>
-                <input type="password" class="form-control input-miPerfil" id="inputNombre" value="<%=password%>">
+                <input type="password" class="form-control input-miPerfil" id="inputNombre" name="password">
               
                 <label for="inputEmail" class="form-label label-miPerfil">Nueva contraseña</label>
                 <input type="password" class="form-control input-miPerfil" id="newPassword" name="newPassword">
               
                 <label for="inputUsuario" class="form-label label-miPerfil">Confirmar contraseña nueva</label>
-                <input type="password" class="form-control input-miPerfil" id="confirmPassword">
+                <input type="password" class="form-control input-miPerfil" id="password2" name="confirmPassword">
             </div>
             <!-- Elemento para mostrar el mensaje de error -->
             <div id="errorContainer" class="text-danger mt-2"></div>
@@ -37,49 +53,5 @@
     </div>
   </div>
 </div>
-
-<script>
-  const mostrarAlerta = (mensaje, tipo) => {
-      // Crear un elemento de alerta
-      const alerta = document.createElement('div');
-      alerta.classList.add('alert', `alert-${tipo}`, 'alert-dismissible', 'fade', 'show');
-      alerta.setAttribute('role', 'alert');
-      alerta.innerHTML = `
-          ${mensaje}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      `;
-      
-      // Agregar la alerta al contenedor de alertas en la página
-      const contenedorAlertas = document.getElementById('contenedor-alertas');
-      contenedorAlertas.appendChild(alerta);
-  };
-
-  const formulario = document.getElementById('form-configuracion');
-  formulario.addEventListener('submit', (event) => {
-      event.preventDefault(); // Evitar que se envíe el formulario por defecto
-
-      const formData = new FormData(formulario);
-      fetch('/configuracion', {
-          method: 'POST',
-          body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              // Si hay un mensaje de éxito, mostrarlo como alerta de éxito
-              mostrarAlerta(data.success, 'success');
-          } else if (data.error) {
-              // Si hay un mensaje de error, mostrarlo como alerta de error
-              mostrarAlerta(data.error, 'danger');
-          }
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          alert('Hubo un error al procesar la solicitud');
-      });
-  });
-</script>
-
-
 
 <%- include('includes/footer.ejs') %>

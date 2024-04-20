@@ -27,10 +27,21 @@ module.exports = class Usuario {
         return db.execute('Select * from usuario')
     }
 
-    static fetchOne(username) {
-        return db.execute('Select * from usuario WHERE username = ?'
-        , [username]);
+    static async fetchOne(username) {
+        try {
+            const [rows] = await db.execute('SELECT * FROM usuario WHERE username = ?', [username]);
+            if (rows.length > 0) {
+                const usuario = rows[0]; // Tomar el primer usuario de los resultados
+                return usuario;
+            } else {
+                return null; // Devolver null si no se encuentra ningún usuario con el nombre de usuario proporcionado
+            }
+        } catch (error) {
+            console.error('Error al buscar usuario:', error);
+            throw error; // Lanzar error para que se maneje en el controlador
+        }
     }
+    
 
     static update(username, nombre, password) {
         return db.execute(`UPDATE usuario SET 

@@ -1,39 +1,53 @@
 const Usuario = require('../models/usuario.model');
+const bcrypt = require('bcrypt');
 
 exports.get_configuracion = (request, response, next) => {
     response.render('configuracion', {
-        username: request.session.username || '',
+        successMessage: '',
         nombre: request.session.nombre || '',
+        nombre_rol: request.session.rol || '',
         password: request.session.password || '',
         csrfToken: request.csrfToken(),
         permisos: request.session.permisos || [],
     });
 };
 
-exports.post_configuracion = (request, response, next) => {
+exports.post_configuracion = async (request, response, next) => {
     const { password, newPassword, confirmPassword } = request.body;
 
-    // Verificar que la contraseña nueva y la confirmación coincidan
-    if (newPassword !== confirmPassword) {
-        console.log(newPassword, " + ", confirmPassword);
-        return console.log('La nueva contraseña y la confirmación no coinciden');
-    }
+    try {
+        if (newPassword !== confirmPassword) {
+           throw new Error('La nueva contraseña y la confirmación no coinciden');
+        }
 
-    // Verificar que la contraseña actual del usuario sea correcta
-    if (password !== request.session.password) {
-        return console.log('La contraseña actual es incorrecta');
-    }
+        const usuario = await Usuario.fetchOne(request.session.username);
+        if (!usuario) {
+            throw new Error('Usuario no encontrado');
+        }
 
-    // Actualizar la contraseña en la base de datos
-    Usuario.updatePassword(request.session.username, newPassword)
-        .then(() => {
-            // Enviar un mensaje de éxito como JSON
-            console.log('Contraseña actualizada exitosamente');
-        })
-        .catch(error => {
-            // Enviar un mensaje de error como JSON
-            console.error('Error al actualizar la contraseña:', error);
-            console.log('Error al actualizar la contraseña');
+        // Comparar la contraseña nueva y BD
+        const passwordMatch = await bcrypt.compare(password, usuario.password);
+        if (!passwordMatch) {
+            throw new Error('La contraseña actual es incorrecta');
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 12);
+        await Usuario.updatePassword(request.session.username, hashedPassword);
+
+        // Mensaje de éxito solo si la contraseña se actualizó correctamente
+        const successMessage = 'Contraseña actualizada exitosamente';
+
+        // Renderizar la vista configuracion.ejs con el mensaje de éxito
+        response.render('configuracion', {
+            successMessage,
+            nombre: request.session.nombre || '',
+            nombre_rol: request.session.rol || '',
+            password: request.session.password || '',
+            csrfToken: request.csrfToken(),
+            permisos: request.session.permisos || [],
         });
+    } catch (error) {
+        // Enviar un mensaje de error como respuesta
+        response.status(400).json({ error: error.message });
+    }
 };
-
