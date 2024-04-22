@@ -60,19 +60,21 @@
       <div class="row">
         <div class="col-sm-4">
           <select
-          class="form-select form-select-sm"
-          aria-label="Small select example"
-          id="categoriaDropdown"
-        >
-          <option value="">Seleccione una categoría</option>
-          <% if (categorias) { %>
-              <% categorias.forEach(function(categoria) { %>
-                <option value="<%= categoria.Categoria %>"><%= categoria.Categoria %></option>
-              <% }); %>
-            <% } else { %>
-              <option value="">No hay categorías disponibles</option>
+            class="form-select form-select-sm"
+            aria-label="Small select example"
+            id="categoriaDropdown"
+          >
+            <option value="">Seleccione una categoría</option>
+            <% if (categorias) { %> <% categorias.forEach(function(categoria) {
+            %>
+            <option value="<%= categoria.Categoria %>">
+              <%= categoria.Categoria %>
+            </option>
+            <% }); %> <% } else { %>
+            <option value="">No hay categorías disponibles</option>
             <% } %>
-        </select></div>
+          </select>
+        </div>
         <div class="col-sm-4">
           <select
             class="form-select form-select-sm"
@@ -126,94 +128,131 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  $(document).ready(function () {
-    // Configuraciones de datepicker
-    $("#start-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
-    $("#end-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
+    $(document).ready(function () {
+      // Configuraciones de datepicker
+      $("#start-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
+      $("#end-date").datepicker({ format: "yyyy/mm/dd", autoclose: true });
 
-    // Cargar productos basados en la categoría seleccionada
-    $("#categoriaDropdown").on("change", function () {
-      const categoriaSeleccionada = $(this).val();
-      fetch(
-        `http://localhost:3000/graficas/productosPorCategoria?categoria=${categoriaSeleccionada}`
-      )
-       .then((data) => data.json())
-       .then((data) => {
-          data.forEach((producto) =>
-            $("#productoDropdown").append(
-              `<option value="${producto.Nombre}">${producto.Nombre}</option>`
-            )
-          );
-        });
-      $("#productoDropdown")
-       .empty()
-       .append('<option value="">Seleccione un producto</option>');
-    });
-
-    // Inicialización del gráfico de línea
-    const ctx = document.getElementById("numeroResenasGrafica").getContext("2d");
-    const data = JSON.parse("<%= JSON.stringify(resenas.map(r => r.TotalResenas)) %>");
-    const chartNumeroResenas = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: "<%= JSON.stringify(resenas.map(r => r.Fecha)) %>",
-        datasets: [{
-          label: "Total Reseñas",
-          data: data,
-          backgroundColor: "rgba(54, 162, 235, 0.2)",
-          borderColor: "rgba(54, 162, 235, 1)",
-          borderWidth: 1,
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
-
-    function actualizarGrafica() {
-      console.log("Actualizando");
-      const categoriaSeleccionada = $("#categoriaDropdown").val();
-      const productoSeleccionado = $("#productoDropdown").val().replace("+","%2B");
-      const fechaInicio = $("#start-date").val();
-      const fechaFin = $("#end-date").val();
-
-      fetch(`http://localhost:3000/graficas/numeroResenasFiltradas?categoria=${categoriaSeleccionada}&producto=${productoSeleccionado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
-       .then(response => response.json())
-       .then(data => {
-          chartNumeroResenas.data.labels = data.datos.map(d => d.Fecha);
-          chartNumeroResenas.data.datasets.forEach((dataset) => {
-            dataset.data = data.datos.map(d => d.TotalResenas);
+      // Cargar productos basados en la categoría seleccionada
+      $("#categoriaDropdown").on("change", function () {
+        const categoriaSeleccionada = $(this).val();
+        fetch(
+          `/graficas/productosPorCategoria?categoria=${categoriaSeleccionada}`
+        )
+          .then((data) => data.json())
+          .then((data) => {
+            data.forEach((producto) =>
+              $("#productoDropdown").append(
+                `<option value="${producto.Nombre}">${producto.Nombre}</option>`
+              )
+            );
           });
-          chartNumeroResenas.update();
-        })
-       .catch(error => console.error("Error al actualizar la gráfica:", error));
-    }
+        $("#productoDropdown")
+          .empty()
+          .append('<option value="">Seleccione un producto</option>');
+      });
+      const data = JSON.parse(
+        "<%= JSON.stringify(resenas.map(r => r.TotalResenas)) %>"
+      );
+      // Decodifica las entidades HTML en las fechas
+      const htmlDecoder = document.createElement("textarea");
+      htmlDecoder.innerHTML =
+        "<%= JSON.stringify(resenas.map(r => r.Fecha)) %>";
+      const datesJson = htmlDecoder.value;
 
-    // Escuchar cambios en los dropdowns y datepickers
-    $("#categoriaDropdown, #productoDropdown, #start-date, #end-date").on(
-      "change",
-      actualizarGrafica
-    );
+      // Parsea el JSON de las fechas
+      const dates = JSON.parse(datesJson);
 
-    $("#numeroResenas").click(function () {
-      window.location.href = "/graficas";
+      // Formatea cada fecha al formato "día mes año"
+      const formattedDates = dates.map((dateStr) => {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString("es-ES", {
+          month: "long",
+          year: "numeric",
+        });
+      });
+
+      // Aquí el resto de tu código para crear la gráfica
+      const ctx = document
+        .getElementById("numeroResenasGrafica")
+        .getContext("2d");
+      const chartNumeroResenas = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: formattedDates,
+          datasets: [
+            {
+              label: "Total Reseñas",
+              data: data, // Asegúrate que 'data' está definido correctamente como arriba
+              backgroundColor: "rgba(54, 162, 235, 0.2)",
+              borderColor: "rgba(54, 162, 235, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      function actualizarGrafica() {
+        console.log("Actualizando");
+        const categoriaSeleccionada = $("#categoriaDropdown").val();
+        const productoSeleccionado = $("#productoDropdown")
+          .val()
+          .replace("+", "%2B");
+        const fechaInicio = $("#start-date").val();
+        const fechaFin = $("#end-date").val();
+
+        fetch(
+          `/graficas/numeroResenasFiltradas?categoria=${categoriaSeleccionada}&producto=${productoSeleccionado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            // Aquí se formatean las fechas como en la configuración inicial de la gráfica
+            const formattedDates = data.datos.map((d) => {
+              const date = new Date(d.Fecha);
+              return date.toLocaleDateString("es-ES", {
+                month: "long",
+                year: "numeric",
+              });
+            });
+
+            const informacion = data.datos.map((d) => {
+              return d.TotalReseñas
+            })
+            console.log(chartNumeroResenas);
+            chartNumeroResenas.data.labels = formattedDates;
+            chartNumeroResenas.data.datasets[0].data = informacion;
+            chartNumeroResenas.update();
+          })
+          .catch((error) =>
+            console.error("Error al actualizar la gráfica:", error)
+          );
+      }
+      // Escuchar cambios en los dropdowns y datepickers
+      $("#categoriaDropdown, #productoDropdown, #start-date, #end-date").on(
+        "change",
+        actualizarGrafica
+      );
+
+      $("#numeroResenas").click(function () {
+        window.location.href = "/graficas";
+      });
+      $("#calificacionEstrellas").click(function () {
+        window.location.href = "/graficas/calificacionEstrellas";
+      });
+      $("#orderToReview").click(function () {
+        window.location.href = "/graficas/orderToReview";
+      });
     });
-    $("#calificacionEstrellas").click(function () {
-      window.location.href = "/graficas/calificacionEstrellas";
-    });
-    $("#orderToReview").click(function () {
-      window.location.href = "/graficas/orderToReview";
-    });
-  });
-</script>
+  </script>
 
   <%- include('includes/footer.ejs') %>
 </div>

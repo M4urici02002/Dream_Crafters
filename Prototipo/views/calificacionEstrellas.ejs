@@ -110,7 +110,7 @@
         $("#categoriaDropdown").on("change", function () {
           const categoriaSeleccionada = $(this).val();
           fetch(
-            `http://146.190.155.149/graficas/productosPorCategoria?categoria=${categoriaSeleccionada}`
+            `/graficas/productosPorCategoria?categoria=${categoriaSeleccionada}`
           )
             .then((data) => data.json())
             .then((data) => {
@@ -177,7 +177,7 @@
           const fechaFin = $("#end-date").val();
 
           fetch(
-            `http://146.190.155.149/graficas/calificacionesFiltradas?categoria=${categoriaSeleccionada}&producto=${productoSeleccionado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+            `/graficas/calificacionesFiltradas?categoria=${categoriaSeleccionada}&producto=${productoSeleccionado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
           )
             .then((response) => response.json())
             .then((data) => {
