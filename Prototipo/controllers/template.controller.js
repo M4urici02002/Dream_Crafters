@@ -69,11 +69,14 @@ exports.get_EditarEncuesta = (request, response, next) => {
     });
 };    
 
-// exports.post_guardarEncuesta = (request, response, next) => {
-//     try {
-//         // Redireccionar a la página principal
-//         response.redirect("/graficas");
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
+exports.post_editarEncuesta = (request, response, next) => {
+    try {
+        // Redireccionar a la página principal
+        // 
+        response.redirect("/graficas");
+        console.log('hola post ou');
+        
+    } catch (error) {
+        console.log(error);
+    }
+};

@@ -102,9 +102,31 @@
 <script>
     function mostrarMensaje() {
         if (confirm("La encuesta terminó de ser creada")) {
-            window.location.href = "/graficas";
+        // Obtener el token CSRF
+        const csrfToken = document.querySelector('input[name="_csrf"]').value;
+
+        // Realizar la solicitud POST
+        fetch('/template/editarEncuesta', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({}) // Puedes enviar datos si es necesario
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al enviar la solicitud');
+            }
+            // Hacer algo si la solicitud fue exitosa, pero la redirección se manejará en el controlador
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Manejar el error aquí
+        });
         } 
     }
+    
 
     document.addEventListener('DOMContentLoaded', function () {
     // Arreglo para almacenar las preguntas agregadas dinámicamente
