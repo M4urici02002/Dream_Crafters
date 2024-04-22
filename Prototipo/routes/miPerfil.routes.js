@@ -8,7 +8,7 @@ router.get('/', isAuth, (request, response, next) => {
         username: request.session.username || '',
         nombre: request.session.nombre || '',
         nombre_rol: request.session.rol || '', 
-
+ 
     });
 });
 

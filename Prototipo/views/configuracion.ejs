@@ -1,34 +1,55 @@
-<%- include('includes/navbar.ejs') %>
+<%- include('includes/navbar.ejs') %> 
 <%- include('includes/sidebar.ejs') %>
 
 <div class="main p-3">
   <div class="container">
+
+    <% if (successMessage) { %>
+      <!-- Mensaje de éxito -->
+      <div class="alert alert-success" role="alert">
+          <%= successMessage %>
+      </div>
+    <% } %>
+
+    <!-- Mensaje de error -->
+    <% if (typeof errorMessage !== 'undefined' && errorMessage !== null) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= errorMessage %>
+        </div>
+    <% } %>
+
+
     <div class="row miPerfil">
       <div class="col-md-4 d-flex justify-content-center align-items-center">
         <div>
           <img src="https://icon-library.com/images/username-icon-png/username-icon-png-6.jpg" alt="Profile Picture" class="img-fluid profile-picture mb-4">
-          <p class="text-center nombre-usuario">Nombre Usuario</p>
-          <p class="text-center tipo-usuario">Administrador</p>
+          <p class="text-center nombre-usuario"><%=nombre%></p>
+          <p class="text-center tipo-usuario"><%=nombre_rol%></p>
         </div>
       </div>
       
       <div class="col-md-8">
-        <form>
-          <div class="mb-5 contenido-con-margen">
-            <label for="inputNombre" class="form-label label-miPerfil">Contraseña actual</label>
-            <input type="password" class="form-control input-miPerfil" id="inputNombre" value="contraseñaactual">
-          
-            <label for="inputEmail" class="form-label label-miPerfil">Nueva contraseña</label>
-            <input type="password" class="form-control input-miPerfil" id="inputCorreo" value="contraseñanueva">
-          
-            <label for="inputUsuario" class="form-label label-miPerfil">Confirmar contraseña nueva</label>
-            <input type="password" class="form-control input-miPerfil" id="inputContraseña" value="contraseñanueva">
-          </div>
+        <form action="/configuracion" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="mb-5 contenido-con-margen">
+                <label for="inputNombre" class="form-label label-miPerfil">Contraseña actual</label>
+                <input type="password" class="form-control input-miPerfil" id="inputNombre" name="password">
+              
+                <label for="inputEmail" class="form-label label-miPerfil">Nueva contraseña</label>
+                <input type="password" class="form-control input-miPerfil" id="newPassword" name="newPassword">
+              
+                <label for="inputUsuario" class="form-label label-miPerfil">Confirmar contraseña nueva</label>
+                <input type="password" class="form-control input-miPerfil" id="password2" name="confirmPassword">
+            </div>
+            <!-- Elemento para mostrar el mensaje de error -->
+            <div id="errorContainer" class="text-danger mt-2"></div>
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-custom-contrasena">Aceptar</button>
+            </div>
         </form>
       </div>
-      <div class="text-center">
-        <button type="button" class="btn btn-custom-contrasena">Aceptar</button>
-      </div>
+    
     </div>
   </div>
 </div>
