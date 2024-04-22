@@ -42,7 +42,7 @@
             </p>
             <p class="card-text"><%= re.Correo %></p>
             <p class="card-text">Producto: <%= re.NombreProducto %></p>
-            <p class="card-text"><%= re.FechaContestacion %></p>
+            <%= new Date(re.FechaContestacion).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' }) %>
           </div>
         </div>
       <% } %>
