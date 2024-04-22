@@ -102,13 +102,36 @@
 <script>
     function mostrarMensaje() {
         if (confirm("La encuesta terminó de ser creada")) {
-            window.location.href = "/graficas";
+        // Obtener el token CSRF
+        const csrfToken = document.querySelector('input[name="_csrf"]').value;
+
+        // Realizar la solicitud POST
+        fetch('/template/editarEncuesta', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({}) // Puedes enviar datos si es necesario
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al enviar la solicitud');
+            }
+            // Hacer algo si la solicitud fue exitosa, pero la redirección se manejará en el controlador
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Manejar el error aquí
+        });
         } 
     }
+    
 
     document.addEventListener('DOMContentLoaded', function () {
     // Arreglo para almacenar las preguntas agregadas dinámicamente
     let preguntasAgregadas = [];
+    let idPreguntasAgregadas = [];
 
     // Selector del formulario para agregar preguntas
     const formularioAgregarPregunta = document.querySelector('.crearPregunta');
@@ -123,11 +146,17 @@
         // Obtener el valor seleccionado del dropdown
         const preguntaSeleccionada = document.querySelector('#inputPregunta');
 
+        const idPreguntaAgregada = document.querySelector('#inputPregunta');
+
         // Agregar la pregunta al arreglo
         preguntasAgregadas.push({
             pregunta: preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text,
             respuesta: '' // Inicialmente la respuesta es una cadena vacía
         });
+        
+        // Agregar el ID de la pregunta seleccionada al arreglo idPreguntasAgregadas
+        idPreguntasAgregadas.push(preguntaSeleccionada.value);
+
 
         // Limpiar el dropdown para evitar confusiones
         document.querySelector('#inputPregunta').selectedIndex = 0;
@@ -146,8 +175,7 @@
         `).join('');
 
         // Opcional: Mostrar mensaje de éxito o realizar otras acciones
-        console.log('Pregunta agregada:', preguntaSeleccionada);
-        console.log('Preguntas agregadas:', preguntasAgregadas);
+        console.log('idPreguntasAgregadas:', idPreguntasAgregadas);
     });
 });
 
