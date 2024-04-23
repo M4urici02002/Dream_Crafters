@@ -1,7 +1,6 @@
 const db = require('../util/database');
 
 module.exports = class Rol {
-
     constructor(mi_nombreRol) {
         this.nombreRol = mi_nombreRol;
     } 
@@ -15,8 +14,15 @@ module.exports = class Rol {
         }
     }
     
-    static fetchAll() {
-        return db.execute('Select * from rol')
+    static async fetchAll() {
+        try {
+            const [roles] = await db.query(`
+                SELECT * FROM rol;
+            `);
+            return roles;
+        } catch (error) {
+            throw error;
+        }
     }
 
     static eliminar(idrol) {
