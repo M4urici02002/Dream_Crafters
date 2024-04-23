@@ -32,12 +32,6 @@ graficasController.showOrderToReview
 );
 
 router.get(
-"/obtenerReseñasContestadas",
-isAuth,
-graficasController.obtenerResenasContestadas
-);
-
-router.get(
 "/obtenerResenasContestadasFiltradas",
 isAuth,
 graficasController.obtenerResenasContestadasFiltradas
@@ -49,8 +43,8 @@ router.get(
   graficasController.numeroResenas
   );
 
-  router.get(
-    "/numeroResenasFiltradas",
+router.get(
+  "/numeroResenasFiltradas",
     isAuth,
     graficasController.numeroResenasFiltradas
     );
