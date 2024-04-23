@@ -154,18 +154,17 @@
       const data = JSON.parse(
         "<%= JSON.stringify(resenas.map(r => r.TotalResenas)) %>"
       );
+      console.log(data);
       // Decodifica las entidades HTML en las fechas
       const htmlDecoder = document.createElement("textarea");
       htmlDecoder.innerHTML =
-        "<%= JSON.stringify(resenas.map(r => r.Fecha)) %>";
+        "<%= JSON.stringify(resenas.map(r => {return {Year:r.Year, Month:r.Month}})) %>";
       const datesJson = htmlDecoder.value;
-
       // Parsea el JSON de las fechas
       const dates = JSON.parse(datesJson);
-
       // Formatea cada fecha al formato "día mes año"
-      const formattedDates = dates.map((dateStr) => {
-        const d = new Date(dateStr);
+      const formattedDates = dates.map((date) => {
+        const d = new Date(date.Year, date.Month - 1);
         return d.toLocaleDateString("es-ES", {
           month: "long",
           year: "numeric",
@@ -215,21 +214,19 @@
         )
           .then((response) => response.json())
           .then((data) => {
-            // Aquí se formatean las fechas como en la configuración inicial de la gráfica
+            console.log(data);
             const formattedDates = data.datos.map((d) => {
-              const date = new Date(d.Fecha);
+              const date = new Date(d.Year, d.Month - 1); // El mes en JavaScript es de 0 a 11
               return date.toLocaleDateString("es-ES", {
                 month: "long",
                 year: "numeric",
               });
             });
 
-            const informacion = data.datos.map((d) => {
-              return d.TotalReseñas
-            })
-            console.log(chartNumeroResenas);
+            const resenasCounts = data.datos.map((d) => d.TotalResenas);
+
             chartNumeroResenas.data.labels = formattedDates;
-            chartNumeroResenas.data.datasets[0].data = informacion;
+            chartNumeroResenas.data.datasets[0].data = resenasCounts;
             chartNumeroResenas.update();
           })
           .catch((error) =>
@@ -241,7 +238,6 @@
         "change",
         actualizarGrafica
       );
-
       $("#numeroResenas").click(function () {
         window.location.href = "/graficas";
       });
