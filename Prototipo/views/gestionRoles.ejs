@@ -33,7 +33,7 @@
     </div> 
 
     <!--Tarjetas de rol-->
-    <% for (let rol of rolRegistrado) { %>
+    <% for (let rol of roles) { %>
         <div id="rol-<%= rol.idrol %>" class="row tarjetaUsuario">
             <div class="col-lg-2 col-md-3 col-sm-3">
                 <p class="username-usuario-tarjeta"><br><%= rol.idrol %></p>
@@ -44,7 +44,8 @@
 
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
                <!--Modificar rol-->
-                <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+               <% if (rol.nombre != 'admin') { %>
+                <a href="/editarRol/<%= rol.nombre %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
                     Modificar
                 </a> 
                 &nbsp;&nbsp;
@@ -52,6 +53,8 @@
                 <button onclick="eliminar('<%= rol.idrol %>', '<%= rol.nombre %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
                     Eliminar
                 </button>
+               <% } %>
+                
             </div>
         </div>
     <% } %>    

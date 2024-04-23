@@ -19,8 +19,17 @@ module.exports = class Rol {
         return db.execute('Select * from rol')
     }
 
+    static findByNombre(nombreRol) {
+        return db.execute('SELECT * FROM rol WHERE nombre = ?', [nombreRol]);
+    }
+    
+
     static eliminar(idrol) {
         return db.execute('DELETE FROM rol WHERE idrol = ?', [idrol]);
+    }
+
+    static update(id, nombre) {
+        return db.execute('UPDATE rol SET nombre = ? WHERE idrol = ?', [nombre, id]);
     }
 
     static async asignaciones(idrol) {

@@ -4,14 +4,14 @@ const db=require('../util/database');
 
 exports.get_gestionRoles = async (request, response, next) => {
     try {
-        const [uroles] = await db.query(`
+        const [rol] = await db.query(`
             SELECT idrol, nombre
             FROM rol;
         `);
 
         Rol.fetchAll() 
         response.render('gestionRoles', {
-            rolRegistrado: uroles,
+            rolRegistrado: rol,
             permisos: request.session.permisos || [],
             csrfToken: request.csrfToken(),
         });

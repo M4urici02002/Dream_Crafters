@@ -3,11 +3,17 @@
 
 <div class="main p-3 background-color">
   <div class="container form">
-    <form class="crearUsuario">
-      <h1 class ="titulo-form"> Modificar Rol</h1>
+    <form class="crearUsuario" action="/editarRol" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+      <input type="hidden" id="nombre" name="nombre" value="<%= rol.nombre %>">
+      <input type="hidden" id="idRol" name="idRol" value="<%= rol.idrol %>">
+
+      <h1 class="titulo-form">Modificar rol: <%= rol.nombre %></h1>
+
+
         <div class="mb-5 contenido-con-margen">
-          <label for="inputNombre" class="form-label label-crearUsuario">Nuevo Nombre</label>
-          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre" placeholder="{{nombreActual}}">
+          <label for="inputNombre" class="form-label label-crearUsuario">Nombre del rol</label>
+          <input type="text" class="form-control input-crearUsuario" id="nombreRol" name="nombreRol">
 
           <label for="inputNombre" class="form-label label-crearUsuario">Modificar Privilegio</label>
           <div id="inputUsuario" class="form-control input-crearUsuario">
