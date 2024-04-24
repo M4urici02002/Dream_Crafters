@@ -13,7 +13,7 @@ module.exports = class Pregunta {
     static fetchAllByIDEncuesta(IDEncuesta) {
         return db.execute(`
             SELECT p.Descripcion, e.IDEncuesta, p.IDPregunta, p.Categoria, Tipo, e.Categoria FROM pregunta p, encuesta e 
-            WHERE p.categoria = e.categoria AND IDEncuesta = 1;
+            WHERE p.categoria = e.categoria AND IDEncuesta = ?;
         `, [IDEncuesta]);
     }
 }

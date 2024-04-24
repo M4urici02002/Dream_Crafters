@@ -22,7 +22,6 @@ exports.get_categoriasMarca = async (request, response, next) => {
     }
 };
 
-// In your post_categoriasMarca controller
 exports.post_categoriasMarca = async (request, response, next) => {
     console.log(request.body);
 
@@ -73,7 +72,7 @@ exports.post_editarEncuesta = (request, response, next) => {
     try {
         // Redireccionar a la página principal
         // 
-        response.redirect("/graficas");
+        //
         console.log('hola post ou');
         
     } catch (error) {
