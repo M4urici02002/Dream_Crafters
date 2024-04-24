@@ -3,9 +3,10 @@
 <div class="main p-3">
   <div class="container">
     <form class="template" action="/template/editarEncuesta" method="POST">
-      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-      <input type="hidden" name="_IDEncuesta" value="<%= IDEncuesta %>" />
-      
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <input type="hidden" name="IDEncuesta" value="<%= IDEncuesta %>">
+        <input type="hidden" name="idPreguntasAgregadas" id="idPreguntasAgregadas" value="">
+
       IDEncuesta: <%= IDEncuesta %>
       <img
         src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg"
@@ -76,7 +77,7 @@
       </div>
 
       <div class="btn-template">
-        <button type="submit" class="btn btn-custom-pregunta">Enviar</button>
+        <button type="submit" class="btn btn-custom-pregunta" disabled>Enviar</button>
       </div>
       <footer class="footer-template">
         <div class="container">
@@ -100,7 +101,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-              <br><button type="submit" class="btn btn-custom float-end me-2">Aceptar</button>
+              <br><button type="submit" name="submit" class="btn btn-custom float-end me-2">Aceptar</button>
               <p class="float-end me-2">¿Desea terminar de editar la encuesta?<br><br><br></p>
           </div>
         </div>
@@ -140,70 +141,67 @@
 <%- include('includes/footer.ejs') %>
 
 <script>
-    let idPreguntasAgregadas = [];
-  document.addEventListener("DOMContentLoaded", function () {
     // Arreglo para almacenar las preguntas agregadas dinámicamente
-    let idPreguntasAgregadas = [];
+    let idNuevasPreguntas = [];
     let preguntasAgregadas = [];
 
-    // Selector del formulario para agregar preguntas
-    const formularioAgregarPregunta = document.querySelector(".crearPregunta");
+    document.addEventListener("DOMContentLoaded", function () {
+        // Selector del formulario para agregar preguntas
+        const formularioAgregarPregunta = document.querySelector(".crearPregunta");
 
-    // Selector del contenedor de preguntas agregadas
-    const contenedorPreguntasAgregadas = document.querySelector(
-      ".preguntas-agregadas ul"
-    );
+        // Selector del contenedor de preguntas agregadas
+        const contenedorPreguntasAgregadas = document.querySelector(".preguntas-agregadas ul");
 
-    // Manejador de evento para agregar pregunta
-    formularioAgregarPregunta.addEventListener("submit", function (event) {
-      event.preventDefault();
+        // Selector del input de idPreguntasAgregadas
+        const inputIdPreguntasAgregadas = document.getElementById("idPreguntasAgregadas");
 
-      // Obtener el valor seleccionado del dropdown
-      const preguntaSeleccionada = document.querySelector("#inputPregunta");
+        // Manejador de evento para agregar pregunta
+        formularioAgregarPregunta.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-      const idPreguntaAgregada = document.querySelector("#inputPregunta");
+            // Obtener el valor seleccionado del dropdown
+            const preguntaSeleccionada = document.querySelector("#inputPregunta");
 
-      // Agregar la pregunta al arreglo
-      preguntasAgregadas.push({
-        pregunta:
-          preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text,
-        respuesta: "", // Inicialmente la respuesta es una cadena vacía
-      });
+            // Agregar la pregunta al arreglo
+            preguntasAgregadas.push({
+                pregunta: preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text,
+                respuesta: "", // Inicialmente la respuesta es una cadena vacía
+            });
 
-      // Agregar el ID de la pregunta seleccionada al arreglo idPreguntasAgregadas
-      idPreguntasAgregadas.push(preguntaSeleccionada.value);
+            // Agregar el ID de la pregunta seleccionada al arreglo idNuevasPreguntas
+            idNuevasPreguntas.push(preguntaSeleccionada.value);
 
-      // Limpiar el dropdown para evitar confusiones
-      document.querySelector("#inputPregunta").selectedIndex = 0;
-
-      // Actualizar el contenido del contenedor de preguntas agregadas
-      contenedorPreguntasAgregadas.innerHTML = preguntasAgregadas
-        .map(
-          (pregunta, index) => `
-        <li>
-            ${pregunta.pregunta} 
-            <button type="button" class="btn btn-danger btn-small" onclick="eliminarPregunta(${index})">
-            <i class="fas fa-trash"></i> <!-- Icono de Font Awesome para bote de basura -->
-            </button>
-            <textarea id="textbox-${index}" class="pregunta-textbox form-control" data-index="${index}" placeholder="Escribe tu respuesta aquí" onchange="guardarRespuesta(this)"></textarea>
-        </li>
+            // Asignar el valor actualizado de idPreguntasAgregadas
+            inputIdPreguntasAgregadas.value = JSON.stringify(idNuevasPreguntas);
 
 
-        `
-        )
-        .join("");
+            // Limpiar el dropdown para evitar confusiones
+            document.querySelector("#inputPregunta").selectedIndex = 0;
 
-      // Mostrar arreglo de id de preguntas agregadas
-      console.log("idPreguntasAgregadas:", idPreguntasAgregadas);
+            // Actualizar el contenido del contenedor de preguntas agregadas
+            contenedorPreguntasAgregadas.innerHTML = preguntasAgregadas.map(
+                (pregunta, index) => `
+                    <li>
+                        ${pregunta.pregunta} 
+                        <button type="button" class="btn btn-danger btn-small" onclick="eliminarPregunta(${index})">
+                            <i class="fas fa-trash"></i> <!-- Icono de Font Awesome para bote de basura -->
+                        </button>
+                        <textarea id="textbox-${index}" class="pregunta-textbox form-control" data-index="${index}" placeholder="Escribe tu respuesta aquí" onchange="guardarRespuesta(this)"></textarea>
+                    </li>
+                `
+            ).join("");
+
+            // Mostrar arreglo de id de preguntas agregadas
+            console.log("idPreguntasAgregadas:", idNuevasPreguntas);
+        });
     });
-  });
 
-  // Función para guardar la respuesta en el arreglo de preguntas
-  function guardarRespuesta(textbox) {
-    const index = textbox.dataset.index;
-    preguntasAgregadas[index].respuesta = textbox.value;
-    console.log("Respuesta guardada:", textbox.value);
-    console.log("Preguntas agregadas:", preguntasAgregadas);
-  }
-
+    // Función para guardar la respuesta en el arreglo de preguntas
+    function guardarRespuesta(textbox) {
+        const index = textbox.dataset.index;
+        preguntasAgregadas[index].respuesta = textbox.value;
+        console.log("Respuesta guardada:", textbox.value);
+        console.log("Preguntas agregadas:", preguntasAgregadas);
+    }
 </script>
+
