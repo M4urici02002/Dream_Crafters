@@ -28,7 +28,7 @@ module.exports = class Resena {
         let params = [];
     
         if (categoria) {
-            conditions.push("e.Categoria = ?");
+            conditions.push("p.Categoria = ?");
             params.push(categoria);
         }
     
