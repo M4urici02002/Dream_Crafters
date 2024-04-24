@@ -1,15 +1,9 @@
 const db = require("../util/database");
 
-// Función para obtener las calificaciones
-exports.obtenerCalificaciones = () => {
+exports.obtenerCategoriasPorMarca = (marca) => {
   return db.execute(
-    "SELECT rating, COUNT(*) as cantidad FROM resena GROUP BY rating ORDER BY rating;"
-  );
-};
-
-exports.obtenerCategorias = () => {
-  return db.execute(
-    "SELECT DISTINCT Categoria FROM producto ORDER BY Categoria;"
+    "SELECT DISTINCT Categoria FROM producto p JOIN marca m on m.IDMarca = p.IDMarca WHERE m.Nombre = ? ORDER BY Categoria;",
+    [marca]
   );
 };
 // Función para obtener productos por categoría
@@ -24,11 +18,13 @@ exports.obtenerCalificacionesFiltradas = (
   categoria,
   producto,
   fechaInicio,
-  fechaFin
+  fechaFin,
+  marca
 ) => {
   let query = `SELECT r.rating, COUNT(*) as cantidad
                  FROM resena r
                  JOIN producto p ON r.IDProducto = p.IDProducto
+                 JOIN marca m  on p.IDMarca = m.IDMarca
                  WHERE 1=1`;
   const params = [];
   if (categoria) {
@@ -50,6 +46,11 @@ exports.obtenerCalificacionesFiltradas = (
     params.push(fechaFin);
   }
 
+  if(marca){
+    query += " AND m.Nombre = ?";
+    params.push(marca);
+  }
+
   query += " GROUP BY rating ORDER BY rating;";
 
   return db.execute(query, params);
@@ -61,12 +62,13 @@ exports.resenasContestadas = () => {
   );
 };
 
-exports.obtenerResenasContestadasFiltradas = (categoria, producto, fechaInicio, fechaFin) => {
+exports.obtenerResenasContestadasFiltradas = (categoria, producto, fechaInicio, fechaFin, marca) => {
   let query = `SELECT
         SUM(CASE WHEN FechaContestacion IS NOT NULL THEN 1 ELSE 0 END) AS Contestadas,
         SUM(CASE WHEN FechaContestacion IS NULL THEN 1 ELSE 0 END) AS No_Contestadas
     FROM resena r
     JOIN producto p ON r.IDProducto = p.IDProducto
+    JOIN marca m  on p.IDMarca = m.IDMarca
     WHERE 1=1`;
     let params = [];
     if (categoria) {
@@ -86,42 +88,48 @@ exports.obtenerResenasContestadasFiltradas = (categoria, producto, fechaInicio, 
       params.push(fechaFin);
   }
 
+  if(marca){
+    query += " AND m.Nombre = ?";
+    params.push(marca);
+  }
+
   return db.execute(query, params);
 };
 
-// Obteniendo el número de todas las reseñas revisadas a lo largo del tiempo
-exports.obtenerNumeroResenas = () => {
-  return db.execute(
-    "SELECT DATE(FechaContestacion) as Fecha, COUNT(*) as TotalResenas FROM resena WHERE FechaContestacion IS NOT NULL GROUP BY DATE(FechaContestacion) ORDER BY Fecha;"
-  );
+
+exports.obtenerNumeroResenasFiltradas = (categoria, producto, fechaInicio, fechaFin, marca) => {
+  let query = `SELECT YEAR(r.FechaContestacion) as Year, MONTH(r.FechaContestacion) as Month, COUNT(*) as TotalResenas
+               FROM resena r
+               JOIN producto p ON r.IDProducto = p.IDProducto
+               JOIN marca m  on p.IDMarca = m.IDMarca
+               WHERE r.FechaContestacion IS NOT NULL`;
+
+  const params = [];
+
+  if (categoria) {
+      query += " AND p.Categoria = ?";
+      params.push(categoria);
+  }
+  if (producto) {
+      query += " AND p.Nombre = ?";
+      params.push(producto);
+  }
+  if (fechaInicio) {
+      query += " AND r.FechaContestacion >= ?";
+      params.push(fechaInicio);
+  }
+  if (fechaFin) {
+      query += " AND r.FechaContestacion <= ?";
+      params.push(fechaFin);
+  }
+
+  if(marca){
+    query += " AND m.Nombre = ?";
+    params.push(marca);
+  }
+
+  query += " GROUP BY YEAR(r.FechaContestacion), MONTH(r.FechaContestacion)";
+  query += " ORDER BY YEAR(r.FechaContestacion), MONTH(r.FechaContestacion)";
+
+  return db.execute(query, params);
 };
-
-exports.obtenerNumeroResenasFiltradas = (categoria, producto, fechaInicio, fechaFin) => {
-  let query = `SELECT DATE(r.FechaContestacion) as Fecha, COUNT(*) as TotalReseñas
-             FROM resena r
-             JOIN producto p ON r.IDProducto = p.IDProducto
-             WHERE r.FechaContestacion IS NOT NULL`;
-
-const params = [];
-
-if (categoria) {
-    query += " AND p.Categoria = ?";
-    params.push(categoria);
-}
-if (producto) {
-    query += " AND p.Nombre = ?";
-    params.push(producto);
-}
-if (fechaInicio) {
-    query += " AND r.FechaContestacion >= ?";
-    params.push(fechaInicio);
-}
-if (fechaFin) {
-    query += " AND r.FechaContestacion <= ?";
-    params.push(fechaFin);
-}
-
-query += " GROUP BY DATE(r.FechaContestacion)";
-
-return db.execute(query, params);
-}; 
