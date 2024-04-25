@@ -123,10 +123,10 @@
             name="rol"
           >
             <% preguntas.forEach(pregunta => { %>
-            <option value="<%= pregunta.IDPregunta %>">
-              <%= pregunta.Descripcion %>
-            </option>
-                    <% }); %>
+                <option value="<%= pregunta.IDPregunta %>">
+                    <%= pregunta.Descripcion %>
+                </option>
+            <% }); %>
           </select>
           <button class="btn btn-custom-agregar-pregunta">
             Agregar pregunta <i class="fas fa-plus"></i>
@@ -141,18 +141,16 @@
 <%- include('includes/footer.ejs') %>
 
 <script>
-    // Arreglo para almacenar las preguntas agregadas dinámicamente
     let idNuevasPreguntas = [];
     let preguntasAgregadas = [];
+    // Set para las opciones seleccionadas
+    let opcionesSeleccionadas = new Set(); 
 
     document.addEventListener("DOMContentLoaded", function () {
-        // Selector del formulario para agregar preguntas
+        const dropdownPreguntas = document.getElementById("inputPregunta");
         const formularioAgregarPregunta = document.querySelector(".crearPregunta");
-
-        // Selector del contenedor de preguntas agregadas
         const contenedorPreguntasAgregadas = document.querySelector(".preguntas-agregadas ul");
 
-        // Selector del input de idPreguntasAgregadas
         const inputIdPreguntasAgregadas = document.getElementById("idPreguntasAgregadas");
 
         // Manejador de evento para agregar pregunta
@@ -162,18 +160,24 @@
             // Obtener el valor seleccionado del dropdown
             const preguntaSeleccionada = document.querySelector("#inputPregunta");
 
+            // Checar si la opcion seleccionada ya fue añadida
+            if (opcionesSeleccionadas.has(preguntaSeleccionada.value)) {
+                alert("Esta pregunta ya ha sido agregada.");
+                return;
+            }
+
             // Agregar la pregunta al arreglo
             preguntasAgregadas.push({
                 pregunta: preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text,
                 respuesta: "", // Inicialmente la respuesta es una cadena vacía
             });
 
-            // Agregar el ID de la pregunta seleccionada al arreglo idNuevasPreguntas
+            // Agregar el ID de la pregunta seleccionada
             idNuevasPreguntas.push(preguntaSeleccionada.value);
+            opcionesSeleccionadas.add(preguntaSeleccionada.value);
 
             // Asignar el valor actualizado de idPreguntasAgregadas
             inputIdPreguntasAgregadas.value = JSON.stringify(idNuevasPreguntas);
-
 
             // Limpiar el dropdown para evitar confusiones
             document.querySelector("#inputPregunta").selectedIndex = 0;
@@ -199,9 +203,35 @@
     // Función para guardar la respuesta en el arreglo de preguntas
     function guardarRespuesta(textbox) {
         const index = textbox.dataset.index;
-        preguntasAgregadas[index].respuesta = textbox.value;
-        console.log("Respuesta guardada:", textbox.value);
-        console.log("Preguntas agregadas:", preguntasAgregadas);
+        preguntasAgregadas[index].respuesta = textarea.value;
+    }
+
+    // Función para eliminar pregunta
+    function eliminarPregunta(index) {
+        // Eliminar la pregunta del arreglo de preguntas agregadas
+        preguntasAgregadas.splice(index, 1);
+
+        // Eliminar el ID de la pregunta del arreglo idNuevasPreguntas
+        idNuevasPreguntas.splice(index, 1);
+
+        // Refrescar el contenedor de preguntas agregadas
+        const contenedorPreguntasAgregadas = document.querySelector(".preguntas-agregadas ul");
+        contenedorPreguntasAgregadas.innerHTML = preguntasAgregadas.map(
+            (pregunta, index) => `
+                <li>
+                    ${pregunta.pregunta} 
+                    <button type="button" class="btn btn-danger btn-small" onclick="eliminarPregunta(${index})">
+                        <i class="fas fa-trash"></i> <!-- Icono de Font Awesome para bote de basura -->
+                    </button>
+                    <textarea id="textbox-${index}" class="pregunta-textbox form-control" data-index="${index}" placeholder="Escribe tu respuesta aquí" onchange="guardarRespuesta(this)"></textarea>
+                </li>
+            `
+        ).join("");
+
+        // Refrescar el input idPreguntasAgregadas
+        document.getElementById("idPreguntasAgregadas").value = JSON.stringify(idNuevasPreguntas);
     }
 </script>
+
+
 
