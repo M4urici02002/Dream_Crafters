@@ -69,4 +69,3 @@ exports.verificarAsignacion = async (request, response, next) => {
         return response.status(500).json({ error: 'Error al eliminar el rol.' });
     }
 };
-

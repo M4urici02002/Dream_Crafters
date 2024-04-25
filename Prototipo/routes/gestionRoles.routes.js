@@ -11,4 +11,5 @@ router.get('/gestionRoles', isAuth, gestionRolesController.get_gestionRoles);
 // Eliminar rol con verificación de asignaciones
 router.post('/gestionRoles/eliminar', isAuth, gestionRolesController.verificarAsignacion);
 
+
 module.exports = router;
