@@ -1,99 +1,123 @@
-<%- include('includes/navbar.ejs') %>
-<%- include('includes/sidebar.ejs') %>
+<%- include('includes/navbar.ejs') %> <%- include('includes/sidebar.ejs') %>
 
 <div class="main p-3">
   <div class="container consultar-usuarios">
     <div class="row justify-content-end">
-        <div class="col col-lg-3 col-md-4 col-sm-5">
-            <!--Agregar rol-->
-            <a href="/gestionRoles/crearRol" class="btn-agregarUsuario">
-                <span>Agregar rol</span>
-                <i class="fas fa-plus"></i>
-            </a>
-            
-            <!--Search bar-->
-            <div class="input-group mb-3 buscarUsuario">
-                <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
-            </div>
+      <div class="col col-lg-3 col-md-4 col-sm-5">
+
+        <!--Agregar rol-->
+        <a href="/gestionRoles/crearRol" class="btn-agregarUsuario">
+          <span> Agregar rol </span>
+          <i class="fas fa-plus"></i>
+        </a>
+
+        <!--Search bar-->
+        <div class="input-group mb-3 buscarUsuario">
+          <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>" />
         </div>
+
+      </div>
     </div>
+    
     <div id="notification"></div>
 
-    <!--Encabezado-->
+    <!--Encabezados de la tabla-->
     <div id="tarjetaRolesEncabezado" class="row tarjetaUsuario">
-        <div class="col-lg-2 col-md-3 col-sm-3 d-flex justify-content-center align-items-center">
-            <svg class="bi bi-person-fill text-white" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-            </svg>
-            <p class="username-usuario-tarjeta-titulo"><br>ID ROL</p>
-        </div>
-        <div class="col-sm-2">
-           <p class="text-tarjeta-usuario"><br>Nombre Rol</p>
-        </div>
-    </div> 
+      <div class="col-lg-2 col-md-3 col-sm-3 d-flex justify-content-center align-items-center">
+        <svg class="bi bi-person-fill text-white" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+        </svg>
+        <p class="username-usuario-tarjeta-titulo"><br />ID ROL</p>
+      </div>
+
+      <div class="col-sm-2">
+        <p class="text-tarjeta-usuario"><br />Nombre Rol</p>
+      </div>
+
+    </div>
 
     <!--Tarjetas de rol-->
     <% for (let rol of rolRegistrado) { %>
-        <div id="rol-<%= rol.idrol %>" class="row tarjetaUsuario">
-            <div class="col-lg-2 col-md-3 col-sm-3">
-                <p class="username-usuario-tarjeta"><br><%= rol.idrol %></p>
-            </div>
-            <div class="col-sm-6">
-               <p class="text-tarjeta-usuario"><br><%= rol.nombre %></p>
-            </div>
+    <div id="rol-<%= rol.idrol %>" class="row tarjetaUsuario">
+      <div class="col-lg-2 col-md-3 col-sm-3">
+        <p class="username-usuario-tarjeta"><br /><%= rol.idrol %></p>
+      </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
-               <!--Modificar rol-->
-                <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
-                    Modificar
-                </a> 
-                &nbsp;&nbsp;
-                <!--Eliminar rol-->
-                <button onclick="eliminar('<%= rol.idrol %>', '<%= rol.nombre %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
-                    Eliminar
-                </button>
-            </div>
-        </div>
-    <% } %>    
+      <div class="col-sm-6">
+        <p class="text-tarjeta-usuario"><br /><%= rol.nombre %></p>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
+
+        <!--Modificar rol-->
+        <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+          Modificar
+        </a>
+        &nbsp;&nbsp;
+
+        <!--Eliminar rol-->
+        <button
+          onclick="eliminar('<%= rol.idrol %>', '<%= rol.nombre %>')"
+          type="button"
+          class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar"
+        >
+          Eliminar
+        </button>
+
+      </div>
+    </div>
+    <% } %>
 
   </div>
 </div>
- 
+
 <script>
-    const eliminar = (idrol, nombre) => {
-        const respuesta = confirm("¿Deseas eliminar este rol de manera permanente?");
-        if (respuesta) {
-            console.log("Eliminando rol:", nombre);
-            const csrf = document.getElementById('_csrf').value;
-            fetch('/gestionRoles/eliminar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'csrf-token': csrf,
-                },
-                body: JSON.stringify({idrol: idrol})
-            }).then((result) => {
-                if (result.ok) {
-                    document.getElementById(`rol-${idrol}`).remove();
-                    document.getElementById('notification').innerHTML = `
+  const eliminar = (idrol, nombre) => {
+    const respuesta = confirm(
+      "¿Deseas eliminar este rol de manera permanente?"
+    );
+
+    if (respuesta) {
+        console.log("Eliminando rol:", nombre);
+        const csrf = document.getElementById("_csrf").value;
+
+        fetch("/gestionRoles/eliminar", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf,
+            },
+            body: JSON.stringify({ idrol: idrol }),
+        })
+
+        .then((result) => {
+          if (result.ok) {
+            document.getElementById(`rol-${idrol}`).remove();
+            document.getElementById("notification").innerHTML = `
                         <div class="alert alert-success" role="alert">
                             El rol "${nombre}" fue eliminado correctamente.
                         </div>
                     `;
-                } else {
-                    alert('El rol está asignado a uno o más usuarios y no puede ser eliminado.');
-                    document.getElementById('notification').innerHTML = `
+          } else {
+            alert(
+              "El rol está asignado a uno o más usuarios y no puede ser eliminado."
+            );
+            document.getElementById("notification").innerHTML = `
                         <div class="alert alert-danger" role="alert">
                             EROR: El rol "${nombre}" no fue eliminado.
                         </div>
                     `;
-                }
-            }).catch((error) => {
-                console.error('Error:', error);
-                alert('Error al eliminar el rol.');
-            });
-        }
+          }
+        })
+
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Error al eliminar el rol.");
+        });
+
     }
+  };
+  
 </script>
 
 <%- include('includes/footer.ejs') %>
