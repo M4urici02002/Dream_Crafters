@@ -1,190 +1,237 @@
-<%- include('includes/navbar.ejs') %>
-<%- include('includes/sidebar.ejs') %>
+<%- include('includes/navbar.ejs') %> <%- include('includes/sidebar.ejs') %>
 
 <div class="main p-3">
-    <div class="container">
-        <form class="template">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-            <img src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg" class="img-fluid img-marca" alt="Imagen logo marca">
-            <h2 id="tituloPrincipal">Hola, NombreCliente</h2>
-            <div class="row mb-3">
-                <div class="col-md-4 img-producto">
-                    <img src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg" class="img-fluid" alt="Imagen del producto">
-                </div>
-            </div>
+  <div class="container">
+    <form class="template" action="/template/editarEncuesta" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <input type="hidden" name="IDEncuesta" value="<%= IDEncuesta %>">
+        <input type="hidden" name="idPreguntasAgregadas" id="idPreguntasAgregadas" value="">
 
-            <!-- Pregunta 1 -->
-            <div class="pregunta-rating">
-                <label for="marca">¿Qué te ha parecido tu producto Luuna?</label>
-                <div class="row mb-3">
-                        <div class="rating">
-                            <input type="radio" id="star5" name="rating" value="5">
-                            <label for="star5"></label>
-                            <input type="radio" id="star4" name="rating" value="4">
-                            <label for="star4"></label>
-                            <input type="radio" id="star3" name="rating" value="3">
-                            <label for="star3"></label>
-                            <input type="radio" id="star2" name="rating" value="2">
-                            <label for="star2"></label>
-                            <input type="radio" id="star1" name="rating" value="1">
-                            <label for="star1"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="custom-line"></div>
+      IDEncuesta: <%= IDEncuesta %>
+      <img
+        src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg"
+        class="img-fluid img-marca"
+        alt="Imagen logo marca"
+      />
+      <h2 id="tituloPrincipal">Hola, NombreCliente</h2>
+      <div class="row mb-3">
+        <div class="col-md-4 img-producto">
+          <img
+            src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg"
+            class="img-fluid"
+            alt="Imagen del producto"
+          />
+        </div>
+      </div>
 
-            <!-- Pregunta 2 -->
-            <div class="mb-5 contenido-con-margen">
-                <label for="aliviarProblemas">¿Qué tan bien el colchón ha ayudado a aliviar tus problemas de sueño, como el insomnio o el dolor de espalda?</label>
-                <textarea id="aliviarProblemas" class="form-control" name="reason" rows="3"></textarea>
-            </div>
+      <!-- Pregunta 1 -->
+      <div class="pregunta-rating">
+        <label for="marca">¿Qué te ha parecido tu producto Luuna?</label>
+        <div class="row mb-3">
+          <div class="rating">
+            <input type="radio" id="star5" name="rating" value="5" />
+            <label for="star5"></label>
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label for="star4"></label>
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label for="star3"></label>
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label for="star2"></label>
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label for="star1"></label>
+          </div>
+        </div>
+      </div>
+      <div class="custom-line"></div>
 
-            <!-- Pregunta 3 -->
-            <div class="mb-5 contenido-con-margen">
-                <label for="elegisteLuuna">¿Por qué elegiste Luuna vs otras marcas?</label>
-                <select id="elegisteLuuna" class="form-select">
-                    <option>Precio</option>
-                    <option>Garantía y calidad del producto</option>
-                    <option>Cualidades (tecnología, diseño,colores)</option>
-                    <option>Recomendaciones</option>
-                    <option>Otro</option>
-                </select>
-            </div>
+      <!-- Pregunta 2 -->
+      <div class="mb-5 contenido-con-margen">
+        <label for="aliviarProblemas"
+          >¿Qué tan bien el colchón ha ayudado a aliviar tus problemas de sueño,
+          como el insomnio o el dolor de espalda?</label
+        >
+        <textarea
+          id="aliviarProblemas"
+          class="form-control"
+          name="reason"
+          rows="3"
+        ></textarea>
+      </div>
 
-            <div class="preguntas-agregadas">
-                <ul id="listaPreguntas"></ul>
-            </div>
+      <!-- Pregunta 3 -->
+      <div class="mb-5 contenido-con-margen">
+        <label for="elegisteLuuna"
+          >¿Por qué elegiste Luuna vs otras marcas?</label
+        >
+        <select id="elegisteLuuna" class="form-select">
+          <option>Precio</option>
+          <option>Garantía y calidad del producto</option>
+          <option>Cualidades (tecnología, diseño,colores)</option>
+          <option>Recomendaciones</option>
+          <option>Otro</option>
+        </select>
+      </div>
 
+      <div class="preguntas-agregadas">
+        <ul id="listaPreguntas"></ul>
+      </div>
 
-            <div class="btn-template">
-                <button type="submit" class="btn btn-custom-pregunta">Enviar</button>
-            </div>
-            <footer class="footer-template">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="https://www.facebook.com/luunasleep/" class="footer-icons"><i class="fab fa-facebook"></i></a>
-                            <a href="https://www.instagram.com/luunasleep/" class="footer-icons"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </form>
-        <div class="container form">
-            <form class="crearPregunta">
-                <div class="mb-5 contenido-con-margen">        
-                    <label for="inputPregunta" class="form-label label-crearPregunta preguntas" hidden>Preguntas</label>
-                    <select id="inputPregunta" class="form-control input-crearPregunta preguntas-input" name="rol">
-                    <% preguntas.forEach(pregunta => { %>
-                    <option value='<%= pregunta.IDPregunta %>'>
-                            <%= pregunta.Descripcion %>
-                        </option>
-                     <% }); %>
-                    </select>
-                    <button type="submit" class="btn btn-custom-agregar-pregunta">Agregar pregunta <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-                </form>
-            </div>
+      <div class="btn-template">
+        <button type="submit" class="btn btn-custom-pregunta" disabled>Enviar</button>
+      </div>
+      <footer class="footer-template">
         <div class="container">
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-custom float-end me-2" onclick="mostrarMensaje()">Aceptar</button>
-                </div>
+          <div class="row">
+            <div class="col-md-12">
+              <a
+                href="https://www.facebook.com/luunasleep/"
+                class="footer-icons"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/luunasleep/"
+                class="footer-icons"
+                ><i class="fab fa-instagram"></i
+              ></a>
             </div>
-        </div>                
+          </div>
+        </div>
+      </footer>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+              <br><button type="submit" name="submit" class="btn btn-custom float-end me-2">Aceptar</button>
+              <p class="float-end me-2">¿Desea terminar de editar la encuesta?<br><br><br></p>
+          </div>
+        </div>
+      </div>
+
+    </form>
+    <div class="container form">
+      <form class="crearPregunta">
+        <div class="mb-5 contenido-con-margen">
+          <label
+            for="inputPregunta"
+            class="form-label label-crearPregunta preguntas"
+            hidden
+            >Preguntas</label
+          >
+          <select
+            id="inputPregunta"
+            class="form-control input-crearPregunta preguntas-input"
+            name="rol"
+          >
+            <% preguntas.forEach(pregunta => { %>
+                <option value="<%= pregunta.IDPregunta %>">
+                    <%= pregunta.Descripcion %>
+                </option>
+            <% }); %>
+          </select>
+          <button class="btn btn-custom-agregar-pregunta">
+            Agregar pregunta <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </form>
     </div>
-</div>        
+
+  </div>
+</div>
 
 <%- include('includes/footer.ejs') %>
 
 <script>
-    function mostrarMensaje() {
-        if (confirm("La encuesta terminó de ser creada")) {
-        // Obtener el token CSRF
-        const csrfToken = document.querySelector('input[name="_csrf"]').value;
-
-        // Realizar la solicitud POST
-        fetch('/template/editarEncuesta', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'CSRF-Token': csrfToken
-            },
-            body: JSON.stringify({}) // Puedes enviar datos si es necesario
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al enviar la solicitud');
-            }
-            // Hacer algo si la solicitud fue exitosa, pero la redirección se manejará en el controlador
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Manejar el error aquí
-        });
-        } 
-    }
-    
-
-    document.addEventListener('DOMContentLoaded', function () {
-    // Arreglo para almacenar las preguntas agregadas dinámicamente
+    let idNuevasPreguntas = [];
     let preguntasAgregadas = [];
-    let idPreguntasAgregadas = [];
+    // Set para las opciones seleccionadas
+    let opcionesSeleccionadas = new Set(); 
 
-    // Selector del formulario para agregar preguntas
-    const formularioAgregarPregunta = document.querySelector('.crearPregunta');
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownPreguntas = document.getElementById("inputPregunta");
+        const formularioAgregarPregunta = document.querySelector(".crearPregunta");
+        const contenedorPreguntasAgregadas = document.querySelector(".preguntas-agregadas ul");
 
-    // Selector del contenedor de preguntas agregadas
-    const contenedorPreguntasAgregadas = document.querySelector('.preguntas-agregadas ul');
+        const inputIdPreguntasAgregadas = document.getElementById("idPreguntasAgregadas");
 
-    // Manejador de evento para agregar pregunta
-    formularioAgregarPregunta.addEventListener('submit', function (event) {
-        event.preventDefault();
+        // Manejador de evento para agregar pregunta
+        formularioAgregarPregunta.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-        // Obtener el valor seleccionado del dropdown
-        const preguntaSeleccionada = document.querySelector('#inputPregunta');
+            // Obtener el valor seleccionado del dropdown
+            const preguntaSeleccionada = document.querySelector("#inputPregunta");
 
-        const idPreguntaAgregada = document.querySelector('#inputPregunta');
+            // Checar si la opcion seleccionada ya fue añadida
+            if (opcionesSeleccionadas.has(preguntaSeleccionada.value)) {
+                alert("Esta pregunta ya ha sido agregada.");
+                return;
+            }
 
-        // Agregar la pregunta al arreglo
-        preguntasAgregadas.push({
-            pregunta: preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text,
-            respuesta: '' // Inicialmente la respuesta es una cadena vacía
+            // Agregar la pregunta al arreglo
+            preguntasAgregadas.push({
+                pregunta: preguntaSeleccionada.options[preguntaSeleccionada.selectedIndex].text,
+                respuesta: "", // Inicialmente la respuesta es una cadena vacía
+            });
+
+            // Agregar el ID de la pregunta seleccionada
+            idNuevasPreguntas.push(preguntaSeleccionada.value);
+            opcionesSeleccionadas.add(preguntaSeleccionada.value);
+
+            // Asignar el valor actualizado de idPreguntasAgregadas
+            inputIdPreguntasAgregadas.value = JSON.stringify(idNuevasPreguntas);
+
+            // Limpiar el dropdown para evitar confusiones
+            document.querySelector("#inputPregunta").selectedIndex = 0;
+
+            // Actualizar el contenido del contenedor de preguntas agregadas
+            contenedorPreguntasAgregadas.innerHTML = preguntasAgregadas.map(
+                (pregunta, index) => `
+                    <li>
+                        ${pregunta.pregunta} 
+                        <button type="button" class="btn btn-danger btn-small" onclick="eliminarPregunta(${index})">
+                            <i class="fas fa-trash"></i> <!-- Icono de Font Awesome para bote de basura -->
+                        </button>
+                        <textarea id="textbox-${index}" class="pregunta-textbox form-control" data-index="${index}" placeholder="Escribe tu respuesta aquí" onchange="guardarRespuesta(this)"></textarea>
+                    </li>
+                `
+            ).join("");
+
+            // Mostrar arreglo de id de preguntas agregadas
+            console.log("idPreguntasAgregadas:", idNuevasPreguntas);
         });
-        
-        // Agregar el ID de la pregunta seleccionada al arreglo idPreguntasAgregadas
-        idPreguntasAgregadas.push(preguntaSeleccionada.value);
-
-
-        // Limpiar el dropdown para evitar confusiones
-        document.querySelector('#inputPregunta').selectedIndex = 0;
-
-        // Actualizar el contenido del contenedor de preguntas agregadas
-        contenedorPreguntasAgregadas.innerHTML = preguntasAgregadas.map((pregunta, index) => `
-        <li>
-            ${pregunta.pregunta} 
-            <button type="button" class="btn btn-danger btn-small" onclick="eliminarPregunta(${index})">
-            <i class="fas fa-trash"></i> <!-- Icono de Font Awesome para bote de basura -->
-            </button>
-            <textarea id="textbox-${index}" class="pregunta-textbox form-control" data-index="${index}" placeholder="Escribe tu respuesta aquí" onchange="guardarRespuesta(this)"></textarea>
-        </li>
-
-
-        `).join('');
-
-        // Opcional: Mostrar mensaje de éxito o realizar otras acciones
-        console.log('idPreguntasAgregadas:', idPreguntasAgregadas);
     });
-});
 
-// Función para guardar la respuesta en el arreglo de preguntas
-function guardarRespuesta(textbox) {
-    const index = textbox.dataset.index;
-    preguntasAgregadas[index].respuesta = textbox.value;
-    console.log('Respuesta guardada:', textbox.value);
-    console.log('Preguntas agregadas:', preguntasAgregadas);
-}
+    // Función para guardar la respuesta en el arreglo de preguntas
+    function guardarRespuesta(textbox) {
+        const index = textbox.dataset.index;
+        preguntasAgregadas[index].respuesta = textarea.value;
+    }
 
+    // Función para eliminar pregunta
+    function eliminarPregunta(index) {
+        // Eliminar la pregunta del arreglo de preguntas agregadas
+        preguntasAgregadas.splice(index, 1);
+
+        // Eliminar el ID de la pregunta del arreglo idNuevasPreguntas
+        idNuevasPreguntas.splice(index, 1);
+
+        // Refrescar el contenedor de preguntas agregadas
+        const contenedorPreguntasAgregadas = document.querySelector(".preguntas-agregadas ul");
+        contenedorPreguntasAgregadas.innerHTML = preguntasAgregadas.map(
+            (pregunta, index) => `
+                <li>
+                    ${pregunta.pregunta} 
+                    <button type="button" class="btn btn-danger btn-small" onclick="eliminarPregunta(${index})">
+                        <i class="fas fa-trash"></i> <!-- Icono de Font Awesome para bote de basura -->
+                    </button>
+                    <textarea id="textbox-${index}" class="pregunta-textbox form-control" data-index="${index}" placeholder="Escribe tu respuesta aquí" onchange="guardarRespuesta(this)"></textarea>
+                </li>
+            `
+        ).join("");
+
+        // Refrescar el input idPreguntasAgregadas
+        document.getElementById("idPreguntasAgregadas").value = JSON.stringify(idNuevasPreguntas);
+    }
 </script>
+
+
+
