@@ -4,12 +4,8 @@ const db=require('../util/database');
 
 exports.get_gestionRoles = async (request, response, next) => {
     try {
-        const [uroles] = await db.query(`
-            SELECT idrol, nombre
-            FROM rol;
-        `);
+        const uroles = await Rol.fetchAll();
 
-        Rol.fetchAll() 
         response.render('gestionRoles', {
             rolRegistrado: uroles,
             permisos: request.session.permisos || [],

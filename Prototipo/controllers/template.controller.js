@@ -22,7 +22,6 @@ exports.get_categoriasMarca = async (request, response, next) => {
     }
 };
 
-// In your post_categoriasMarca controller
 exports.post_categoriasMarca = async (request, response, next) => {
     console.log(request.body);
 
@@ -54,14 +53,16 @@ exports.post_categoriasMarca = async (request, response, next) => {
 
 exports.get_EditarEncuesta = (request, response, next) => {
     const IDEncuesta = request.session.IDEncuesta;
+    let idPreguntasAgregadas = [];
 
-    Pregunta.fetchAllByIDEncuesta(IDEncuesta).then(([preguntas]) => {
+    Pregunta.fetchAllByCategoria(IDEncuesta).then(([preguntas]) => {
         response.render('template', {
             username: request.session.username || '',
             permisos: request.session.permisos || [],
             csrfToken: request.csrfToken(),
             IDEncuesta: IDEncuesta,
             preguntas: preguntas,
+            idPreguntasAgregadas: idPreguntasAgregadas,
         });
     }).catch(err => {
         console.error('Error fetching preguntas:', err);
@@ -69,14 +70,26 @@ exports.get_EditarEncuesta = (request, response, next) => {
     });
 };    
 
-exports.post_editarEncuesta = (request, response, next) => {
+exports.post_editarEncuesta = async (request, response, next) => {
     try {
-        // Redireccionar a la página principal
-        // 
-        response.redirect("/graficas");
-        console.log('hola post ou');
+        const IDEncuesta = request.body.IDEncuesta;
         
+        // Si hay nuevas preguntas agregadas guarda el ID de la pregunta en la tabla preguntaencuesta
+        if (request.body.idPreguntasAgregadas) {
+            const idPreguntasAgregadas = JSON.parse(request.body.idPreguntasAgregadas);
+
+            // Iterar sobre el arreglo de idPreguntasAgregadas y guarda cada ID en la tabla preguntaencuesta
+            for (const idPregunta of idPreguntasAgregadas) {
+                await Pregunta.guardarPreguntaEnEncuesta(IDEncuesta, idPregunta);
+            }
+        }
+
+        response.redirect('/graficas');
     } catch (error) {
         console.log(error);
+        response.status(500).send('Error interno del servidor');
     }
 };
+
+
+
