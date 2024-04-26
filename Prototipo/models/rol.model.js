@@ -15,6 +15,12 @@ module.exports = class Rol {
     }
   }
 
+  // Obtener todos los roles para consultar usuarios
+    static fetch() {
+      return db.execute('SELECT * FROM rol');
+  }
+
+  // Obtener todos los roles para consultar roles
   static async fetchAll() {
     try {
       const [roles] = await db.query(`
