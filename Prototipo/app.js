@@ -51,6 +51,9 @@ app.use('/configuracion', rutasConfiguracion);
 const rutasTemplate = require('./routes/template.routes');
 app.use(rutasTemplate);
 
+const rutasEncuestas = require('./routes/encuesta.routes');
+app.use(rutasEncuestas);
+
 const categoriaController = require('./controllers/categoria.controller');
 app.use(categoriaController.getCategorias);
 
