@@ -1,10 +1,10 @@
-const calificacionesModel = require("../models/graficas.model");
+const Graficas = require("../models/graficas.model");
 
 exports.calificacionEstrellas = (req, res) => {
   const marcaSeleccionada = req.cookies['marcaSeleccionada'];
   Promise.all([
-    calificacionesModel.obtenerCategoriasPorMarca(req.cookies['marcaSeleccionada']),
-    calificacionesModel.obtenerCalificacionesFiltradas(null, null, null, null, marcaSeleccionada),
+    Graficas.obtenerCategoriasPorMarca(req.cookies['marcaSeleccionada']),
+    Graficas.obtenerCalificacionesFiltradas(null, null, null, null, marcaSeleccionada),
   ])
     .then(([categoriasResult, calificacionesResult]) => {
       res.render("calificacionEstrellas", {
@@ -26,7 +26,7 @@ exports.productosPorCategoria = (req, res) => {
     return res.status(400).send("Categoría no especificada");
   }
 
-  calificacionesModel
+  Graficas
     .obtenerProductosPorCategoria(categoriaSeleccionada)
     .then(([productosResult]) => {
       res.json(productosResult); // Enviar los productos como respuesta JSON
@@ -45,7 +45,7 @@ exports.obtenerCalificacionesFiltradas = (req, res) => {
   console.log(categoria)
   console.log(producto)
 
-  calificacionesModel
+  Graficas
     .obtenerCalificacionesFiltradas(categoria, producto, fechaInicio, fechaFin, req.cookies['marcaSeleccionada'])
     .then(([data]) => {
       res.json(data);
@@ -60,7 +60,7 @@ exports.obtenerCalificacionesFiltradas = (req, res) => {
 
 exports.showOrderToReview = (req, res, next) => {
   const marcaSeleccionada = req.cookies['marcaSeleccionada'];
-  Promise.all([calificacionesModel.obtenerCategoriasPorMarca(marcaSeleccionada), calificacionesModel.obtenerResenasContestadasFiltradas(null, null, null, null, marcaSeleccionada)])
+  Promise.all([Graficas.obtenerCategoriasPorMarca(marcaSeleccionada), Graficas.obtenerResenasContestadasFiltradas(null, null, null, null, marcaSeleccionada)])
   
       .then(([categorias, resenas]) => {
         console.log(categorias)
@@ -80,7 +80,7 @@ exports.showOrderToReview = (req, res, next) => {
 exports.obtenerResenasContestadasFiltradas = (req, res) => {
   const { categoria, producto, fechaInicio, fechaFin } = req.query;
   console.log(categoria,producto)
-  calificacionesModel.obtenerResenasContestadasFiltradas(categoria, producto, fechaInicio, fechaFin, req.cookies['marcaSeleccionada'])
+  Graficas.obtenerResenasContestadasFiltradas(categoria, producto, fechaInicio, fechaFin, req.cookies['marcaSeleccionada'])
     .then(([results]) => {
       res.json({
         contestadas: results[0].Contestadas,
@@ -96,8 +96,8 @@ exports.obtenerResenasContestadasFiltradas = (req, res) => {
 exports.numeroResenas = (req, res,nxt) => {
   const marcaSeleccionada = req.cookies['marcaSeleccionada'];
   Promise.all([
-    calificacionesModel.obtenerCategoriasPorMarca(marcaSeleccionada),
-    calificacionesModel.obtenerNumeroResenasFiltradas(null, null, null, null, marcaSeleccionada)
+    Graficas.obtenerCategoriasPorMarca(marcaSeleccionada),
+    Graficas.obtenerNumeroResenasFiltradas(null, null, null, null, marcaSeleccionada)
   ])
   .then(([categoriasResult, resenasResult]) => {
     console.log(resenasResult[0])
@@ -116,7 +116,7 @@ exports.numeroResenas = (req, res,nxt) => {
 exports.numeroResenasFiltradas = (req, res) => {
   const { categoria, producto, fechaInicio, fechaFin } = req.query;
   
-  calificacionesModel.obtenerNumeroResenasFiltradas(categoria, producto, fechaInicio, fechaFin, req.cookies['marcaSeleccionada'])
+  Graficas.obtenerNumeroResenasFiltradas(categoria, producto, fechaInicio, fechaFin, req.cookies['marcaSeleccionada'])
     .then(([resenasFiltradasResult]) => {
       res.json({
         datos: resenasFiltradasResult
