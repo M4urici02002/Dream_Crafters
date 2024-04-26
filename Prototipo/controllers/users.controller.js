@@ -79,7 +79,7 @@ exports.get_crearUsuario = (request, response, next) => {
     request.session.error = '';
 
     // Llamada a fetchAll para obtener roles
-    Rol.fetchAll().then(([roles]) => {
+    Rol.fetch().then(([roles]) => {
         response.render('crearUsuario', {
             username: request.session.username || '',
             registro: true,
@@ -113,7 +113,7 @@ exports.post_crearUsuario = (request, response, next) => {
 // Modificar usuario
 exports.get_modificarUsuario = (request, response, next) => {
 
-  Rol.fetchAll().then(([roles]) => { 
+  Rol.fetch().then(([roles]) => { 
     // Buscar el usuario correspondiente en la base de datos utilizando su username
     return Usuario.fetchOneWithRole(request.params.username)
       .then(([usuarios, fieldData]) => {
