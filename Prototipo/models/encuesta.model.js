@@ -29,7 +29,9 @@ module.exports = class Encuesta {
   static async fetchAll() {
     try {
       const [encuestas] = await db.query(`
-                SELECT * FROM encuesta;
+                SELECT IDEncuesta, Nombre as 'Marca', Titulo, DiasParaEnvio, Categoria
+                FROM encuesta e, marca m
+                WHERE e.IDMarca=m.IDMarca;
             `);
       return encuestas;
 
