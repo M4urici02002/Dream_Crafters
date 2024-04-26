@@ -17,7 +17,8 @@
             </div>
         </div>
     </div>
-    <div id="notification"></div>
+    <div id="notificationDelete"></div>
+    <div id="notificationModif"></div>
 
     <!--Encabezado-->
     <div id="tarjetaRolesEncabezado" class="row tarjetaUsuario">
@@ -81,7 +82,7 @@
             }
         }).then((data) => {
             // Aquí puedes enviar la respuesta después de que la solicitud haya sido completada con éxito
-            document.getElementById('notification').innerHTML = `
+            document.getElementById('notificationModif').innerHTML = `
                 <div class="alert alert-success" role="alert">
                     El rol "${nombre}" fue modificado correctamente.
                 </div>
@@ -110,7 +111,7 @@
             }).then((result) => {
                 if (result.ok) {
                     document.getElementById(`rol-${idrol}`).remove();
-                    document.getElementById('notification').innerHTML = `
+                    document.getElementById('notificationDelete').innerHTML = `
                         <div class="alert alert-success" role="alert">
                             El rol "${nombre}" fue eliminado correctamente.
                         </div>
