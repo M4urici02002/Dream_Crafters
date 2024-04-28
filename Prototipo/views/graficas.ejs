@@ -190,6 +190,18 @@
         const ctx = document
           .getElementById("numeroResenasGrafica")
           .getContext("2d");
+
+        // Fondo gráfica PDF = Blanco
+        const bgColor = {
+          id: 'bgColor',
+          beforeDraw: (chart, options) => {
+            const { ctx, width, height } = chart;
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, width, height)
+            ctx.restore(); 
+          }
+        }
+        
         const chartNumeroResenas = new Chart(ctx, {
           type: "line",
           data: {
@@ -213,6 +225,7 @@
               },
             },
           },
+          plugins: [bgColor]
         });
 
         function actualizarGrafica() {
@@ -248,15 +261,51 @@
               console.error("Error al actualizar la gráfica:", error)
             );
         }
-        const descargarPDF = () => {
-          const canvas = document.getElementById("numeroResenasGrafica");
 
-          const imagenUno = canvas.toDataURL("image/jpeg", 1.0);
-          const pdf = new jsPDF("landscape");
-          pdf.setFontSize(20);
-          pdf.addImage(imagenUno, "JPEG", 15, 15, 280, 150);
-          pdf.save("reporte.pdf");
-        };
+
+
+      // Exportar gráfica a PDF "GAMEDEVMAP"
+      const descargarPDF = () => {
+        const canvas = document.getElementById("numeroResenasGrafica");
+        const imagenUno = canvas.toDataURL("image/jpeg", 1.0);
+        const pdf = new jsPDF("landscape");
+
+        // Nombre del documento   110
+        pdf.setFont("times", "bold", "normal");
+        pdf.setFontSize(24);
+        pdf.text("Reporte de Reseñas", 25, 22);
+
+        // Agregar rectángulo de color con esquinas redondeadas alrededor de la gráfica
+        pdf.setFillColor(200, 200, 200); // Color gris (puedes cambiarlo)
+        pdf.roundedRect(25, 29, 247, 152, 5, 5, "F"); // Rectángulo con esquinas redondeadas
+
+        // Agregar texto "Crafted Ratings" en la esquina superior derecha
+        pdf.setFont("times", "normal", "normal");
+        pdf.setFontSize(15);
+        pdf.text("Crafted Ratings", 230, 15);
+        
+
+        // Agregar imagen de la gráfica
+        pdf.addImage(imagenUno, "JPEG", 41, 75, 215, 95);
+
+        // Agregar texto descriptivo
+        pdf.setFont("times", "normal", "normal");
+        pdf.setFontSize(16);
+        pdf.text("Categoría:", 41, 42);
+        pdf.text("Productos:", 41, 52);
+        pdf.text("Fecha:", 41, 62);
+
+        // Guardar el PDF
+        pdf.save("reporte.pdf");
+      };
+
+
+
+
+
+    
+
+
         // Escuchar cambios en los dropdowns y datepickers
         $("#categoriaDropdown, #productoDropdown, #start-date, #end-date").on(
           "change",
@@ -273,7 +322,7 @@
         });
         $("#exportar").click(function() {
         descargarPDF();
-    });
+        });
       });
     </script>
 
