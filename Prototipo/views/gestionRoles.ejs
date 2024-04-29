@@ -17,8 +17,7 @@
             </div>
         </div>
     </div>
-    <div id="notificationDelete"></div>
-    <div id="notificationModif"></div>
+    <div id="notification"></div>
 
     <!--Encabezado-->
     <div id="tarjetaRolesEncabezado" class="row tarjetaUsuario">
@@ -46,7 +45,7 @@
             <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
                <!--Modificar rol-->
                <% if (rol.nombre != 'admin') { %>
-                <a onclick="editarRol('<%= rol.idrol %>', '<%= rol.nombre %>')" href="/editarRol/<%= rol.nombre %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+                <a href="/editarRol/<%= rol.nombre %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
                     Modificar
                 </a> 
                 &nbsp;&nbsp;
@@ -64,38 +63,6 @@
 </div>
  
 <script>
-    const editarRol = (idrol, nombre) => {
-        console.log("Modificando rol:", nombre);
-        const csrf = document.getElementById('_csrf').value;
-        fetch('/gestionRoles', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'csrf-token': csrf,
-            },
-            body: JSON.stringify({idrol: idrol})
-        }).then((result) => {
-            if (result.ok) {
-                return result.json(); // Convertir la respuesta a JSON
-            } else {
-                throw new Error('Error al modificar el rol'); // Lanzar un error si la solicitud falla
-            }
-        }).then((data) => {
-            // Aquí puedes enviar la respuesta después de que la solicitud haya sido completada con éxito
-            document.getElementById('notificationModif').innerHTML = `
-                <div class="alert alert-success" role="alert">
-                    El rol "${nombre}" fue modificado correctamente.
-                </div>
-            `;
-        }).catch((error) => {
-            // Aquí manejas el error en caso de que la solicitud falle
-            console.error('Error:', error);
-            alert('Error al modificar el rol.');
-        });
-    
-    }
-</script>
-<script>
     const eliminar = (idrol, nombre) => {
         const respuesta = confirm("¿Deseas eliminar este rol de manera permanente?");
         if (respuesta) {
@@ -111,7 +78,7 @@
             }).then((result) => {
                 if (result.ok) {
                     document.getElementById(`rol-${idrol}`).remove();
-                    document.getElementById('notificationDelete').innerHTML = `
+                    document.getElementById('notification').innerHTML = `
                         <div class="alert alert-success" role="alert">
                             El rol "${nombre}" fue eliminado correctamente.
                         </div>

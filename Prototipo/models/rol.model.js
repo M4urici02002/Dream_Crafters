@@ -6,7 +6,7 @@ module.exports = class Rol {
         this.nombreRol = mi_nombreRol;
     } 
 
-    async save() {
+    async save() { 
         try {
             await db.execute('INSERT INTO rol (nombre) VALUES (?)', [this.nombreRol]);
         } catch(error) {
@@ -54,4 +54,13 @@ module.exports = class Rol {
             throw new Error('Error al obtener los privilegios de la base de datos');
         }
     }
+
+    static eliminarPrivilegios(idRol) {
+        return db.execute('DELETE FROM posee WHERE idrol = ?', [idRol]);
+    }
+
+    static asignarPrivilegio(idRol, idPrivilegio) {
+        return db.execute('INSERT INTO posee (idrol, idprivilegio) VALUES (?, ?)', [idRol, idPrivilegio]);
+    }
+
 }

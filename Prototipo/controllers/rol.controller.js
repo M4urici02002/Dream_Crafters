@@ -62,29 +62,35 @@ exports.get_editarRol = async (req, res, next) => {
 };
 
 
-exports.post_editarRol = (req, res, next) => {
+exports.post_editarRol = async (req, res, next) => {
+    try {
+        // Actualizar el nombre del rol en la base de datos
+        const idRol = req.body.idRol;
+        const nuevoNombreRol = req.body.nombreRol;
+        await Rol.update(idRol, nuevoNombreRol);
 
-    Rol.update(req.body.idRol, req.body.nombreRol)
-        .then(([rows, fieldData]) => {
-            req.session.mensaje = `El rol ${req.body.nombreRol} fue modificado correctamente`;
-            res.redirect('/gestionRoles');
-            Rol.fetchAll()
-                .then(([roles, fieldData]) => {
-                    res.render('gestionRoles', {
-                        rolRegistrado: roles,
-                        permisos: req.session.permisos || [],
-                        csrfToken: req.csrfToken(),
-                        mensaje: req.session.mensaje
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                    res.status(500).send("Error al obtener roles");
-                });
-        })
-        .catch((error) => {
-            console.error('Error al actualizar el nombre del rol:', error);
-            res.redirect(500, '/error'); // Corregir el orden de los argumentos aquí
-        });
+        // Verificar si hay privilegios seleccionados
+        if (req.body.privilegios) {
+            // Eliminar todos los privilegios asociados al rol
+            await Rol.eliminarPrivilegios(idRol);
+
+            // Asignar los nuevos privilegios seleccionados al rol
+            const privilegiosSeleccionados = req.body.privilegios;
+            const asignacionesPromises = privilegiosSeleccionados.map(privilegio => {
+                return Rol.asignarPrivilegio(idRol, privilegio);
+            });
+            await Promise.all(asignacionesPromises);
+        }
+
+        // Redirigir a la página de gestión de roles con un mensaje de éxito
+        req.session.mensaje = `El rol ${nuevoNombreRol} fue modificado correctamente`;
+        res.redirect('/gestionRoles');
+    } catch (error) {
+        console.error('Error al actualizar el rol:', error);
+        req.session.error = 'Error al actualizar el rol';
+        res.redirect('/gestionRoles'); // Manejar el error redirigiendo a una página apropiada o mostrando un mensaje de error en la página de gestión de roles
+    }
 };
+
+
 

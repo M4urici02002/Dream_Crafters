@@ -32,7 +32,7 @@
          </div>
         </div>
         
-        <div class="btn-formUsuario">
+        <div class="btn-formUsuario"> 
             <button type="submit" class="btn btn-dark">Guardar</button>
         </div>
       </form>
@@ -62,6 +62,37 @@
       checkbox.addEventListener('change', actualizarListaPrivilegios);
     });
   });
+
+  const modificar = (idrol, nombre) => {
+          console.log("Modificando rol:", nombre);
+          const csrf = document.getElementById('_csrf').value;
+          fetch('/gestionRoles/modificar', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'csrf-token': csrf,
+              },
+              body: JSON.stringify({idrol: idrol})
+          }).then((result) => {
+              if (result.ok) {
+                  document.getElementById('notificationDelete').innerHTML = `
+                      <div class="alert alert-success" role="alert">
+                          El rol "${nombre}" fue modificado correctamente.
+                      </div>
+                  `;
+              } else {
+                  alert('El rol está asignado a uno o más usuarios y no puede ser eliminado.');
+                  document.getElementById('notification').innerHTML = `
+                      <div class="alert alert-danger" role="alert">
+                          EROR: El rol "${nombre}" no fue eliminado.
+                      </div>
+                  `;
+              }
+          }).catch((error) => {
+              console.error('Error:', error);
+              alert('Error al eliminar el rol.');
+          });
+  }
 </script>
 
 
