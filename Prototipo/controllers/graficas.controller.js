@@ -109,7 +109,7 @@ exports.numeroResenas = (req, res,nxt) => {
   })
   .catch((err) => {
     console.error("Error al obtener los datos:", err);
-    res.status(500).send("Error al obtener los datos");
+    res.status(500).send("Error de conexion con nuestra base de datos");
   }); 
 };
 
