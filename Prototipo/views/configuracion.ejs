@@ -11,12 +11,19 @@
       </div>
     <% } %>
 
-    <!-- Mensaje de error -->
-    <% if (typeof errorMessage !== 'undefined' && errorMessage !== null) { %>
+    <!-- Mensaje de error contraseña actual-->
+    <% if (errorMessage) { %>
         <div class="alert alert-danger" role="alert">
             <%= errorMessage %>
         </div>
     <% } %>
+
+     <!-- Mensaje de error de confirmación -->
+     <% if (errorMessageConfir) { %>
+      <div class="alert alert-danger" role="alert">
+          <%= errorMessageConfir %>
+      </div>
+  <% } %>
 
 
     <div class="row miPerfil">
