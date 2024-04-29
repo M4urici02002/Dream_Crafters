@@ -160,7 +160,7 @@ DROP TABLE IF EXISTS `posee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `posee` (
-  `idrol` int NOT NULL,
+  `idrol` int NOT NULL AUTO_INCREMENT,
   `idprivilegio` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idrol`,`idprivilegio`),
@@ -242,7 +242,7 @@ DROP TABLE IF EXISTS `privilegio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `privilegio` (
-  `idprivilegio` int NOT NULL,
+  `idprivilegio` int NOT NULL AUTO_INCREMENT,
   `permiso` varchar(40) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idprivilegio`)

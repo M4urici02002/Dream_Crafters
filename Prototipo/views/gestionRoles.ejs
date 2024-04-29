@@ -43,30 +43,22 @@
         <p class="username-usuario-tarjeta"><br /><%= rol.idrol %></p>
       </div>
 
-      <div class="col-sm-6">
-        <p class="text-tarjeta-usuario"><br /><%= rol.nombre %></p>
-      </div>
-
-      <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
-
-        <!--Modificar rol-->
-        <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
-          Modificar
-        </a>
-        &nbsp;&nbsp;
-
-        <!--Eliminar rol-->
-        <button
-          onclick="eliminar('<%= rol.idrol %>', '<%= rol.nombre %>')"
-          type="button"
-          class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar"
-        >
-          Eliminar
-        </button>
-
-      </div>
-    </div>
-    <% } %>
+            <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
+               <!--Modificar rol-->
+               <% if (rol.nombre != 'admin') { %>
+                <a href="/editarRol/<%= rol.nombre %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+                    Modificar
+                </a> 
+                &nbsp;&nbsp;
+                <!--Eliminar rol-->
+                <button onclick="eliminar('<%= rol.idrol %>', '<%= rol.nombre %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
+                    Eliminar
+                </button>
+               <% } %>
+                
+            </div>
+        </div>
+    <% } %>    
 
   </div>
 </div>

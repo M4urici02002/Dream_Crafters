@@ -72,9 +72,6 @@ app.use(rutasUsuarios);
 const rutasRoles = require('./routes/gestionRoles.routes');
 app.use(rutasRoles); 
 
-const rutasEditarRol = require('./routes/editarRol.routes');
-app.use('/editarRol', rutasEditarRol);
-
 const rutasUser = require('./routes/users.routes');
 app.use('/', rutasUser);
 
