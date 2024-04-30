@@ -1,12 +1,60 @@
-<%- include('includes/navbar.ejs') %>
+<%- include('includes/navbar.ejs') %> 
 <%- include('includes/sidebar.ejs') %>
 
-<div class="main p-3 ">
-  <div class="container form">
-      <label for="titulo" class="form-label label-crearUsuario">Catálogo de compras</label>
+<div class="main p-3">
+  <div class="container consultar-compras">
+    
+    <div class="table-responsive">
 
+      <table class="table">
+
+        <!-- Encabezados de la tabla -->
+        <thead class="tarjetaComprasEncabezado text-tarjeta-compra">
+          <tr>
+            <th>IDCompra</th>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>fechaCompra</th>
+            <th>Encuesta</th>
+            <th></th>
+          </tr>
+        </thead>
+        <br>
+        <tbody class="limit-vert-scroll">
+          <!-- Contenido de la tabla -->
+          <% for (let compra of compras) { %>
+            <tr>
+              <td><%= compra.IDCompra %></td>
+              <td>
+                ID: <%= compra.IDCliente %><br>
+                <%= compra.nombreCliente %><br>
+                <%= compra.Correo %>
+              </td>
+              <td>
+                Id: <%= compra.IDProducto %><br>
+                <%= compra.nombreProducto %>
+              </td>
+              <td><%= compra.fechaCompra %></td>
+              <td>
+                Id: <%= compra.IDEncuesta %>
+                <%= compra.tituloEncuesta %>
+              </td>
+              <td>               
+              <!--Botón consultar encuesta-->
+              <!-- <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar"> -->
+              <a role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+                  Consultar encuesta
+              </a>
+              &nbsp;&nbsp;
+          
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    
   </div>
 </div>
-
 
 <%- include('includes/footer.ejs') %>
