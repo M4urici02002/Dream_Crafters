@@ -3,7 +3,7 @@ const Rol = require('../models/rol.model');
 
 const bcrypt = require('bcryptjs');
 
-exports.get_login = (request, response, next) => {
+exports.getLogin = (request, response, next) => {
   const error = request.session.error || "";
   request.session.error = "";
   response.render("login", {
@@ -15,7 +15,7 @@ exports.get_login = (request, response, next) => {
   });
 };
 
-exports.post_login = (request, response, next) => {
+exports.postLogin = (request, response, next) => {
   Usuario.fetchOneWithRole(request.body.username)
     .then(([usuarios, fieldData]) => {
       if (usuarios.length == 1) {
@@ -68,13 +68,13 @@ exports.post_login = (request, response, next) => {
 };
 
 
-exports.get_logout = (request, response, next) => {
+exports.getLogout = (request, response, next) => {
   request.session.destroy(() => {
     response.redirect("/login"); //Este código se ejecuta cuando la sesión se elimina.
   });
 };
 
-exports.get_crearUsuario = (request, response, next) => {
+exports.getCrearUsuario = (request, response, next) => {
     const error = request.session.error || '';
     request.session.error = '';
 
@@ -95,7 +95,7 @@ exports.get_crearUsuario = (request, response, next) => {
 };
 
 
-exports.post_crearUsuario = (request, response, next) => {
+exports.postCrearUsuario = (request, response, next) => {
     const nuevo_usuario = new Usuario(
         request.body.username, request.body.name, request.body.password, request.body.idrol
     );
@@ -111,7 +111,7 @@ exports.post_crearUsuario = (request, response, next) => {
 };
 
 // Modificar usuario
-exports.get_modificarUsuario = (request, response, next) => {
+exports.getModificarUsuario = (request, response, next) => {
 
   Rol.fetch().then(([roles]) => { 
     // Buscar el usuario correspondiente en la base de datos utilizando su username
@@ -132,7 +132,7 @@ exports.get_modificarUsuario = (request, response, next) => {
   });
 };
 
-exports.post_modificarUsuario = (request, response, next) => {
+exports.postModificarUsuario = (request, response, next) => {
   Usuario.update(request.body.username, request.body.nombre, request.body.idrol)
     .then(([rows, fieldData]) => {
       // Redirigir al usuario de vuelta a la gestión de usuarios una vez que la actualización se complete con éxito
@@ -158,7 +158,7 @@ exports.post_modificarUsuario = (request, response, next) => {
     });
 };
 
-exports.post_crearUsuario = (request, response, next) => {
+exports.postCrearUsuario = (request, response, next) => {
   const nuevo_usuario = new Usuario(
       request.body.username, request.body.name, request.body.password, request.body.idrol
   );
