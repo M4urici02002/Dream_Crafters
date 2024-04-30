@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -20,6 +22,8 @@ app.use(bodyParser.json());
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+
+app.use(cors());
 
 //Protección ataques de CSRF
 const csrf = require('csurf');
@@ -72,6 +76,15 @@ app.use(rutasUsuarios);
 const rutasRoles = require('./routes/gestionRoles.routes');
 app.use(rutasRoles); 
 
+<<<<<<< HEAD
+=======
+const rutasEnvioCorreo = require('./routes/envioCorreo.routes');
+app.use(rutasEnvioCorreo); 
+
+const rutasEditarRol = require('./routes/editarRol.routes');
+app.use('/editarRol', rutasEditarRol);
+
+>>>>>>> Paola/MailgunNew
 const rutasUser = require('./routes/users.routes');
 app.use('/', rutasUser);
 

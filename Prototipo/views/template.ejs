@@ -3,11 +3,10 @@
 <div class="main p-3">
   <div class="container">
     <form class="template" action="/template/editarEncuesta" method="POST">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
         <input type="hidden" name="IDEncuesta" value="<%= IDEncuesta %>">
         <input type="hidden" name="idPreguntasAgregadas" id="idPreguntasAgregadas" value="">
 
-      IDEncuesta: <%= IDEncuesta %>
       <img
         src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg"
         class="img-fluid img-marca"
@@ -97,17 +96,18 @@
           </div>
         </div>
       </footer>
-
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-              <br><button type="submit" name="submit" class="btn btn-custom float-end me-2">Aceptar</button>
-              <p class="float-end me-2">¿Desea terminar de editar la encuesta?<br><br><br></p>
+            <br>
+            <button type="submit" name="submit" class="btn btn-custom float-end me-2" style="margin-bottom: 10px;">
+              <i class="fas fa-save"></i> 
+            </button>
           </div>
         </div>
       </div>
-
     </form>
+    
     <div class="container form">
       <form class="crearPregunta">
         <div class="mb-5 contenido-con-margen">
@@ -133,6 +133,14 @@
           </button>
         </div>
       </form>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+            <br><button type="submit" name="submit" class="btn btn-custom float-end me-2" id = "sendEncuesta">Finalizar edición</button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -231,7 +239,30 @@
         // Refrescar el input idPreguntasAgregadas
         document.getElementById("idPreguntasAgregadas").value = JSON.stringify(idNuevasPreguntas);
     }
+
+    const sendEncuesta = document.querySelector('#sendEncuesta');
+
+    sendEncuesta.addEventListener('click', async () => {
+        try {
+            const csrf = document.getElementById('_csrf').value;
+            const response = await fetch('/template/editarEncuesta/enviarCorreo', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'csrf-token': csrf,
+                },
+                body: JSON.stringify({}) // No hay datos que enviar
+            });
+            const data = await response.json();
+
+            if (response.status === 200) {
+                alert(data.message);
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Ocurrió un error al enviar el correo electrónico.');
+        }
+    });
 </script>
-
-
-
