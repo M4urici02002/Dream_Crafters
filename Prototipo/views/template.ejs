@@ -134,15 +134,6 @@
         </div>
       </form>
     </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-            <br><button type="submit" name="submit" class="btn btn-custom float-end me-2" id = "sendEncuesta">Finalizar edición</button>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -239,30 +230,4 @@
         // Refrescar el input idPreguntasAgregadas
         document.getElementById("idPreguntasAgregadas").value = JSON.stringify(idNuevasPreguntas);
     }
-
-    const sendEncuesta = document.querySelector('#sendEncuesta');
-
-    sendEncuesta.addEventListener('click', async () => {
-        try {
-            const csrf = document.getElementById('_csrf').value;
-            const response = await fetch('/template/editarEncuesta/enviarCorreo', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'csrf-token': csrf,
-                },
-                body: JSON.stringify({}) // No hay datos que enviar
-            });
-            const data = await response.json();
-
-            if (response.status === 200) {
-                alert(data.message);
-            } else {
-                alert(data.message);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Ocurrió un error al enviar el correo electrónico.');
-        }
-    });
 </script>
