@@ -182,6 +182,7 @@ select.form-select option,
     border: 1px solid black; /* Agregar contorno al formulario */
     padding: 20px; /* Agregar espacio interno al formulario */
     margin-bottom: 20px; /* Agregar espacio inferior al formulario */
+    background-color: #133464;
 }
 
 /* Estilo para el botón */
