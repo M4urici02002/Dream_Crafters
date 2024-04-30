@@ -2,7 +2,7 @@ const Usuario = require('../models/usuario.model');
 
 const db=require('../util/database');
 
-exports.get_usuarioRegistrado = (request, response, next) => {
+exports.getUsuarioRegistrado = (request, response, next) => {
     Usuario.fetchUsuariosConRoles()
         .then(([users, fieldData]) => {
             response.render('gestionUsuarios', {
@@ -12,15 +12,13 @@ exports.get_usuarioRegistrado = (request, response, next) => {
                 mensaje: ""
             });
         })
-        
         .catch((error) => {
             console.log(error);
             response.status(500).send("Error al obtener usuarios registrados");
         });
 };
 
-
-exports.post_eliminar = (request, response, next) => {
+exports.postEliminar = (request, response, next) => {
     console.log("Username a eliminar:", request.body.username); // Añade esto para depuración
     Usuario.eliminar(request.body.username)
         .then(() => {

@@ -1,18 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const path = require('path');
-
 const isAuth = require('../util/is-auth');
-
 const gestionUsuariosController= require('../controllers/gestionUsuarios.controller');
-router.get('/gestionUsuarios', isAuth, gestionUsuariosController.get_usuarioRegistrado);
+
+router.get('/gestionUsuarios', isAuth, gestionUsuariosController.getUsuarioRegistrado);
 router.get('/gestionUsuarios/buscar/:valor_busqueda', isAuth, gestionUsuariosController.getBuscar);
 router.get('/gestionUsuarios/buscar/', isAuth, gestionUsuariosController.getBuscar);
-
-
-
-// Ruta para eliminar un usuario
-router.post('/gestionUsuarios/eliminar', isAuth, gestionUsuariosController.post_eliminar);
+router.post('/gestionUsuarios/eliminar', isAuth, gestionUsuariosController.postEliminar);
 
 module.exports = router;
