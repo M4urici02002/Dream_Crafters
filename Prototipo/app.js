@@ -58,6 +58,9 @@ app.use(rutasTemplate);
 const rutasEncuestas = require('./routes/encuesta.routes');
 app.use(rutasEncuestas);
 
+const rutasCompras = require('./routes/compras.routes');
+app.use(rutasCompras);
+
 const categoriaController = require('./controllers/categoria.controller');
 app.use(categoriaController.getCategorias);
 
