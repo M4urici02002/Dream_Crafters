@@ -4,6 +4,7 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
   rel="stylesheet"
 />
+<link rel="stylesheet" href="/css/botones.css">
 
 <div class="main p-3">
   <div class="container graficas">
@@ -37,21 +38,21 @@
         <button
           type="button"
           id="numeroResenas"
-          class="btn btn-light active flex-fill"
+          class="btn btn-outline-dark active flex-fill "
         >
           Número de reseñas
         </button>
         <button
           type="button"
           id="calificacionEstrellas"
-          class="btn btn-light flex-fill"
+          class="btn btn-outline-secondary flex-fill"
         >
           Calificación de estrellas
         </button>
         <button
           type="button"
           id="orderToReview"
-          class="btn btn-light flex-fill"
+          class="btn btn-outline-secondary flex-fill"
         >
           Respuestas
         </button>
@@ -116,7 +117,7 @@
 
       <div class="row mt-4">
         <div class="col-12" style="width: 100%; height: 400px">
-          <canvas id="numeroResenasGrafica"></canvas>
+          <canvas id="numeroResenasGrafica"></canvas> <br>
           <div
             class="btn-group d-flex"
             role="group"
@@ -193,15 +194,15 @@
 
         // Fondo gráfica PDF = Blanco
         const bgColor = {
-          id: 'bgColor',
+          id: "bgColor",
           beforeDraw: (chart, options) => {
             const { ctx, width, height } = chart;
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, width, height)
-            ctx.restore(); 
-          }
-        }
-        
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, width, height);
+            ctx.restore();
+          },
+        };
+
         const chartNumeroResenas = new Chart(ctx, {
           type: "line",
           data: {
@@ -225,7 +226,8 @@
               },
             },
           },
-          plugins: [bgColor]
+          plugins: [bgColor],
+          options: { responsive: true, maintainAspectRatio: false },
         });
 
         function actualizarGrafica() {
@@ -262,49 +264,75 @@
             );
         }
 
+        // Exportar gráfica a PDF "GAMEDEVMAP"
+        const descargarPDF = () => {
+          const canvas = document.getElementById("numeroResenasGrafica");
+          const imagenUno = canvas.toDataURL("image/jpeg", 1.0);
+          const pdf = new jsPDF("landscape"); // Formato horizontal
 
+          // Valores dinámicos
+          const categoriaSeleccionada = $("#categoriaDropdown").val();
+          const productoSeleccionado = $("#productoDropdown").val();
+          const fechaInicio = $("#start-date").val();
+          const fechaFin = $("#end-date").val();
 
-      // Exportar gráfica a PDF "GAMEDEVMAP"
-      const descargarPDF = () => {
-        const canvas = document.getElementById("numeroResenasGrafica");
-        const imagenUno = canvas.toDataURL("image/jpeg", 1.0);
-        const pdf = new jsPDF("landscape");
+          // Fondo azul para la sección superior
+          pdf.setFillColor(125, 157, 209); // Fondo azul
+          pdf.rect(0, 0, pdf.internal.pageSize.width, 105, "F"); // Rectángulo de fondo para los detalles del reporte
 
-        // Nombre del documento   110
-        pdf.setFont("times", "bold", "normal");
-        pdf.setFontSize(24);
-        pdf.text("Reporte de Reseñas", 25, 22);
+          // Texto en blanco para los detalles del reporte
+          pdf.setTextColor(255, 255, 255);
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(40);
+          pdf.text(
+            "REPORTE - NÚMERO DE RESEÑAS",
+            pdf.internal.pageSize.width / 2,
+            30,
+            null,
+            null,
+            "center"
+          );
 
-        // Agregar rectángulo de color con esquinas redondeadas alrededor de la gráfica
-        pdf.setFillColor(200, 200, 200); // Color gris (puedes cambiarlo)
-        pdf.roundedRect(25, 29, 247, 152, 5, 5, "F"); // Rectángulo con esquinas redondeadas
+          pdf.setFontSize(24);
+          pdf.setFont("helvetica", "normal");
+          pdf.text(
+            `Categoría: ${categoriaSeleccionada}`,
+            pdf.internal.pageSize.width / 2,
+            60,
+            null,
+            null,
+            "center"
+          );
+          pdf.text(
+            `Producto: ${productoSeleccionado}`,
+            pdf.internal.pageSize.width / 2,
+            80,
+            null,
+            null,
+            "center"
+          );
+          pdf.text(
+            `Desde: ${fechaInicio} Hasta: ${fechaFin}`,
+            pdf.internal.pageSize.width / 2,
+            100,
+            null,
+            null,
+            "center"
+          );
 
-        // Agregar texto "Crafted Ratings" en la esquina superior derecha
-        pdf.setFont("times", "normal", "normal");
-        pdf.setFontSize(15);
-        pdf.text("Crafted Ratings", 230, 15);
-        
+          // Agregar la gráfica en la parte inferior de la misma página
+          pdf.addImage(
+            imagenUno,
+            "JPEG",
+            10,
+            110,
+            pdf.internal.pageSize.width - 20,
+            pdf.internal.pageSize.height - 120
+          );
 
-        // Agregar imagen de la gráfica
-        pdf.addImage(imagenUno, "JPEG", 41, 75, 215, 95);
-
-        // Agregar texto descriptivo
-        pdf.setFont("times", "normal", "normal");
-        pdf.setFontSize(16);
-        pdf.text("Categoría:", 41, 42);
-        pdf.text("Productos:", 41, 52);
-        pdf.text("Fecha:", 41, 62);
-
-        // Guardar el PDF
-        pdf.save("reporte.pdf");
-      };
-
-
-
-
-
-    
-
+          // Guardar el PDF
+          pdf.save("reporte.pdf");
+        };
 
         // Escuchar cambios en los dropdowns y datepickers
         $("#categoriaDropdown, #productoDropdown, #start-date, #end-date").on(
@@ -320,8 +348,8 @@
         $("#orderToReview").click(function () {
           window.location.href = "/graficas/orderToReview";
         });
-        $("#exportar").click(function() {
-        descargarPDF();
+        $("#exportar").click(function () {
+          descargarPDF();
         });
       });
     </script>

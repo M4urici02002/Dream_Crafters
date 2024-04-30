@@ -1,0 +1,11 @@
+/* Estilos personalizados para el botón de exportación */
+#exportar {
+    background-color: #214bac; /* Color de fondo del botón 214bac */
+    color: white;             /* Color del texto del botón */
+    border: none;             /* Sin borde para un aspecto más limpio */
+}
+
+/* Estilos para el botón al pasar el mouse (hover) */
+#exportar:hover {
+    background-color: rgb(108, 126, 170); /* Color de fondo más oscuro al pasar el mouse */
+}
