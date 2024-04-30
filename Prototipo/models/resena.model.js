@@ -1,54 +1,62 @@
 const db = require('../util/database');
 
 module.exports = class Resena {
+  // Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
+  constructor(
+    idEncuesta,
+    idProducto,
+    idCliente,
+    titulo,
+    calificacion,
+    descripcion,
+    enviada,
+    fechaContestacion,
+    visibilidad
+  ) {
+    this.idEncuesta = idEncuesta;
+    this.idProducto = idProducto;
+    this.idCliente = idCliente;
+    this.titulo = titulo;
+    this.calificacion = calificacion;
+    this.descripcion = descripcion;
+    this.enviada = enviada;
+    this.fechaContestacion = fechaContestacion;
+    this.visibilidad = visibilidad;
+  }
 
-    //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
-    constructor(mi_IDEncuesta, mi_IDProducto, mi_IDCliente, mi_Titulo, mi_Rating, mi_Descripcion,mi_Enviada,mi_FechaContestacion, mi_Visibilidad) {
-        this.IDEncuesta = mi_IDEncuesta;
-        this.IDProducto = mi_IDProducto;
-        this.IDCliente = mi_IDCliente;
-        this.Titulo = mi_Titulo;
-        this.Rating = mi_Rating;
-        this.Descripcion = mi_Descripcion;
-        this.Enviada = mi_Enviada;
-        this.FechaContestacion = mi_FechaContestacion;
-        this.Visibilidad = mi_Visibilidad;
-    }
-    // En tu modelo de Reseña (Resena.model.js o similar)
-    static fetchAll(categoria = null, nombreMarca = null) {
-        let query = `
-            SELECT r.*, p.Nombre as NombreProducto, c.Correo, m.Nombre as NombreMarca
-            FROM resena r
-            INNER JOIN producto p ON r.IDProducto = p.IDProducto
-            INNER JOIN cliente c ON r.IDCliente = c.IDCliente
-            INNER JOIN marca m ON p.IDMarca = m.IDMarca
-            INNER JOIN encuesta e ON r.IDEncuesta = e.IDEncuesta
-        `;
-        let conditions = [];
-        let params = [];
-    
-        if (categoria) {
-            conditions.push("p.Categoria = ?");
-            params.push(categoria);
-        }
-    
-        if (nombreMarca) {
-            conditions.push("m.Nombre = ?");
-            params.push(nombreMarca);
-        }
-    
-        if (conditions.length) {
-            query += " WHERE " + conditions.join(" AND ");
-        }
-    
-        return db.execute(query, params);
+  static fetchAll(categoria = null, nombreMarca = null) {
+    let query = '\
+      SELECT r.*, p.Nombre as NombreProducto, c.Correo, m.Nombre as NombreMarca \
+      FROM resena r \
+      INNER JOIN producto p ON r.IDProducto = p.IDProducto \
+      INNER JOIN cliente c ON r.IDCliente = c.IDCliente \
+      INNER JOIN marca m ON p.IDMarca = m.IDMarca \
+      INNER JOIN encuesta e ON r.IDEncuesta = e.IDEncuesta \
+    ';
+    const condiciones = [];
+    const parametros = [];
+
+    if (categoria) {
+      condiciones.push('p.Categoria = ?');
+      parametros.push(categoria);
     }
 
-    static updateVisibility(reseñaId, isVisible) {
-        return db.execute(
-            'UPDATE resena SET Visibilidad = ? WHERE IDReseña = ?', 
-            [isVisible, reseñaId]
-        );
+    if (nombreMarca) {
+      condiciones.push('m.Nombre = ?');
+      parametros.push(nombreMarca);
     }
-    
-}
+
+    if (condiciones.length) {
+      query += ' WHERE ' + condiciones.join(' AND ');
+    }
+
+    return db.execute(query, parametros);
+  }
+
+  static updateVisibility(idResena, isVisible) {
+    return db.execute(
+      'UPDATE resena SET Visibilidad = ? WHERE IDReseña = ?',
+      [isVisible, idResena]
+    );
+  }
+};
