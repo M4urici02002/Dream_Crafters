@@ -1,14 +1,11 @@
 const Resena = require('../models/resena.model');
 
-// resena.controller
-exports.get_resena = (request, response, next) => {
+exports.getResena = (request, response, next) => {
     const categoria = request.query.categoria;
-    const idMarca = request.cookies['marcaSeleccionada']; // Asumiendo que se guarda el ID de la marca seleccionada en una cookie
+    const idMarca = request.cookies['marcaSeleccionada'];
 
-    
     Resena.fetchAll(categoria, idMarca)
     .then(([rows, fieldData]) => {
-        //console.log(request.cookies['marcaSeleccionada'])
         response.render('resena', {
             resena: rows,
             categoria: categoria,
@@ -21,7 +18,7 @@ exports.get_resena = (request, response, next) => {
     });
 };
 
-exports.post_actualizarVisibilidad = (request, response, next) => {
+exports.postActualizarVisibilidad = (request, response, next) => {
     const reseñaId = request.body.reseñaId;
     const isVisible = request.body.isVisible;
 
