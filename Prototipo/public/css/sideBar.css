@@ -123,3 +123,38 @@ a.sidebar-link:hover {
   transform: rotate(45deg);
   transition: all .2s ease-out;
 }
+
+/* Estilo para el enlace "MI PERFIL" cuando está activo */
+a.sidebar-link.miPerfil.active {
+  color: #FD5859; 
+  background-color: transparent; /* Remove background color */
+  border: none; /* Remove border */
+  box-shadow: none; /* Remove box shadow */
+  text-decoration: underline; /* Optionally add underline to indicate active link */
+  margin: 0;
+  text-decoration: none;
+  padding: .625rem 1.625rem; /* Espaciado interno */
+  display: block; /* Mostrar como bloque */
+  white-space: nowrap; /* No envolver texto */
+  border-left: 3px solid transparent; /* Borde izquierdo transparente */
+  font-family: 'Montserrat', sans-serif; 
+  font-weight: 300; 
+  font-size: 14px; 
+}
+
+a.sidebar-link.miPerfil {
+  background-color: transparent; /* Remove background color */
+  border: none; /* Remove border */
+  box-shadow: none; /* Remove box shadow */
+  text-decoration: underline; /* Optionally add underline to indicate active link */
+  margin: 0;
+  text-decoration: none;
+  padding: .625rem 1.625rem; /* Espaciado interno */
+  color: #FFF; 
+  display: block; /* Mostrar como bloque */
+  white-space: nowrap; /* No envolver texto */
+  border-left: 3px solid transparent; /* Borde izquierdo transparente */
+  font-family: 'Montserrat', sans-serif; 
+  font-weight: 300; 
+  font-size: 14px; 
+}

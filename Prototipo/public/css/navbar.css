@@ -33,6 +33,33 @@
     color: #FD5859;
 }
 
+/* Estilo para el enlace "MI PERFIL" cuando está activo */
+.nav-link.miPerfil.active {
+    color: #FD5859; 
+    background-color: transparent; /* Remove background color */
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove box shadow */
+    text-decoration: underline; /* Optionally add underline to indicate active link */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    margin: 0;
+    text-decoration: none;
+}
+
+.nav-link.miPerfil {
+    color: black; 
+    background-color: transparent; /* Remove background color */
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove box shadow */
+    text-decoration: underline; /* Optionally add underline to indicate active link */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    margin: 0;
+    text-decoration: none;
+}
+
 /* Fondo del menú desplegable */
 .dropdown-menu {
     border-radius: 0;

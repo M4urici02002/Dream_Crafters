@@ -1,6 +1,20 @@
 <%- include('includes/navbar.ejs') %> 
 <%- include('includes/sidebar.ejs') %>
 
+<style>
+  /* CSS para cambiar el color de fondo del enlace */
+  .btn-enviar-encuesta {
+    background-color: black; /* Cambia el color de fondo aquí */
+    color: white; /* Cambia el color del texto si es necesario */
+    /* Otros estilos según sea necesario */
+  }
+
+  .btn-enviar-encuesta:hover {
+    background-color: #f97659!important; 
+    color: white !important; 
+}
+</style>
+
 <div class="main p-3">
   <div class="container consultar-usuarios">
     <div class="row justify-content-end">
@@ -68,7 +82,10 @@
             <!--Botón consultar encuesta-->
             <!-- <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar"> -->
             <a role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
-                Consultar encuesta
+                Consultar 
+            </a>
+            <a role="button" class="btn text-tarjeta-usuario btn-secondary btn-enviar-encuesta" id = "sendEncuesta">
+              Enviar 
             </a>
             &nbsp;&nbsp;
     
@@ -78,5 +95,32 @@
 
   </div>
 </div>
+
+<script>
+  const sendEncuesta = document.querySelector('#sendEncuesta');
+  sendEncuesta.addEventListener('click', async () => {
+      try {
+          const csrf = document.getElementById('_csrf').value;
+          const response = await fetch('/catalogoEncuestas/enviarCorreo', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'csrf-token': csrf,
+              },
+              body: JSON.stringify({}) // No hay datos que enviar
+          });
+          const data = await response.json();
+
+          if (response.status === 200) {
+              alert(data.message);
+          } else {
+              alert(data.message);
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          alert('Ocurrió un error al enviar el correo electrónico.');
+      }
+  });
+</script>
 
 <%- include('includes/footer.ejs') %>
