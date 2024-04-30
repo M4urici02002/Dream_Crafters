@@ -76,15 +76,12 @@ app.use(rutasUsuarios);
 const rutasRoles = require('./routes/gestionRoles.routes');
 app.use(rutasRoles); 
 
-<<<<<<< HEAD
-=======
 const rutasEnvioCorreo = require('./routes/envioCorreo.routes');
 app.use(rutasEnvioCorreo); 
 
-const rutasEditarRol = require('./routes/editarRol.routes');
+const rutasEditarRol = require('./routes/rol.routes');
 app.use('/editarRol', rutasEditarRol);
 
->>>>>>> Paola/MailgunNew
 const rutasUser = require('./routes/users.routes');
 app.use('/', rutasUser);
 
