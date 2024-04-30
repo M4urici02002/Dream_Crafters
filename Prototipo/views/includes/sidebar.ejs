@@ -18,12 +18,25 @@
                   <span>RESEÑAS</span>
               </a>
           </li>
+
           <li class="sidebar-item">
-              <a href="/template" class="sidebar-link">
-                  <i class="lni lni-pencil-alt"></i>
-                  <span>ENCUESTAS</span>
-              </a>
-          </li>
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                <i class="lni lni-pencil-alt"></i>
+                <span>ENCUESTAS</span>
+            </a>
+            <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                    <a href="/template" class="sidebar-link">Crear encuesta</a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="/catalogoEncuestas" class="sidebar-link">Catálogo encuestas</a>
+                </li>
+            </ul>
+        </li>
+
+
           <% for(permiso of permisos) { %>
             <% if(permiso.permiso == 'adminUsuarios') { %>
           <li class="sidebar-item">

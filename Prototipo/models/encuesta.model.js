@@ -24,4 +24,19 @@ module.exports = class Encuesta {
         throw new Error("Error al guardar la encuesta en la base de datos: " + error.message);
     }
   }
+
+  // Obtener todas las encuestas
+  static async fetchAll() {
+    try {
+      const [encuestas] = await db.query(`
+                SELECT IDEncuesta, Nombre as 'Marca', Titulo, DiasParaEnvio, Categoria
+                FROM encuesta e, marca m
+                WHERE e.IDMarca=m.IDMarca;
+            `);
+      return encuestas;
+
+    } catch (error) {
+      throw error;
+    }
+  }
 };

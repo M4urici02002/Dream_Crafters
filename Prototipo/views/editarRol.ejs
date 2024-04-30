@@ -3,11 +3,17 @@
 
 <div class="main p-3 background-color">
   <div class="container form">
-    <form class="crearUsuario">
-      <h1 class ="titulo-form"> Modificar Rol</h1>
+    <form class="crearUsuario" action="/editarRol" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+      <input type="hidden" id="nombre" name="nombre" value="<%= rol.nombre %>">
+      <input type="hidden" id="idRol" name="idRol" value="<%= rol.idrol %>">
+
+      <h1 class="titulo-form">Modificar rol: <%= rol.nombre %></h1>
+
+
         <div class="mb-5 contenido-con-margen">
-          <label for="inputNombre" class="form-label label-crearUsuario">Nuevo Nombre</label>
-          <input type="text" class="form-control input-crearUsuario" id="nombre" name="nombre" placeholder="{{nombreActual}}">
+          <label for="inputNombre" class="form-label label-crearUsuario">Nombre del rol</label>
+          <input type="text" class="form-control input-crearUsuario" id="nombreRol" name="nombreRol">
 
           <label for="inputNombre" class="form-label label-crearUsuario">Modificar Privilegio</label>
           <div id="inputUsuario" class="form-control input-crearUsuario">
@@ -26,7 +32,7 @@
          </div>
         </div>
         
-        <div class="btn-formUsuario">
+        <div class="btn-formUsuario"> 
             <button type="submit" class="btn btn-dark">Guardar</button>
         </div>
       </form>
@@ -34,6 +40,7 @@
 </div>
 
 <script>
+
   document.addEventListener('DOMContentLoaded', function() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"][name="rol"]');
     
@@ -55,6 +62,37 @@
       checkbox.addEventListener('change', actualizarListaPrivilegios);
     });
   });
+
+  const modificar = (idrol, nombre) => {
+          console.log("Modificando rol:", nombre);
+          const csrf = document.getElementById('_csrf').value;
+          fetch('/gestionRoles/modificar', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'csrf-token': csrf,
+              },
+              body: JSON.stringify({idrol: idrol})
+          }).then((result) => {
+              if (result.ok) {
+                  document.getElementById('notificationDelete').innerHTML = `
+                      <div class="alert alert-success" role="alert">
+                          El rol "${nombre}" fue modificado correctamente.
+                      </div>
+                  `;
+              } else {
+                  alert('El rol está asignado a uno o más usuarios y no puede ser eliminado.');
+                  document.getElementById('notification').innerHTML = `
+                      <div class="alert alert-danger" role="alert">
+                          EROR: El rol "${nombre}" no fue eliminado.
+                      </div>
+                  `;
+              }
+          }).catch((error) => {
+              console.error('Error:', error);
+              alert('Error al eliminar el rol.');
+          });
+  }
 </script>
 
 

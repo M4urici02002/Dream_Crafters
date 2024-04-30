@@ -1,7 +1,7 @@
 <%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
 
-<div class="main p-3">
+<div class="main p-3"> 
   <div class="container consultar-usuarios">
     <div class="row justify-content-end">
         <div class="col col-lg-3 col-md-4 col-sm-5">
@@ -12,12 +12,10 @@
             </a>
             
             <!--Search bar-->
-            <div class="input-group mb-3 buscarUsuario">
+            <div class="group">
                 <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
-                <input id="buscar" class="input is-info" type="text" placeholder="Buscar..."/><br><br>
-                <button class="btn btn-dark" type="button">
-                <i class="fas fa-search"></i>
-                </button>
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+                <input id="buscar" class="input" type="text" placeholder="Buscar..."/><br><br>
             </div>
         </div>
     </div>
@@ -46,34 +44,36 @@
         </div>
     </div> 
     <div id="busqueda_ajax">
-        <!--Tarjetas de usuario-->
-        <% for (let usuario of usuarioRegistrado) { %>
-            <div id="usuario-<%= usuario.username %>" class="row tarjetaUsuario">
-                <div class="col-lg-4 col-md-3 col-sm-3">
-                    <p class="username-usuario-tarjeta"><br><%=usuario.username%></p>
-                </div>
-                <div class="col-lg-3 col-sm-2">
-                   <p class="text-tarjeta-usuario"><br><%=usuario.nombre%></p>
-                </div>
-                <div class="col-sm-2">
-                   <p class="text-tarjeta-usuario"><br><%=usuario.rol_nombre%></p> 
-                </div>
+        <div>
+            <!--Tarjetas de usuario-->
+            <% for (let usuario of usuarioRegistrado) { %>
+                <div id="usuario-<%= usuario.username %>" class="row tarjetaUsuario">
+                    <div class="col-lg-4 col-md-3 col-sm-3">
+                        <p class="username-usuario-tarjeta"><br><%=usuario.username%></p>
+                    </div>
+                    <div class="col-lg-3 col-sm-2">
+                       <p class="text-tarjeta-usuario"><br><%=usuario.nombre%></p>
+                    </div>
+                    <div class="col-sm-2">
+                       <p class="text-tarjeta-usuario"><br><%=usuario.rol_nombre%></p> 
+                    </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
-                   <!--Modificar usuario-->
-                   <% if (usuario.username != 'admin') { %>
-                    <a href="/modificarUsuarios/<%= usuario.username %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
-                        Modificar
-                    </a> 
-                    &nbsp;&nbsp;
-                    <!--Eliminar usuario-->
-                    <button onclick="eliminar('<%= usuario.username %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
-                        Eliminar
-                    </button>
-                    <% } %>    
+                    <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
+                       <!--Modificar usuario-->
+                       <% if (usuario.username != 'admin') { %>
+                        <a href="/modificarUsuarios/<%= usuario.username %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+                            Modificar
+                        </a> 
+                        &nbsp;&nbsp;
+                        <!--Eliminar usuario-->
+                        <button onclick="eliminar('<%= usuario.username %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
+                            Eliminar
+                        </button>
+                        <% } %>    
+                    </div>
                 </div>
-            </div>
-        <% } %>  
+            <% } %>
+        </div>  
     </div>  
   </div>
 </div>
@@ -134,63 +134,64 @@
         }
     };
     
-
-
     const accion_asincrona = () => {
         const valor_busqueda = document.getElementById('buscar').value;
-        console.log("Buscando... " + valor_busqueda);
-
-        fetch('/gestionUsuarios/buscar/' + encodeURIComponent(valor_busqueda), {
+        console.log("buscando... " + valor_busqueda);
+        //función que manda la petición asíncrona
+        fetch('/gestionUsuarios/buscar/' + valor_busqueda, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             }
-        }).then(response => {
-            console.log(response);
-            return response.json(); // Convierte la respuesta en JSON
-        }).then(data => {
+        }).then((result) => {
+            console.log(result);
+            return result.json();
+        }).then((data) => {
             console.log(data);
-            // Aquí puedes actualizar el DOM según los resultados obtenidos
-            let html = '';
-            html += `  
-            
-        <% for (let usuario of usuarioRegistrado) { %>
-            <div id="usuario-<%= usuario.username %>" class="row tarjetaUsuario">
-                <div class="col-lg-4 col-md-3 col-sm-3">
-                    <p class="username-usuario-tarjeta"><br><%=usuario.username%></p>
-                </div>
-                <div class="col-lg-3 col-sm-2">
-                   <p class="text-tarjeta-usuario"><br><%=usuario.nombre%></p>
-                </div>
-                <div class="col-sm-2">
-                   <p class="text-tarjeta-usuario"><br><%=usuario.rol_nombre%></p> 
-                </div>
+            let html =
+            '<div>';
+            data.users.forEach(usuario => {
+    
+            html += `
+            <div>
+                    <div  class="row tarjetaUsuario" id="usuario-${usuario.username}">
+                        <div class="col-lg-4 col-md-3 col-sm-3 ">
+                            <p class="username-usuario-tarjeta">${usuario.username}</p>
+                        </div>
+                        <div class="col-lg-3 col-sm-2">
+                           <p class="text-tarjeta-usuario"><br>${usuario.nombre}</p>
+                        </div>
+                        <div class="col-sm-2">
+                           <p class="text-tarjeta-usuario"><br>${usuario.rol_nombre}</p> 
+                        </div>
+                    
+                        <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
+                           <!--Modificar usuario-->
+                           ${usuario.username !== 'admin' ? `
+                            <a href="/modificarUsuarios/${usuario.username}" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+                                Modificar
+                            </a> 
+                            &nbsp;&nbsp;
+                            <!--Eliminar usuario-->
+                            <button onclick="eliminar('${usuario.username}')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
+                                Eliminar
+                            </button>` : ''} 
+                        </div>
+                    </div>
+                </div>  
+            `;
+        });
+            html += `</div>`;
+            document.getElementById('busqueda_ajax').innerHTML = html;
 
-                <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
-                   <!--Modificar usuario-->
-                   <% if (usuario.username != 'admin') { %>
-                    <a href="/modificarUsuarios/<%= usuario.username %>" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
-                        Modificar
-                    </a> 
-                    &nbsp;&nbsp;
-                    <!--Eliminar usuario-->
-                    <button onclick="eliminar('<%= usuario.username %>')" type="button" class="btn text-tarjeta-usuario btn-dark btn-modificar-eliminar">
-                        Eliminar
-                    </button>
-                    <% } %>    
-                </div>
-            </div>
-        <% } %>  
-        html += </div>;`
-        document.getElementById('busqueda_ajax').innerHTML = html;
-
-
-        }).catch(error => {
-            console.error("Error en la petición fetch:", error);
+        }).catch((error) => {
+            console.log(error);
         });
     };
+    document.getElementById('buscar').onkeyup = accion_asincrona;
+    
 
-    document.getElementById('buscar').addEventListener('keyup', accion_asincrona);
+    
 </script>
 
 <%- include('includes/footer.ejs') %>

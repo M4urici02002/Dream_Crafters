@@ -51,6 +51,9 @@ app.use('/configuracion', rutasConfiguracion);
 const rutasTemplate = require('./routes/template.routes');
 app.use(rutasTemplate);
 
+const rutasEncuestas = require('./routes/encuesta.routes');
+app.use(rutasEncuestas);
+
 const categoriaController = require('./controllers/categoria.controller');
 app.use(categoriaController.getCategorias);
 
@@ -68,9 +71,6 @@ app.use(rutasUsuarios);
 
 const rutasRoles = require('./routes/gestionRoles.routes');
 app.use(rutasRoles); 
-
-const rutasEditarRol = require('./routes/editarRol.routes');
-app.use('/editarRol', rutasEditarRol);
 
 const rutasUser = require('./routes/users.routes');
 app.use('/', rutasUser);
