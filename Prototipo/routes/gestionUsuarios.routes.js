@@ -7,7 +7,8 @@ const isAuth = require('../util/is-auth');
 
 const gestionUsuariosController= require('../controllers/gestionUsuarios.controller');
 router.get('/gestionUsuarios', isAuth, gestionUsuariosController.get_usuarioRegistrado);
-router.get('/gestionUsuarios/buscar/:valor_busqueda', isAuth, gestionUsuariosController.get_buscar);
+router.get('/gestionUsuarios/buscar/:valor_busqueda', isAuth, gestionUsuariosController.getBuscar);
+router.get('/gestionUsuarios/buscar/', isAuth, gestionUsuariosController.getBuscar);
 
 
 

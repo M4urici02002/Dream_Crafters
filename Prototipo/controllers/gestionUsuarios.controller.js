@@ -30,8 +30,8 @@ exports.post_eliminar = (request, response, next) => {
         }).catch((error) => {console.log(error)})
 };
 
-exports.get_buscar = (request, response, next) => {
-    Usuario.search(request.params.valor_busqueda)
+exports.getBuscar = (request, response, next) => {
+    Usuario.search(request.params.valor_busqueda || "")
     .then(([users, fieldData]) => {
         return response.status(200).json({users: users});
     })
