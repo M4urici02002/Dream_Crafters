@@ -43,10 +43,10 @@
                 <input type="password" class="form-control input-miPerfil" id="inputNombre" name="password">
               
                 <label for="inputEmail" class="form-label label-miPerfil">Nueva contraseña</label>
-                <input type="password" class="form-control input-miPerfil" id="newPassword" name="newPassword">
+                <input type="password" class="form-control input-miPerfil" id="newPassword" name="newPassword" required pattern="^(?=.*\d)[A-Za-z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres y contener al menos un número.">
               
                 <label for="inputUsuario" class="form-label label-miPerfil">Confirmar contraseña nueva</label>
-                <input type="password" class="form-control input-miPerfil" id="password2" name="confirmPassword">
+                <input type="password" class="form-control input-miPerfil" id="password2" name="confirmPassword" required pattern="^(?=.*\d)[A-Za-z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres y contener al menos un número.">
             </div>
             <!-- Elemento para mostrar el mensaje de error -->
             <div id="errorContainer" class="text-danger mt-2"></div>
