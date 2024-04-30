@@ -5,6 +5,5 @@ const encuestasController = require('../controllers/encuesta.controller');
 const isAuth = require('../util/is-auth');
 
 router.get('/catalogoEncuestas', isAuth, encuestasController.get_catalogoEncuestas);
-router.post('/catalogoEncuestas/enviarCorreo', encuestasController.post_emailForm);
 
 module.exports = router;
