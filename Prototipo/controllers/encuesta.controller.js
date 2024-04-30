@@ -1,4 +1,4 @@
-const db = require("../util/database");
+const db = require('../util/database');
 const Encuesta = require('../models/encuesta.model');
 
 exports.get_catalogoEncuestas = async (request, response, next) => {
@@ -16,5 +16,3 @@ exports.get_catalogoEncuestas = async (request, response, next) => {
     response.status(500).send("Error al obtener catálogo de Encuestas");
   }
 };
-
-

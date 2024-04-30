@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/miPerfil.css">
     <link rel="stylesheet" href="../css/resena.css">
     <link rel="stylesheet" href="../css/template.css">
+    <link rel="stylesheet" href="../css/compras.css">
     <link rel="stylesheet" href="../css/graficas.css">
     <link rel="stylesheet" href="../css/gestionUsuariosRoles.css">
     <link rel="stylesheet" href="../css/usuarioForm.css">
@@ -48,7 +49,7 @@
                     
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link cambio" aria-current="page" href="/miPerfil">MI PERFIL</a>
+                            <a class="nav-link cambio miPerfil" aria-current="page" href="/miPerfil">MI PERFIL</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link cambio" href="/logout">CERRAR SESIÓN</a>
@@ -75,5 +76,16 @@
             });
         });
     });
-    </script>
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Obtener la URL actual
+        var url = window.location.pathname;
+
+        // Si la URL actual coincide con la URL de la página de perfil, agregar la clase "active" al enlace "MI PERFIL"
+        if (url === '/miPerfil') {
+            document.querySelector('.nav-link.miPerfil').classList.add('active');
+        }
+    });
+</script>
         

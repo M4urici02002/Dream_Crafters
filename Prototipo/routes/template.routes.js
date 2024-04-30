@@ -10,7 +10,4 @@ router.post('/template', isAuth, templateController.post_categoriasMarca);
 router.get('/template/editarEncuesta', isAuth, templateController.get_EditarEncuesta);
 router.post('/template/editarEncuesta', isAuth, templateController.post_editarEncuesta);
 
-router.post('/template/editarEncuesta/enviarCorreo', templateController.post_emailForm);
-
-
 module.exports = router;

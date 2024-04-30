@@ -1,0 +1,21 @@
+.tarjetaComprasEncabezado {
+    background-color: #004C45;
+    color: #fff; 
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.table-responsive {
+    height: calc(80vh);
+    overflow-x: auto; /* Habilita el desplazamiento horizontal */
+}
+  
+.limit-vert-scroll {
+    max-height: 350px; /* Limita la altura vertical */
+    overflow-y: auto; /* Habilita el desplazamiento vertical si es necesario */
+}
+  
+
+.consultar-compras{
+    font-family: 'Montserrat', sans-serif;
+}

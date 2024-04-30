@@ -1,0 +1,91 @@
+<%- include('includes/navbar.ejs') %> 
+<%- include('includes/sidebar.ejs') %>
+
+<div class="main p-3">
+  <div class="container consultar-compras">
+
+    <div class="input-group mb-3 buscarUsuario">
+      <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>" />
+    </div>
+    
+    <div class="table-responsive">
+
+      <table class="table">
+
+        <!-- Encabezados de la tabla -->
+        <thead class="tarjetaComprasEncabezado text-tarjeta-compra">
+          <tr>
+            <th>IDCompra</th>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>fechaCompra</th>
+            <th>Encuesta</th>
+            <th></th>
+          </tr>
+        </thead>
+        <br>
+        <tbody class="limit-vert-scroll">
+          <!-- Contenido de la tabla -->
+          <% for (let compra of compras) { %>
+            <tr>
+              <td><%= compra.IDCompra %></td>
+              <td>
+                ID: <%= compra.IDCliente %><br>
+                <%= compra.nombreCliente %><br>
+                <%= compra.Correo %>
+              </td>
+              <td>
+                Id: <%= compra.IDProducto %><br>
+                <%= compra.nombreProducto %>
+              </td>
+              <td><%= compra.fechaCompra %></td>
+              <td>
+                Id: <%= compra.IDEncuesta %>
+                <%= compra.tituloEncuesta %>
+              </td>
+              <td>               
+              <!--Botón consultar encuesta-->
+              <!-- <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar"> -->
+                <a role="button" class="btn text-tarjeta-usuario btn-secondary btn-enviar-encuesta" id = "sendEncuestaCompra">
+                  Enviar 
+                </a>
+              &nbsp;&nbsp;
+          
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
+
+<script>
+  const sendEncuesta = document.querySelector('#sendEncuestaCompra');
+  sendEncuesta.addEventListener('click', async () => {
+      try {
+          const csrf = document.getElementById('_csrf').value;
+          const response = await fetch('/catalogoCompras/enviarCorreo', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'csrf-token': csrf,
+              },
+              body: JSON.stringify({}) // No hay datos que enviar
+          });
+          const data = await response.json();
+
+          if (response.status === 200) {
+              alert(data.message);
+          } else {
+              alert(data.message);
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          alert('Ocurrió un error al enviar el correo electrónico.');
+      }
+  });
+</script>
+
+<%- include('includes/footer.ejs') %>
