@@ -30,4 +30,13 @@ module.exports = class Pregunta {
         }
     }
 
+    static fetchAllByEncuesta(IDEncuesta) {
+        return db.execute(`
+            SELECT P.Descripcion
+            FROM Pregunta P
+            JOIN PreguntaEncuesta PE ON P.IDPregunta = PE.IDPregunta
+            WHERE PE.IDEncuesta = ?;
+        `, [IDEncuesta]);
+    }
+
 }

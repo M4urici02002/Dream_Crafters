@@ -1,8 +1,10 @@
+<input type="hidden" id="encuestaId" value="<%= primerIdEncuesta %>">
 <div class="main p-3">
     <div class="container">
         <form class="template">
             <img src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg" class="img-fluid img-marca" alt="Imagen logo marca">
-            <h2 id="tituloPrincipal">Hola, NombreCliente Correo</h2>
+            <h2 id="tituloPrincipal">Hola, <%= primerNombre %> </h2>
+            <div><p>Gracias por tu compra del producto <%= primerProducto  %>.</p><p>Ayudanos contestando la siguiente encuesta: </p></div>
             <div class="row mb-3">
                 <div class="col-md-4 img-producto">
                     <img src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg" class="img-fluid" alt="Imagen del producto">
@@ -11,11 +13,11 @@
 
             <!-- Pregunta 1 -->
             <div class="pregunta-rating">
-                <label for="marca">¿Qué te ha parecido tu producto Luuna?</label>
+                <label for="marca">¿Qué te ha parecido tu <%= primerProducto %></label>
                 <div class="row mb-3">
                         <div class="rating">
                             <input type="radio" id="star5" name="rating" value="5">
-                            <label for="star5"></label>
+                            <label for="star5"> </label>
                             <input type="radio" id="star4" name="rating" value="4">
                             <label for="star4"></label>
                             <input type="radio" id="star3" name="rating" value="3">
@@ -29,32 +31,21 @@
             </div>
             <div class="custom-line"></div>
 
-            <!-- Pregunta 2 -->
-            <div class="mb-5 contenido-con-margen">
-                <label for="aliviarProblemas">¿Qué tan bien el colchón ha ayudado a aliviar tus problemas de sueño, como el insomnio o el dolor de espalda?</label>
-                <textarea id="aliviarProblemas" class="form-control" name="reason" rows="3"></textarea>
-            </div>
-
-            <!-- Pregunta 3 -->
-            <div class="mb-5 contenido-con-margen">
-                <label for="elegisteLuuna">¿Por qué elegiste Luuna vs otras marcas?</label>
-                <select id="elegisteLuuna" class="form-select">
-                    <option>Precio</option>
-                    <option>Garantía y calidad del producto</option>
-                    <option>Cualidades (tecnología, diseño,colores)</option>
-                    <option>Recomendaciones</option>
-                    <option>Otro</option>
-                </select>
-            </div>
-
-            <div class="preguntas-agregadas">
-                <ul id="listaPreguntas"></ul>
-            </div>
+            <!-- Iterar sobre las preguntas -->
+            <% preguntas.forEach(pregunta => { %>
+                <div>
+                    <!-- Mostrar la descripción de la pregunta -->
+                    <p><%= pregunta[0].Descripcion %></p>
+                    <!-- TEXT BOX -->
+                    <textarea id="aliviarProblemas" class="form-control" name="reason" rows="3"> </textarea>
+                </div>
+            <% }); %>
 
 
             <div class="btn-template">
                 <button type="submit" class="btn btn-custom-pregunta">Enviar</button>
             </div>
+
             <footer class="footer-template">
                 <div class="container">
                     <div class="row">
