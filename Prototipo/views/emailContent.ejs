@@ -31,8 +31,13 @@
             </div>
             <div class="custom-line"></div>
 
-            <!-- Imprimir la longitud del arreglo preguntas -->
-            <%= length %>
+            <!-- Pregunta 2 -->
+            <div class="mb-5 contenido-con-margen">
+                <label for="aliviarProblemas"
+                >Escribe tu opinion porfis</label
+                >
+                <textarea id="aliviarProblemas" class="form-control" name="reason" rows="3"> </textarea>
+            </div>
             
             <!-- Iterar sobre las preguntas con un ciclo for -->
             <% for (let i = 0; i < 1; i++) { %>
@@ -45,9 +50,6 @@
                     </div>
                 <% } %>
             <% } %>
-
-
-
 
             <div class="btn-template">
                 <button type="submit" class="btn btn-custom-pregunta">Enviar</button>
