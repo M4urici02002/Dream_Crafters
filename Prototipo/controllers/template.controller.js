@@ -3,13 +3,14 @@ const Encuesta = require('../models/encuesta.model');
 const Pregunta = require('../models/pregunta.model');
 
 exports.get_categoriasMarca = async (request, response, next) => {
+    const nombreMarca = request.cookies['marcaSeleccionada'];
     try {
         const [categoria] = await db.query(`
-            SELECT DISTINCT Categoria, M.nombre AS nombre_marca
-            FROM producto P, marca M
-            WHERE P.IDMarca=M.IDMarca
-            AND M.nombre='LUUNA';
-        `);
+        SELECT DISTINCT p.Categoria
+        FROM producto p
+        INNER JOIN marca m ON p.IDMarca = m.IDMarca
+        WHERE m.Nombre = ?
+    `, [nombreMarca]);
 
         response.render('encuestaForm', {
             categoriasMarca: categoria,
