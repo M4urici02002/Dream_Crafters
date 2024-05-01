@@ -39,4 +39,29 @@ module.exports = class Encuesta {
       throw error;
     }
   }
+
+  // Obtener encuestas por página
+  static async fetchPerPage(perPage, offset) {
+    try {
+      const [encuestas] = await db.query(`
+                SELECT IDEncuesta, Nombre as 'Marca', Titulo, DiasParaEnvio, Categoria
+                FROM encuesta e, marca m
+                WHERE e.IDMarca=m.IDMarca
+                LIMIT ? OFFSET ?;
+            `, [perPage, offset]);
+      return encuestas;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Obtener el número total de encuestas
+  static async getTotalCount() {
+    try {
+      const [result] = await db.query(`SELECT COUNT(*) as totalCount FROM encuesta`);
+      return result[0].totalCount;
+    } catch (error) {
+      throw error;
+    }
+  }
 };

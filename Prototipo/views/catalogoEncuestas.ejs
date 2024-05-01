@@ -5,23 +5,20 @@
   <div class="container consultar-usuarios">
     <div class="row justify-content-end">
       <div class="col col-lg-3 col-md-4 col-sm-5">
-
-        <!--Agregar rol-->
+        <!-- Agregar rol -->
         <a href="/template" class="btn-agregarUsuario">
           <span> Crear encuesta </span>
           <i class="fas fa-plus"></i>
         </a>
-
         <div class="input-group mb-3 buscarUsuario">
           <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>" />
         </div>
-
       </div>
     </div>
     
     <div id="notification"></div>
 
-    <!--Encabezados de la tabla-->
+    <!-- Encabezados de la tabla -->
     <div id="tarjetaRolesEncabezado" class="row tarjetaUsuario">
       <div class="col-lg-2 col-md-2 col-sm-2">
         <p class="username-usuario-tarjeta-titulo"><br />Encuesta</p>
@@ -29,7 +26,6 @@
       <div class="col-lg-1 col-md-2 col-sm-1">
         <p class="username-usuario-tarjeta-titulo"><br />Marca</p>
       </div>
-
       <div class="col-lg-3 col-md-2 col-sm-2">
         <p class="text-tarjeta-usuario"><br />Título</p>
       </div>
@@ -39,42 +35,56 @@
       <div class="col-lg-3 col-md-3 col-sm-3">
         <p class="username-usuario-tarjeta-titulo"><br />Categoría</p>
       </div>
-
     </div>
 
-    <!--Tarjetas de encuestas-->
-    <% for (let encuesta of encuestas) { %>
-        <div id="encuesta-<%= encuesta.IDEncuesta %>" class="row tarjetaUsuario">
-          <div class="col-sm-2">
-            <p class="username-usuario-tarjeta"><br /><%= encuesta.IDEncuesta %></p>
-          </div>
-          <div class="col-sm-1">
-            <p class="text-tarjeta-usuario"><br /><%= encuesta.Marca %></p>
-          </div>
-          <div class="col-sm-3">
-            <p class="text-tarjeta-usuario"><br /><%= encuesta.Titulo %></p>
-          </div>
-          <div class="col-sm-1">
-            <p class="text-tarjeta-usuario"><br /><%= encuesta.DiasParaEnvio %></p>
-          </div>
-          <div class="col-sm-3">
-            <p class="text-tarjeta-usuario"><br /><%= encuesta.Categoria %></p>
-          </div>
-
-    
-          <div class="col-lg-2 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
-    
-            <!--Botón consultar encuesta-->
-            <!-- <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar"> -->
-            <a role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
-                Consultar 
-            </a>
-            &nbsp;&nbsp;
-    
-          </div>
+    <!-- Tarjetas de encuestas -->
+    <% for (let i = (page - 1) * 10; i < Math.min(page * 10, encuestas.length); i++) { %>
+      <div id="encuesta-<%= encuestas[i].IDEncuesta %>" class="row tarjetaUsuario">
+        <div class="col-sm-2">
+          <p class="username-usuario-tarjeta"><br /><%= encuestas[i].IDEncuesta %></p>
         </div>
+        <div class="col-sm-1">
+          <p class="text-tarjeta-usuario"><br /><%= encuestas[i].Marca %></p>
+        </div>
+        <div class="col-sm-3">
+          <p class="text-tarjeta-usuario"><br /><%= encuestas[i].Titulo %></p>
+        </div>
+        <div class="col-sm-1">
+          <p class="text-tarjeta-usuario"><br /><%= encuestas[i].DiasParaEnvio %></p>
+        </div>
+        <div class="col-sm-3">
+          <p class="text-tarjeta-usuario"><br /><%= encuestas[i].Categoria %></p>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
+          <!-- Botón consultar encuesta -->
+          <a role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
+              Consultar 
+          </a>
+          &nbsp;&nbsp;
+        </div>
+      </div>
     <% } %>
 
+    <!-- Paginación -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <% if (page > 1) { %>
+          <li class="page-item">
+            <a class="page-link" href="/encuestas?page=<%= page - 1 %>">Previous</a>
+          </li>
+        <% } %>
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= i === page ? 'active' : '' %>">
+            <a class="page-link" href="/encuestas?page=<%= i %>"><%= i %></a>
+          </li>
+        <% } %>
+        <% if (page < totalPages) { %>
+          <li class="page-item">
+            <a class="page-link" href="/encuestas?page=<%= page + 1 %>">Next</a>
+          </li>
+        <% } %>
+      </ul>
+    </nav>
   </div>
 </div>
 
