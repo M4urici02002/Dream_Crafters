@@ -8,6 +8,7 @@ exports.get_categoriasMarca = async (request, response, next) => {
     Categoria.fetchAllByMarcaNombre(nombreMarca)
     .then(([categoria, fieldData]) => {
         response.render('encuestaForm', {
+            nombreMarca: nombreMarca,
             categoriasMarca: categoria,
             permisos: request.session.permisos || [],
             csrfToken: request.csrfToken(),
