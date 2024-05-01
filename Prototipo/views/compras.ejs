@@ -30,6 +30,7 @@
             const idEncuestas = [];
             const nombresClientes = [];
             const nombresProductos = [];
+            const correosClientes = [];
 
             for (let compra of compras) { 
             %>
@@ -60,11 +61,14 @@
               nombresClientes.push(compra.nombreCliente);
               // Agregar el nombre de producto al arreglo nombresProductos
               nombresProductos.push(compra.nombreProducto);
+              // Agregar los correos 
+              correosClientes.push(compra.Correo);
             } 
             // Imprimir los arreglos en la consola del navegador
             console.log('ID de Encuestas:', idEncuestas);
             console.log('Nombres de Clientes:', nombresClientes);
             console.log('Nombres de Productos:', nombresProductos);
+            console.log('Correos de clientes:', correosClientes);
           %>
 
         </tbody>
@@ -78,7 +82,7 @@
     <!-- Contenedor del botón enviar encuesta alineado a la derecha -->
     <div class="justify-content-end mb-3">
       <!-- Pasar el arreglo idEncuestas como un atributo de datos -->
-      <button id="sendEncuestaCompra" data-nombres-clientes="<%= JSON.stringify(nombresClientes) %>" data-nombres-productos="<%= JSON.stringify(nombresProductos) %>" data-id-encuestas="<%= JSON.stringify(idEncuestas) %>">Enviar Encuesta</button>
+      <button id="sendEncuestaCompra" data-nombres-clientes="<%= JSON.stringify(nombresClientes) %>" data-nombres-productos="<%= JSON.stringify(nombresProductos) %>" data-id-encuestas="<%= JSON.stringify(idEncuestas) %>" data-correos-clientes="<%= JSON.stringify(correosClientes) %>">Enviar Encuesta</button>
     </div>
 
 <script>
@@ -91,6 +95,7 @@
           const idEncuestas = JSON.parse(sendEncuesta.getAttribute('data-id-encuestas'));
           const nombresClientes = JSON.parse(sendEncuesta.getAttribute('data-nombres-clientes'));
           const nombresProductos = JSON.parse(sendEncuesta.getAttribute('data-nombres-productos'));
+          const correosClientes = JSON.parse(sendEncuesta.getAttribute('data-correos-clientes'));
 
           const response = await fetch('/catalogoCompras/enviarCorreo', {
               method: 'POST',
@@ -99,7 +104,7 @@
                 'csrf-token': csrf,
               },
               // Enviar el arreglo idEncuestas como parte del cuerpo de la solicitud POST
-              body: JSON.stringify({ idEncuestas: idEncuestas, nombresClientes: nombresClientes, nombresProductos: nombresProductos })
+              body: JSON.stringify({ idEncuestas: idEncuestas, nombresClientes: nombresClientes, nombresProductos: nombresProductos, correosClientes: correosClientes })
           });
           const data = await response.json();
 

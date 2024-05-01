@@ -31,68 +31,80 @@ exports.get_catalogoCompras = async (request, response, next) => {
 
 
 exports.post_emailForm = async (req, res, next) => {
-  try {
-      // Obtener los ID de Encuesta del cuerpo de la solicitud POST
-      const idEncuestas = req.body.idEncuestas;
-      const nombresClientes = req.body.nombresClientes;
-      const nombresProductos = req.body.nombresProductos;
+    try {
+        // Obtener los ID de Encuesta, nombres de clientes y nombres de productos del cuerpo de la solicitud POST
+        const idEncuestas = req.body.idEncuestas;
+        const nombresClientes = req.body.nombresClientes;
+        const nombresProductos = req.body.nombresProductos;
+        const correosClientes = req.body.correosClientes;
+  
+        // Console.log para verificar si los ID de Encuesta, nombres de clientes y nombres de productos se reciben correctamente
+        console.log('ID de Encuestas recibidos en el controlador:', idEncuestas);
+        console.log('Nombres de los clientes recibidos en el controlador:', nombresClientes);
+        console.log('Nombres de productos recibidos en el controlador:', nombresProductos);
+        console.log('Correos de clientes recibidos en el controlador:', correosClientes);
 
-      // Obtener el primer ID de Encuesta del arreglo (si existe)
-      const primerIdEncuesta = 137;
-      const primerNombre = "Pepe";
-      const primerProducto = "Colchon";
+        const idEncuestas2 = [1, 3]; // Arreglo de IDs de Encuesta
+        const nombresClientes2 = ["Paola", "Valeria"]; // Arreglo de nombres de clientes
+        const nombresProductos2 = ["Colchón", "Almohada"]; // Arreglo de nombres de productos
+        const correosClientes2 = ["pm.garridoo@gmail.com", "valeria.zuniga.men@gmail.com"]; // Arreglo de correos electrónicos
 
-      // Console.log para verificar si los ID de Encuesta se reciben correctamente
-      console.log('ID de Encuestas recibidos en el controlador:', idEncuestas);
-      console.log('Nombres de los clientes recibidos en el controlador:', nombresClientes);
-      console.log('Nombres productos recibidos en el controlador:', nombresProductos);
-      console.log('Primer ID de Encuesta:', primerIdEncuesta);
-      console.log('Nombre:', primerNombre);
-      console.log('Producto:', primerProducto);
+  
+        // Obtener preguntas por cada ID de Encuesta y enviar correo electrónico para cada conjunto de datos
+        for (let i = 0; i < idEncuestas2.length; i++) {
+            const preguntas = await Pregunta.fetchAllByEncuesta(idEncuestas2[i]);
+            console.log(`Preguntas obtenidas para la encuesta ${idEncuestas2[i]}:`, preguntas);
+        
+            const totalPreguntas = preguntas.reduce((total, subarreglo) => total + subarreglo.length, 0);
+            console.log(`Número de preguntas obtenidas para la encuesta ${idEncuestas2[i]}: ${totalPreguntas}`);
+            
+            const length = totalPreguntas - 1;
+  
+            (async () => {
+                const emailInfo = {
+                    from: `"DreamCrafters" <dreamcrafters.code@gmail.com>`,
+                    to: correosClientes2[i], // Correo electrónico correspondiente al índice i
+                    subject: 'Reseña Zebrands'
+                };
 
-      // Obtener preguntas por ID de Encuesta
-      const preguntas = await Pregunta.fetchAllByEncuesta(primerIdEncuesta);
-      // Log de las preguntas
-      console.log('Preguntas obtenidas:', preguntas);
-
-      const emailInfo = {
-          from: `"DreamCrafters" <dreamcrafters.code@gmail.com>`,
-          to: 'pm.garridoo@gmail.com', // Cambiar a la dirección de correo electrónico a la que quieres enviar el formulario
-          subject: 'Reseña Zebrands'
-      };
-
-      // Lee el contenido del archivo emailForm.ejs
-      fs.readFile('./views/emailContent.ejs', 'utf8', (err, data) => {
-          if (err) {
-              console.error(err);
-              res.status(500).send('Error al cargar el formulario.');
-          } else {
-              // Renderiza el contenido del archivo EJS, pasando primerIdEncuesta y preguntas como variables
-              const htmlContent = ejs.render(data, { primerIdEncuesta: primerIdEncuesta, primerNombre: primerNombre, primerProducto: primerProducto, preguntas: preguntas});
-              // Agrega el contenido renderizado al cuerpo del correo electrónico
-              emailInfo.html = htmlContent;
-
-              // Log the HTML content to the console
-              console.log('HTML content:', htmlContent);
-
-              // Envía el correo electrónico
-              mailgun().messages().send(emailInfo, (error, body) => {
-                  if (error) {
-                      console.log(error);
-                      res.status(500).send({
-                          message: '¡Algo salió mal al enviar el correo electrónico!'
-                      });
-                  } else {
-                      res.send({ message: '¡Correo electrónico enviado exitosamente!' });
-                  }
-              });
-          }
-      });
-  } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: '¡Algo salió mal al enviar el correo electrónico!' });
-  }
+                // Lee el contenido del archivo emailForm.ejs
+                fs.readFile('./views/emailContent.ejs', 'utf8', (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        res.status(500).send('Error al cargar el formulario.');
+                    } else {
+                        // Renderiza el contenido del archivo EJS, pasando los valores correspondientes
+                        const htmlContent = ejs.render(data, { idEncuestas2: idEncuestas2[i], nombresClientes2: nombresClientes2[i], nombresProductos2: nombresProductos2[i], preguntas: preguntas, length : length });
+                        // Agrega el contenido renderizado al cuerpo del correo electrónico
+                        emailInfo.html = htmlContent;
+  
+                        // Log the HTML content to the console
+                        console.log('HTML content:', htmlContent);
+  
+                        // Envía el correo electrónico
+                        mailgun().messages().send(emailInfo, (error, body) => {
+                            if (error) {
+                                console.log(error);
+                                res.status(500).send({
+                                    message: '¡Algo salió mal al enviar el correo electrónico!'
+                                });
+                            } else {
+                                console.log(`Correo electrónico enviado exitosamente para la encuesta ${idEncuestas2[i]}`);
+                            }
+                        });
+                    }
+                });
+            })();
+        }
+  
+        res.send({ message: '¡Correos electrónicos enviados exitosamente!' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: '¡Algo salió mal al enviar los correos electrónicos!' });
+    }
 };
+
+  
 
 
 

@@ -11,6 +11,9 @@ dist/
 # Log files
 *.log
 
+# Credenciales
+.env
+
 # Package files
 *.jar
 
