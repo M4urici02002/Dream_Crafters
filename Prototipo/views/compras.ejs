@@ -1,4 +1,4 @@
-<%- include('includes/navbar.ejs') %> 
+<%- include('includes/navbar.ejs') %>
 <%- include('includes/sidebar.ejs') %>
 
 <div class="main p-3">
@@ -8,7 +8,7 @@
       <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>" />
     </div>
     
-    <div class="table-responsive">
+    <div class="table-responsive" style="margin-top: 20px; margin-bottom: 20px;">
 
       <table class="table">
 
@@ -25,8 +25,15 @@
         </thead>
         <br>
         <tbody class="limit-vert-scroll">
-          <!-- Contenido de la tabla -->
-          <% for (let compra of compras) { %>
+          <%
+            // Inicializar un arreglo para almacenar los ID de Encuesta, nombres de cliente y nombres de producto
+            const idEncuestas = [];
+            const nombresClientes = [];
+            const nombresProductos = [];
+            const correosClientes = [];
+
+            for (let compra of compras) { 
+            %>
             <tr>
               <td><%= compra.IDCompra %></td>
               <td>
@@ -44,16 +51,26 @@
                 <%= compra.tituloEncuesta %>
               </td>
               <td>               
-              <!--Botón consultar encuesta-->
-              <!-- <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar"> -->
-                <a role="button" class="btn text-tarjeta-usuario btn-secondary btn-enviar-encuesta" id = "sendEncuestaCompra">
-                  Enviar 
-                </a>
-              &nbsp;&nbsp;
-          
+                &nbsp;&nbsp;
               </td>
             </tr>
-          <% } %>
+            <% 
+              // Agregar el ID de Encuesta al arreglo idEncuestas
+              idEncuestas.push(compra.IDEncuesta);
+              // Agregar el nombre de cliente al arreglo nombresClientes
+              nombresClientes.push(compra.nombreCliente);
+              // Agregar el nombre de producto al arreglo nombresProductos
+              nombresProductos.push(compra.nombreProducto);
+              // Agregar los correos 
+              correosClientes.push(compra.Correo);
+            } 
+            // Imprimir los arreglos en la consola del navegador
+            console.log('ID de Encuestas:', idEncuestas);
+            console.log('Nombres de Clientes:', nombresClientes);
+            console.log('Nombres de Productos:', nombresProductos);
+            console.log('Correos de clientes:', correosClientes);
+          %>
+
         </tbody>
       </table>
     </div>
@@ -61,18 +78,33 @@
   </div>
 </div>
 
+    <!-- Botón enviar encuesta -->
+    <!-- Contenedor del botón enviar encuesta alineado a la derecha -->
+    <div class="justify-content-end mb-3">
+      <!-- Pasar el arreglo idEncuestas como un atributo de datos -->
+      <button id="sendEncuestaCompra" data-nombres-clientes="<%= JSON.stringify(nombresClientes) %>" data-nombres-productos="<%= JSON.stringify(nombresProductos) %>" data-id-encuestas="<%= JSON.stringify(idEncuestas) %>" data-correos-clientes="<%= JSON.stringify(correosClientes) %>">Enviar Encuesta</button>
+    </div>
+
 <script>
   const sendEncuesta = document.querySelector('#sendEncuestaCompra');
   sendEncuesta.addEventListener('click', async () => {
       try {
           const csrf = document.getElementById('_csrf').value;
+
+          // Obtener el arreglo idEncuestas del atributo de datos
+          const idEncuestas = JSON.parse(sendEncuesta.getAttribute('data-id-encuestas'));
+          const nombresClientes = JSON.parse(sendEncuesta.getAttribute('data-nombres-clientes'));
+          const nombresProductos = JSON.parse(sendEncuesta.getAttribute('data-nombres-productos'));
+          const correosClientes = JSON.parse(sendEncuesta.getAttribute('data-correos-clientes'));
+
           const response = await fetch('/catalogoCompras/enviarCorreo', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'csrf-token': csrf,
               },
-              body: JSON.stringify({}) // No hay datos que enviar
+              // Enviar el arreglo idEncuestas como parte del cuerpo de la solicitud POST
+              body: JSON.stringify({ idEncuestas: idEncuestas, nombresClientes: nombresClientes, nombresProductos: nombresProductos, correosClientes: correosClientes })
           });
           const data = await response.json();
 

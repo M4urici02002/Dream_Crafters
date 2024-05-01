@@ -11,8 +11,7 @@ dist/
 # Log files
 *.log
 
-# env
-
+# Credenciales
 .env
 
 # Package files
