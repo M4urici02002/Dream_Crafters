@@ -1,25 +1,22 @@
 const db = require('../util/database');
 const Encuesta = require('../models/encuesta.model');
 const Pregunta = require('../models/pregunta.model');
+const Categoria = require('../models/categoria.model');
 
 exports.get_categoriasMarca = async (request, response, next) => {
-    try {
-        const [categoria] = await db.query(`
-            SELECT DISTINCT Categoria, M.nombre AS nombre_marca
-            FROM producto P, marca M
-            WHERE P.IDMarca=M.IDMarca
-            AND M.nombre='LUUNA';
-        `);
-
+    const nombreMarca = request.cookies['marcaSeleccionada'] || "LUUNA";
+    Categoria.fetchAllByMarcaNombre(nombreMarca)
+    .then(([categoria, fieldData]) => {
         response.render('encuestaForm', {
             categoriasMarca: categoria,
             permisos: request.session.permisos || [],
             csrfToken: request.csrfToken(),
         });
-    } catch (error) {
+    })
+    .catch((error) => {
         console.log(error);
-        response.status(500).send("Error al obtener categorias");
-    }
+        response.status(500).send("Error al obtener usuarios registrados");
+    });
 };
 
 exports.post_categoriasMarca = async (request, response, next) => {
