@@ -41,7 +41,7 @@
       </div>
 
       <div class="col-lg-1 col-md-2 col-sm-1">
-        <p class="username-usuario-tarjeta-titulo"><br />Preguntas</p>
+        <p class="username-usuario-tarjeta-titulo"><br />PREGUNTAS</p>
       </div>
     </div>
 
@@ -63,19 +63,17 @@
         <div class="col-sm-3">
           <p class="text-tarjeta-usuario"><br /><%= encuesta.Categoria %></p>
         </div>
+          <!-- Preguntas asociadas a la encuesta -->
+          <div class="col-lg-2 col-md-4 col-sm-12">
+            <% if (encuesta.preguntas && encuesta.preguntas.length > 0) { %>
+              <% for (let pregunta of encuesta.preguntas) { %>
+                <p class="text-tarjeta-usuario" value="<%= pregunta.IDPregunta %>"><%= encuesta.preguntas %></p><% break; %>
+              <% } %>
+            <% } else { %>
+              <p class="text-tarjeta-usuario">No hay preguntas asociadas a esta encuesta</p>
+            <% } %>
+          </div>
         
-        <div class="col-lg-2 col-md-4 col-sm-12">
-
-          <!-- Preguntas asociadas a la encuesta -->  
-          <% for (let i = 0; i < 1; i++) { %>
-            <% for (let j = 0; j < length; j++){ %>
-              <div>
-                <p><%= pregunta[i][j].Descripcion %></p>
-              </div>
-            <% } %>  
-          <% } %>
-
-        </div>
       </div>
     <% } %>
   </div>
