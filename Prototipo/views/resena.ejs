@@ -18,39 +18,41 @@
 </form>
 </div>
 
-<% let contadorresenas = 0 %>
-<div class="container">
-    <div class="col">
-      <% for (let re of resena) { %>
-        <% contadorresenas += 1 %>
-        <div class="card">
-          <div class="card-header">
-            <%= re.Descripcion %>
+<div class="table-responsive">
+  <% let contadorresenas = 0 %>
+  <div class="container">
+      <div class="col">
+        <% for (let re of resena) { %>
+          <% contadorresenas += 1 %>
+          <div class="card">
+            <div class="card-header">
+              <%= re.Descripcion %>
+            </div>
+            <div class="card-body">
+              <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
+              <i class="fa-regular eye-icon visibility <%= re.Visibilidad ? 'fa-eye' : 'fa-eye-slash' %>" data-reseña-id="<%= re.IDReseña  %>" style="cursor: pointer;"></i>
+              <input type="hidden" name="idReseña" value="<%= re.IDReseña  %>">
+              <h5 class="card-title"><%= re.Titulo %></h5> 
+              <p class="card-text">
+                <% for (let i = 0; i < re.Rating; i++) { %>
+                  <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                <% } %>
+                <% for (let i = re.Rating; i < 5; i++) { %>
+                  <i class="far fa-star" style="color: #FFD43B;"></i>
+                <% } %>
+              </p>
+              <p class="card-text"><%= re.Correo %></p>
+              <p class="card-text">Producto: <%= re.NombreProducto %></p>
+              <%= new Date(re.FechaContestacion).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+            </div>
           </div>
-          <div class="card-body">
-            <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
-            <i class="fa-regular eye-icon visibility <%= re.Visibilidad ? 'fa-eye' : 'fa-eye-slash' %>" data-reseña-id="<%= re.IDReseña  %>" style="cursor: pointer;"></i>
-            <input type="hidden" name="idReseña" value="<%= re.IDReseña  %>">
-            <h5 class="card-title"><%= re.Titulo %></h5> 
-            <p class="card-text">
-              <% for (let i = 0; i < re.Rating; i++) { %>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-              <% } %>
-              <% for (let i = re.Rating; i < 5; i++) { %>
-                <i class="far fa-star" style="color: #FFD43B;"></i>
-              <% } %>
-            </p>
-            <p class="card-text"><%= re.Correo %></p>
-            <p class="card-text">Producto: <%= re.NombreProducto %></p>
-            <%= new Date(re.FechaContestacion).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' }) %>
-          </div>
-        </div>
-      <% } %>
+        <% } %>
+      </div>
     </div>
+    <% if(contadorresenas == 0) { %>
+      <div class="centrarmensajeresena">No hay reseñas disponibles</div>
+    <% } %>
   </div>
-  <% if(contadorresenas == 0) { %>
-    <div class="centrarmensajeresena">No hay reseñas disponibles</div>
-  <% } %>
 </div>
 
 <script>

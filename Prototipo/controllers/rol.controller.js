@@ -19,24 +19,36 @@ exports.get_crearRol = async (request, response, next) => {
 };
 
 
-exports.post_crearRol = (request, response, next) => {
-    const nuevo_Rol = new Rol (
-        request.body.nombreRol
-    );
-    nuevo_Rol.save()
-        .then(async () => {
-            const [rol] = await Rol.findByNombre(request.body.nombreRol)
-            for (const privilegio of request.body["asignarRol[]"]){
-                const [pri] = await Rol.obtenerPrivilegioPorNombre(privilegio)
-                Rol.asignarPrivilegio(rol[0].idrol, pri[0].idprivilegio);
-            }
+exports.post_crearRol = async (request, response, next) => {
+    const nuevo_Rol = new Rol(request.body.nombreRol);
+    request.body.nombreRol
+
+    try {
+        const rolExiste = await Rol.findByNombre(request.body.nombreRol);
+
+        if (rolExiste) {
+            request.session.error = 'Rol ya existente. Por favor, coloca otro nuevo.';
+            response.redirect('/gestionRoles/crearRol');
+            
+
+        } else {
+             // Limpiar otros mensajes de sesión para evitar confusiones
+             request.session.error = ''; 
+             nuevo_Rol.save()
+             .then(async () => {
+                 const [rol] = await Rol.findByNombre(request.body.nombreRol)
+                 for (const privilegio of request.body["asignarRol[]"]){
+                     const [pri] = await Rol.obtenerPrivilegioPorNombre(privilegio)
+                     Rol.asignarPrivilegio(rol[0].idrol, pri[0].idprivilegio);
+                 }            
             response.redirect('/gestionRoles');
         })
-        .catch((error) => {
-            console.log(error);
-            request.session.error = 'Ese rol ya existe';
-            response.redirect('/gestionRoles/crearRol');
-        });
+
+        }
+    } catch (error) {
+        console.error('Error al crear el rol:', error);
+        request.session.error = 'Error al crear el rol';
+    } 
 };
 
 

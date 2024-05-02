@@ -6,28 +6,35 @@
     <form class="crearUsuario" action="/gestionRoles/crearRol" method="POST">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <h1 class="titulo-form">Crear Rol</h1>
+
+      <!-- Muestra el mensaje de error si existe -->
+      <% if (error) { %>
+        <div class="alert alert-danger" role="alert">
+          <%= error %>
+        </div>
+      <% } %>
+
       <div class="mb-5 contenido-con-margen">
         <label for="inputNombre" class="form-label label-crearUsuario">Nombre</label>
         <input type="text" class="form-control input-crearUsuario" id="nombreRol" name="nombreRol">
     
         <label class="form-label label-crearUsuario">Asignar privilegio</label>
-    <div class="checkbox-container">
-        <% for (let privilegio of privilegios) { %>
+        <div class="checkbox-container">
+          <% for (let privilegio of privilegios) { %>
             <div class="checkbox-item">
-                <input type="checkbox" id="asignar_<%= privilegio.permiso %>" class="asignarPrivilegioCheckbox" name="asignarRol[]" value="<%= privilegio.permiso %>">
-                <label for="asignar_<%= privilegio.permiso %>"><%= privilegio.permiso %></label>
+              <input type="checkbox" id="asignar_<%= privilegio.permiso %>" class="asignarPrivilegioCheckbox" name="asignarRol[]" value="<%= privilegio.permiso %>">
+              <label for="asignar_<%= privilegio.permiso %>"><%= privilegio.permiso %></label>
             </div>
-        <% } %>
-    </div>
+          <% } %>
+        </div>
 
-    
         <label for="privilegiosSeleccionados" class="form-label label-crearUsuario">Privilegios seleccionados</label>
         <div id="privilegiosMostrados" class="card privilegio">
-            <div class="card-body list-group-numbered">
-                <!-- Elementos seleccionados mostrados dinámicamente -->
-            </div>
+          <div class="card-body list-group-numbered">
+            <!-- Elementos seleccionados mostrados dinámicamente -->
+          </div>
         </div>
-    </div>
+      </div>
       <div class="btn-formUsuario">
         <button type="submit" class="btn btn-dark">Enviar</button>
       </div>
@@ -41,25 +48,24 @@
     const displayedPrivileges = document.getElementById('privilegiosMostrados');
 
     function updateDisplayedPrivileges() {
-        displayedPrivileges.innerHTML = '';  // Limpiar la lista para reconstruirla
+      displayedPrivileges.innerHTML = '';  // Limpiar la lista para reconstruirla
 
-        // Recorrer todos los checkboxes para ver cuáles están marcados
-        checkboxes.forEach(checkbox => {
-            if (checkbox.checked) {
-                const listItem = document.createElement('li');
-                listItem.className = 'list-group-item';
-                listItem.textContent = checkbox.value;
-                displayedPrivileges.appendChild(listItem);
-            }
-        });
+      // Recorrer todos los checkboxes para ver cuáles están marcados
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          const listItem = document.createElement('li');
+          listItem.className = 'list-group-item';
+          listItem.textContent = checkbox.value;
+          displayedPrivileges.appendChild(listItem);
+        }
+      });
     }
 
     // Añadir el evento de cambio a cada checkbox
     checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', updateDisplayedPrivileges);
+      checkbox.addEventListener('change', updateDisplayedPrivileges);
     });
-});
+  });
 </script>
-  
 
 <%- include('includes/footer.ejs') %>

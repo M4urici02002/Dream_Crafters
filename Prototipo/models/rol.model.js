@@ -31,9 +31,20 @@ module.exports = class Rol {
     }
   }
 
-  static findByNombre(nombreRol) {
-      return db.execute('SELECT * FROM rol WHERE nombre = ?', [nombreRol]);
-  }
+  static async findByNombre(nombreRol) {
+    try {
+        const [result] = await db.execute('SELECT nombre FROM rol WHERE nombre = ?', [nombreRol]);
+        if (result.length > 0) {
+            return result[0].nombre; // Devuelve solo el nombre del primer resultado
+        } else {
+            return null; // Si no se encuentra ningún rol con ese nombre, devuelve null
+        }
+    } catch (error) {
+        console.error('Error al buscar el rol por nombre:', error);
+        throw new Error('Error al buscar el rol por nombre');
+    }
+}
+
 
 
   static eliminar(idrol) {
