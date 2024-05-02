@@ -9,17 +9,23 @@
     </div>
     
     <div class="table-responsive" style="margin-top: 20px; margin-bottom: 20px;">
+      <%
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      const today = new Date().toLocaleDateString('es-ES', options);
+      %>
+
+      <h6>Encuestas programadas para ser enviadas el día de hoy: <%= today %></h6>
 
       <table class="table">
 
         <!-- Encabezados de la tabla -->
-        <thead class="tarjetaComprasEncabezado text-tarjeta-compra">
+        <thead class="tarjetaComprasEncabezado">
           <tr>
-            <th>IDCompra</th>
-            <th>Cliente</th>
-            <th>Producto</th>
-            <th>fechaCompra</th>
-            <th>Encuesta</th>
+            <th><br>IDCompra<br><br></th>
+            <th>Cliente<br><br></th>
+            <th>Producto<br><br></th>
+            <th>fechaCompra<br><br></th>
+            <th>Encuesta<br><br></th>
             <th></th>
           </tr>
         </thead>

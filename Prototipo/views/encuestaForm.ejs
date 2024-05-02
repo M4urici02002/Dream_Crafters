@@ -31,11 +31,45 @@
           
         </div>
         <div class="btn-formUsuario">
-            <button type="submit" class="btn btn-dark">Enviar</button>
-        </div>
-      </form>
-  </div>
+          <button type="button" id="enviarFormulario" class="btn btn-dark">Enviar</button>
+      </div>
+  </form>
 </div>
+</div>
+
+<%- include('includes/footer.ejs') %>
+
+<script>
+  document.getElementById('enviarFormulario').addEventListener('click', function() {
+      // Mostrar confirmación
+      if(confirm("Ya existe una encuesta para esta categoría. Al continuar, esta encuesta será asignada y la anterior se descartará. ¿Desea continuar?")) {
+          // Enviar solicitud AJAX al controlador para crear la encuesta
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/template', true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.setRequestHeader('X-CSRF-Token', document.querySelector('[name="_csrf"]').value); // Añadir el token CSRF
+          xhr.onload = function() {
+              if (xhr.status === 200) {
+                  // Encuesta creada correctamente, continuar con lo siguiente en el controlador
+                  window.location.href = '/template/editarEncuesta';
+              } else {
+                  console.error('Error al crear la encuesta:', xhr.responseText);
+              }
+          };
+          xhr.onerror = function() {
+              console.error('Error de red al crear la encuesta.');
+          };
+          xhr.send(JSON.stringify({
+              IDMarca: document.querySelector('[name="IDMarca"]').value,
+              titulo: document.querySelector('[name="titulo"]').value,
+              diasParaEnvio: document.querySelector('[name="diasParaEnvio"]').value,
+              categoria: document.querySelector('[name="categoria"]').value
+          }));
+      } else {
+          // No continuar, el usuario canceló
+      }
+  });
+</script>
 
 
 <%- include('includes/footer.ejs') %>
