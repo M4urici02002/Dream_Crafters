@@ -43,3 +43,10 @@
     margin-top: 200px;
     text-align: center;
 }
+.scrollr{
+    overflow-y: auto;
+}
+table-responsive {
+    height: calc(80vh);
+    overflow-x: auto; /* Habilita el desplazamiento horizontal */
+}
