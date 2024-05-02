@@ -19,19 +19,28 @@ exports.get_crearRol = async (request, response, next) => {
 };
 
 
-exports.post_crearRol = (request, response, next) => {
-    const nuevo_Rol = new Rol (
-        request.body.nombreRol
-    );
-    nuevo_Rol.save()
-        .then(() => {
-            response.redirect('/gestionRoles');
-        })
-        .catch((error) => {
-            console.log(error);
-            request.session.error = 'Ese rol ya existe';
+exports.post_crearRol = async (request, response, next) => {
+    const nuevo_Rol = new Rol(request.body.nombreRol);
+
+    try {
+        const rolExiste = await Rol.findByNombre(request.body.nombreRol);
+
+        if (rolExiste) {
+            request.session.error = 'Rol ya existente. Por favor, coloca otro nuevo.';
             response.redirect('/gestionRoles/crearRol');
-        });
+            
+
+        } else {
+             // Limpiar otros mensajes de sesión para evitar confusiones
+             request.session.error = ''; 
+            await nuevo_Rol.save();
+            response.redirect('/gestionRoles');
+
+        }
+    } catch (error) {
+        console.error('Error al crear el rol:', error);
+        request.session.error = 'Error al crear el rol';
+    } 
 };
 
 
