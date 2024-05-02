@@ -1,35 +1,39 @@
+<script src="https://kit.fontawesome.com/9b40f91bc0.js" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
 <input type="hidden" id="encuestaId" value="<%= idEncuestas2 %>">
 <div class="main p-3">
     <div class="container">
         <form class="template">
             <% if (idMarca === 1) { %>
-                <img src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg" class="img-fluid img-marca" alt="Imagen logo marca 1">
+                <img src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg" class="img-fluid img-marca" alt="Imagen logo marca 1" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
             <% } else if (idMarca === 2) { %>
-                <img src="https://ibb.co/25QrhLj" class="img-fluid img-marca" alt="Imagen logo marca 2">
+                <img src="https://ibb.co/25QrhLj" class="img-fluid img-marca" alt="Imagen logo marca 2" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
             <% } else if (idMarca === 3) { %>
-                <img src="https://ibb.co/WzDT2Kf" class="img-fluid img-marca" alt="Imagen logo marca 3">
+                <img src="https://ibb.co/WzDT2Kf" class="img-fluid img-marca" alt="Imagen logo marca 3" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
             <% } else { %>
-                <img src="https://ibb.co/85DhqL8" class="img-fluid img-marca" alt="Otra imagen">
+                <img src="https://ibb.co/85DhqL8" class="img-fluid img-marca" alt="Otra imagen" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
             <% } %>
-            <h2 id="tituloPrincipal">Hola, <%= nombresClientes2%> </h2>
-            <div><p>Gracias por tu compra del producto <%= nombresProductos2 %>.</p><br><p>¡ Tu opinion es muy importante para nosotros ! Completa nuestra encuesta y ayúdanos a mejorar tu experiencia.</p></div>
+            <h2 id="tituloPrincipal" style="font-family: 'Montserrat'; text-align: center; padding-top: 30px; padding-bottom: 30px; color:black;">Hola, <%= nombresClientes2%> </h2>
+            <div><p style="font-family: 'Montserrat', sans-serif; font-size: 16px; text-align: center; color:black;">Gracias por tu compra del producto <%= nombresProductos2 %>.</p><br><p style="font-family: 'Montserrat', sans-serif; font-size: 16px; text-align: center; color:black;">¡ Tu opinion es muy importante para nosotros ! Completa nuestra encuesta y ayúdanos a mejorar tu experiencia.</p><br></div>
             <div class="row mb-3">
                 <div class="col-md-4 img-producto">
                     <% if (idMarca === 1) { %>
-                        <img src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg" class="img-fluid" alt="Imagen del producto">
+                        <img src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg" class="img-fluid" alt="Imagen del producto" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
                     <% } else if (idMarca === 2) { %>
-                        <img src="https://ibb.co/Gk6Br5T" class="img-fluid img-marca" alt="Imagen logo marca 2">
+                        <img src="https://ibb.co/Gk6Br5T" class="img-fluid img-marca" alt="Imagen logo marca 2" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
                     <% } else if (idMarca === 3) { %>
-                        <img src="https://ibb.co/yyZHYrB" class="img-fluid img-marca" alt="Imagen logo marca 3">
+                        <img src="https://ibb.co/yyZHYrB" class="img-fluid img-marca" alt="Imagen logo marca 3" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
                     <% } else { %>
-                        <img src="https://ibb.co/gZjLy9h" class="img-fluid img-marca" alt="Otra imagen de producto">
+                        <img src="https://ibb.co/gZjLy9h" class="img-fluid img-marca" alt="Otra imagen de producto" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
                     <% } %>
                 </div>
             </div>
 
             <!-- Pregunta 1 -->
-            <div class="pregunta-rating">
-                <label for="marca">¿Qué te ha parecido tu <%= nombresProductos2%></label>
+            <div class="pregunta-rating" style="font-family: 'Montserrat', sans-serif;font-size: 16px; text-align: center; color:black;">
+                <label for="marca" style="font-family: 'Montserrat', sans-serif;font-size: 16px; text-align: center; color:black;">¿Qué te ha parecido tu <%= nombresProductos2%></label>
                 <div class="row mb-3">
                         <div class="rating">
                             <input type="radio" id="star5" name="rating" value="5">
@@ -42,17 +46,19 @@
                             <label for="star2"></label>
                             <input type="radio" id="star1" name="rating" value="1">
                             <label for="star1"></label>
-                    </div>
+                        </div>
+                        <p style="margin-top: 5px;">1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4&nbsp;&nbsp;5</p>
+
                 </div>
             </div>
-            <div class="custom-line"></div>
+            <div class="custom-line" style="background-color: #133464; height: 40px; width: 100%; margin-top: 20px; margin-bottom: 40px; color:black;"></div>
 
             <!-- Pregunta 2 -->
             <div class="mb-5 contenido-con-margen">
-                <label for="Titulo" style="color: red;">
-                    Escribe tu opinión porfis
+                <label for="Titulo" style="font-family: 'Montserrat', sans-serif; font-size: 16px; text-align: center; color:black;">
+                    <p>Escribe tu opinión porfis</p>
                 </label>
-                <textarea id="Titulo" class="form-control" name="reason" rows="3"> </textarea>
+                <textarea id="Titulo" class="form-control" name="reason" rows="3" style="width: 80%; margin: 10px auto; display: block;"> </textarea>
             </div>            
             
             <!-- Iterar sobre las preguntas con un ciclo for -->
@@ -60,23 +66,23 @@
                 <% for (let j = 0; j < length; j++) { %>
                     <div>
                         <!-- Mostrar la descripción de la pregunta -->
-                        <p><%= preguntas[i][j].Descripcion %></p>
+                        <p style="font-family: 'Montserrat', sans-serif; font-size: 16px; text-align: center; color:black;"><%= preguntas[i][j].Descripcion %></p>
                         <!-- TEXT BOX -->
-                        <textarea id="pregunta_<%= i %>_<%= j %>" class="form-control" name="reason" rows="3"> </textarea>
+                        <textarea id="pregunta_<%= i %>_<%= j %>" class="form-control" name="reason" rows="3" style="width: 80%; margin: 10px auto; display: block;"> </textarea>
                     </div>
                 <% } %>
             <% } %>
 
-            <div class="btn-template">
-                <button type="submit" class="btn btn-custom-pregunta"  >Enviar</button>
-            </div>
+            <div class="btn-template" style="text-align: center;">
+                <button type="submit" class="btn btn-custom-pregunta">Enviar</button>
+            </div>            
 
-            <footer class="footer-template">
+            <footer class="footer-template" style="background-color: #133464; height: 40px; width: 100%; margin-top: 20px; margin-bottom: 40px;"></footer>
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="https://www.facebook.com/luunasleep/" class="footer-icons"><i class="fab fa-facebook"></i></a>
-                            <a href="https://www.instagram.com/luunasleep/" class="footer-icons"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/luunasleep/" class="footer-icons" style="font-size: 24px; margin: 0 10px; color: white;"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/luunasleep/" class="footer-icons" style="font-size: 24px; margin: 0 10px; color: white;"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>

@@ -48,7 +48,7 @@ exports.post_emailForm = async (req, res, next) => {
         const nombresClientes2 = ["Paola", "Valeria"]; // Arreglo de nombres de clientes
         const nombresProductos2 = ["Colchón", "Almohada"]; // Arreglo de nombres de productos
         const correosClientes2 = ["paolamariagarrido@gmail.com", "valeria.zuniga.men@gmail.com"]; // Arreglo de correos electrónicos
-        const idMarca = [2,3];
+        const idMarca = [1,1];
 
   
         // Obtener preguntas por cada ID de Encuesta y enviar correo electrónico para cada conjunto de datos
