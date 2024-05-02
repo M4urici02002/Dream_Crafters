@@ -3,18 +3,19 @@ const router = express.Router();
 
 const usersController = require('../controllers/users.controller');
 const isAuth = require('../util/is-auth');
+const canAdmin = require('../util/canAdmin');
 
 router.get('/login', usersController.getLogin);
 router.post('/login', usersController.postLogin);
 router.get('/logout', usersController.getLogout);
 
-router.get('/gestionUsuarios/crearUsuario', isAuth, usersController.getCrearUsuario);
-router.post('/gestionUsuarios/crearUsuario', isAuth, usersController.postCrearUsuario);
+router.get('/gestionUsuarios/crearUsuario', isAuth, canAdmin, usersController.getCrearUsuario);
+router.post('/gestionUsuarios/crearUsuario', isAuth, canAdmin, usersController.postCrearUsuario);
 
 
 // Modificar usuarios
-router.get('/modificarUsuarios/:username', isAuth, usersController.getModificarUsuario);
-router.post('/modificarUsuarios', isAuth, usersController.postModificarUsuario);
+router.get('/modificarUsuarios/:username', isAuth, canAdmin, usersController.getModificarUsuario);
+router.post('/modificarUsuarios', isAuth, canAdmin, usersController.postModificarUsuario);
 
 // Agregar respuesta a ruta raiz
 router.get('/', isAuth, (request, response, next) => {

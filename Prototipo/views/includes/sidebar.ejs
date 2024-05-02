@@ -19,6 +19,8 @@
               </a>
           </li>
 
+          <% for(permiso of permisos) { %>
+            <% if(permiso.permiso == 'crm') { %>
           <li class="sidebar-item">
             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                 data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
@@ -35,9 +37,22 @@
                 </li>
             </ul>
         </li>
+        <% } %>
+        <% } %>
 
 
-          <% for(permiso of permisos) { %>
+        <% for(permiso of permisos) { %>
+            <% if(permiso.permiso == 'crm') { %>
+        <li class="sidebar-item">
+            <a href="/catalogoCompras" class="sidebar-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>COMPRAS</span>
+            </a>
+        </li>
+        <% } %>
+        <% } %>
+        
+        <% for(permiso of permisos) { %>
             <% if(permiso.permiso == 'adminUsuarios') { %>
           <li class="sidebar-item">
             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
@@ -53,17 +68,9 @@
                 <li class="sidebar-item">
                     <a href="/gestionRoles" class="sidebar-link">Roles</a>
                 </li>
-                    <% } %>
-                <% } %>
-
             </ul>
         </li>
-        <li class="sidebar-item">
-            <a href="/catalogoCompras" class="sidebar-link">
-                <i class="fas fa-shopping-cart"></i>
-                <span>COMPRAS</span>
-            </a>
-        </li>
-
-      </ul>
+        <% } %>
+        <% } %>
+    </ul>
   </aside>

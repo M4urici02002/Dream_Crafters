@@ -3,8 +3,10 @@ const router = express.Router();
 
 const comprasController = require('../controllers/compras.controller');
 const isAuth = require('../util/is-auth');
+const canCrm = require('../util/canCrm');
 
-router.get('/catalogoCompras', isAuth, comprasController.get_catalogoCompras);
-router.post('/catalogoCompras/enviarCorreo', comprasController.post_emailForm);
+
+router.get('/catalogoCompras', isAuth, canCrm, comprasController.get_catalogoCompras);
+router.post('/catalogoCompras/enviarCorreo', isAuth, canCrm, comprasController.post_emailForm);
 
 module.exports = router;
