@@ -25,6 +25,19 @@ module.exports = class Encuesta {
     }
   }
 
+  static async existeEncuesta(IDMarca, categoria) {
+    try {
+        const [result] = await db.execute(
+            `SELECT * FROM encuesta WHERE IDMarca = ? AND categoria = ?`,
+            [IDMarca, categoria]
+        );
+        return result.length > 0; // Devuelve true si existe una encuesta, false si no existe
+    } catch (error) {
+        throw new Error("Error al verificar si existe una encuesta en la base de datos: " + error.message);
+    }
+  }
+
+
   // Obtener todas las encuestas
   static async fetchAll() {
     try {
