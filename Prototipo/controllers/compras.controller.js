@@ -14,19 +14,19 @@ const mailgun = () => mg({
 });
 
 exports.get_catalogoCompras = async (request, response, next) => {
-   try {
-    const ucompras = await Compra.fetchAll();
-
-    response.render("compras", {
-        compras: ucompras,
-        permisos: request.session.permisos || [],
-        csrfToken: request.csrfToken(),
+    const nombreMarca = request.cookies['marcaSeleccionada'] || "LUUNA";
+    Compra.fetchAll(nombreMarca)
+    .then(([ucompras, fieldData]) => {
+        response.render("compras", {
+            compras: ucompras,
+            permisos: request.session.permisos || [],
+            csrfToken: request.csrfToken(),
+        });
+   }) 
+   .catch((error) => {
+    console.log(error);
+    response.status(500).send("Error al obtener catalogo de compras");
     });
-
-   } catch (error) {
-     console.log(error);
-     response.status(500).send("Error al obtener catálogo de compras");
-   }
 };
 
 
@@ -39,10 +39,10 @@ exports.post_emailForm = async (req, res, next) => {
         const correosClientes = req.body.correosClientes;
   
         // Console.log para verificar si los ID de Encuesta, nombres de clientes y nombres de productos se reciben correctamente
-        console.log('ID de Encuestas recibidos en el controlador:', idEncuestas);
-        console.log('Nombres de los clientes recibidos en el controlador:', nombresClientes);
-        console.log('Nombres de productos recibidos en el controlador:', nombresProductos);
-        console.log('Correos de clientes recibidos en el controlador:', correosClientes);
+        //console.log('ID de Encuestas recibidos en el controlador:', idEncuestas);
+        //console.log('Nombres de los clientes recibidos en el controlador:', nombresClientes);
+        //console.log('Nombres de productos recibidos en el controlador:', nombresProductos);
+        //console.log('Correos de clientes recibidos en el controlador:', correosClientes);
 
         const idEncuestas2 = [1, 3]; // Arreglo de IDs de Encuesta
         const nombresClientes2 = ["Paola", "Valeria"]; // Arreglo de nombres de clientes

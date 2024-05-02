@@ -207,16 +207,39 @@
           plugins: [bgColor],
         });
 
+        function getCookie(name) {
+          let cookieArray = document.cookie.split(";");
+          let cookie = cookieArray.find((c) => c.trim().startsWith(name + "="));
+          if (cookie) {
+            return cookie.split("=")[1];
+          }
+          return null;
+        }
+
         const descargarPDF = () => {
           const canvas = document.getElementById("chartEstrellas");
           const imagenUno = canvas.toDataURL("image/jpeg", 1.0);
           const pdf = new jsPDF("landscape"); // Formato horizontal
 
-          // Valores dinámicos
-          const categoriaSeleccionada = $("#categoriaDropdown").val();
-          const productoSeleccionado = $("#productoDropdown").val();
-          const fechaInicio = $("#start-date").val();
-          const fechaFin = $("#end-date").val();
+          // Obtiene la marca seleccionada de las cookies
+          const marcaSeleccionada = getCookie("marcaSeleccionada");
+
+          // Valores dinámicos ajustados según selecciones
+          const categoriaSeleccionada =
+            $("#categoriaDropdown").val() || "Todas las categorías de la marca";
+          let productoSeleccionado = $("#productoDropdown").val();
+
+          // Ajustar el texto para "Todos los productos de la marca" si el valor es 'todosProductos'
+          if (
+            !productoSeleccionado ||
+            productoSeleccionado === "todosProductos"
+          ) {
+            productoSeleccionado = "Todos los productos de la marca";
+          }
+
+          const fechaInicio =
+            $("#start-date").val() || "Inicio de los registros";
+          const fechaFin = $("#end-date").val() || "Fin de los registros";
 
           // Fondo azul para la sección superior
           pdf.setFillColor(125, 157, 209); // Fondo azul
@@ -237,6 +260,14 @@
 
           pdf.setFontSize(24);
           pdf.setFont("helvetica", "normal");
+          pdf.text(
+            `Marca: ${marcaSeleccionada}`,
+            pdf.internal.pageSize.width / 2,
+            45,
+            null,
+            null,
+            "center"
+          );
           pdf.text(
             `Categoría: ${categoriaSeleccionada}`,
             pdf.internal.pageSize.width / 2,

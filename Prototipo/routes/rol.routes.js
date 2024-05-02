@@ -3,12 +3,13 @@ const router = express.Router();
 
 const rolController = require('../controllers/rol.controller');
 const isAuth = require('../util/is-auth');
+const canAdmin = require('../util/canAdmin');
 
-router.get('/gestionRoles/crearRol', isAuth, rolController.get_crearRol);
-router.post('/gestionRoles/crearRol', isAuth, rolController.post_crearRol);
+router.get('/gestionRoles/crearRol', isAuth, canAdmin, rolController.get_crearRol);
+router.post('/gestionRoles/crearRol', isAuth, canAdmin, rolController.post_crearRol);
 
-router.get('/editarRol/:nombreRol', isAuth, rolController.get_editarRol);
-router.post('/editarRol', isAuth, rolController.post_editarRol);
+router.get('/editarRol/:nombreRol', isAuth, canAdmin, rolController.get_editarRol);
+router.post('/editarRol', isAuth, canAdmin, rolController.post_editarRol);
 
 // Agregar respuesta a ruta raíz
 router.get('/', isAuth, (req, res, next) => {
