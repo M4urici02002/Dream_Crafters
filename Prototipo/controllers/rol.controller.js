@@ -36,8 +36,9 @@ exports.post_crearRol = async (request, response, next) => {
              request.session.error = ''; 
              nuevo_Rol.save()
              .then(async () => {
-                 const [rol] = await Rol.findByNombre(request.body.nombreRol)
-                 for (const privilegio of request.body["asignarRol[]"]){
+                 const [rol] = await Rol.obtenerRolPorNombre(request.body.nombreRol)
+                 const privilegios = request.body["asignarRol[]"] || []
+                 for (const privilegio of privilegios){
                      const [pri] = await Rol.obtenerPrivilegioPorNombre(privilegio)
                      Rol.asignarPrivilegio(rol[0].idrol, pri[0].idprivilegio);
                  }            
@@ -57,7 +58,7 @@ exports.post_crearRol = async (request, response, next) => {
 exports.get_editarRol = async (req, res, next) => {
     const privilegios = await Rol.privilegioAll();
 
-        return Rol.findByNombre(req.params.nombreRol)
+        return Rol.obtenerRolPorNombre(req.params.nombreRol)
         .then(([roles, fieldData]) => {
             res.render("editarRol", {
                 nombreRol: req.session.nombreRol || '',
@@ -111,6 +112,3 @@ exports.post_editarRol = async (req, res, next) => {
         res.redirect('/gestionRoles'); // Manejar el error redirigiendo a una página apropiada o mostrando un mensaje de error en la página de gestión de roles
     }
 };
-
-
-

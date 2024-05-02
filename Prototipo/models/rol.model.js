@@ -5,18 +5,18 @@ module.exports = class Rol {
     this.nombreRol = mi_nombreRol;
   }
 
-    async save() { 
-        try {
-            await db.execute('INSERT INTO rol (nombre) VALUES (?)', [this.nombreRol]);
-        } catch(error) {
-            console.log(error);
-            throw new Error('Error al guardar el rol en la base de datos');
-        }
+  async save() {
+    try {
+      await db.execute("INSERT INTO rol (nombre) VALUES (?)", [this.nombreRol]);
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error al guardar el rol en la base de datos");
     }
-   
+  }
+
   // Obtener todos los roles para consultar usuarios
-    static fetch() {
-      return db.execute('SELECT * FROM rol');
+  static fetch() {
+    return db.execute("SELECT * FROM rol");
   }
 
   // Obtener todos los roles para consultar roles
@@ -27,32 +27,36 @@ module.exports = class Rol {
             `);
       return roles;
     } catch (error) {
-      console.error('Error al obtener rol:', error);
+      console.error("Error al obtener rol:", error);
     }
   }
 
   static async findByNombre(nombreRol) {
     try {
-        const [result] = await db.execute('SELECT nombre FROM rol WHERE nombre = ?', [nombreRol]);
-        if (result.length > 0) {
-            return result[0].nombre; // Devuelve solo el nombre del primer resultado
-        } else {
-            return null; // Si no se encuentra ningún rol con ese nombre, devuelve null
-        }
+      const [result] = await db.execute(
+        "SELECT nombre FROM rol WHERE nombre = ?",
+        [nombreRol]
+      );
+      if (result.length > 0) {
+        return result[0].nombre; // Devuelve solo el nombre del primer resultado
+      } else {
+        return null; // Si no se encuentra ningún rol con ese nombre, devuelve null
+      }
     } catch (error) {
-        console.error('Error al buscar el rol por nombre:', error);
-        throw new Error('Error al buscar el rol por nombre');
+      console.error("Error al buscar el rol por nombre:", error);
+      throw new Error("Error al buscar el rol por nombre");
     }
-}
-
-
+  }
 
   static eliminar(idrol) {
-      return db.execute('DELETE FROM rol WHERE idrol = ?', [idrol]);
+    return db.execute("DELETE FROM rol WHERE idrol = ?", [idrol]);
   }
 
   static update(id, nombre) {
-      return db.execute('UPDATE rol SET nombre = ? WHERE idrol = ?', [nombre, id]);
+    return db.execute("UPDATE rol SET nombre = ? WHERE idrol = ?", [
+      nombre,
+      id,
+    ]);
   }
 
   static async asignaciones(idrol) {
@@ -64,7 +68,6 @@ module.exports = class Rol {
       const totalAsignaciones = result[0][0].total;
       console.log(totalAsignaciones);
       return totalAsignaciones;
-
     } catch (error) {
       console.error("Error al verificar las asignaciones del rol:", error);
       throw error;
@@ -76,23 +79,49 @@ module.exports = class Rol {
       const [privilegios] = await db.query("SELECT * FROM privilegio");
       console.log(privilegios);
       return privilegios;
-
     } catch (error) {
       throw new Error("Error al obtener los privilegios de la base de datos");
     }
   }
 
   static eliminarPrivilegios(idRol) {
-    return db.execute('DELETE FROM posee WHERE idrol = ?', [idRol]);
+    return db.execute("DELETE FROM posee WHERE idrol = ?", [idRol]);
   }
 
   static asignarPrivilegio(idRol, idPrivilegio) {
-      return db.execute('INSERT INTO posee (idrol, idprivilegio) VALUES (?, ?)', [idRol, idPrivilegio]);
+    return db.execute("INSERT INTO posee (idrol, idprivilegio) VALUES (?, ?)", [
+      idRol,
+      idPrivilegio,
+    ]);
   }
 
-  static obtenerPrivilegioPorNombre(permiso){
-    return db.execute('SELECT * FROM privilegio WHERE permiso = ?', [permiso])
-  } 
+  static obtenerPrivilegioPorNombre(permiso) {
+    return db.execute("SELECT * FROM privilegio WHERE permiso = ?", [permiso]);
+  }
 
+  static obtenerRolPorNombre(nombre) {
+    return db.execute("SELECT * FROM rol WHERE nombre = ?", [nombre]);
+  }
+
+  static async obtenerPrivilegiosPorRol(idRol) {
+    try {
+      const [privilegios] = await db.execute(
+        `
+            SELECT p.permiso
+            FROM posee AS ps
+            JOIN privilegio AS p ON ps.idprivilegio = p.idprivilegio
+            WHERE ps.idrol = ?
+        `,
+        [idRol]
+      );
+      return privilegios.map((p) => p.permiso);
+    } catch (error) {
+      console.error("Error al obtener los privilegios por rol:", error);
+      throw new Error("Error al obtener los privilegios por rol");
+    }
+  }
+
+  static obtenerRolCompletoPorNombre(nombre) {
+    return db.execute('SELECT idrol, nombre FROM rol WHERE nombre = ?', [nombre]);
+}
 };
-
