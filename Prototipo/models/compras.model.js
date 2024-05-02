@@ -9,25 +9,20 @@ module.exports = class Compra {
   }
 
   // Obtener todas las compras con información relacionada
-  static async fetchAll() {
-    try {
-      const [compras] = await db.query(`
-                SELECT IDCompra, C.IDCliente, Cl.Nombre AS nombreCliente, Cl.Correo, C.IDProducto, P.Nombre AS nombreProducto, Fecha AS fechaCompra, E.DiasParaEnvio, E.IDEncuesta, E.Titulo AS tituloEncuesta
-                FROM compra C
-                INNER JOIN Producto P ON C.IDProducto = P.IDProducto
-                INNER JOIN cliente Cl ON C.IDCliente = Cl.IDCliente
-                INNER JOIN encuesta E ON E.Categoria = P.Categoria
-                WHERE E.IDEncuesta IS NOT NULL
-                AND E.IDEncuesta = ( SELECT MAX(IDEncuesta)
-                    FROM encuesta 
-                    WHERE Categoria = P.Categoria)
-                AND DATE_ADD(C.Fecha, INTERVAL E.DiasParaEnvio DAY) = CURDATE() -- Comparación de fechas para determinar si se debe enviar hoy
+  static async fetchAll(nombreMarca) {
+      return db.execute(`
+      SELECT IDCompra, C.IDCliente, Cl.Nombre AS nombreCliente, Cl.Correo, C.IDProducto, P.Nombre AS nombreProducto, Fecha AS fechaCompra, E.IDEncuesta, E.Titulo AS tituloEncuesta, M.Nombre as NombreMarca
+      FROM compra C
+      INNER JOIN producto P ON C.IDProducto = P.IDProducto
+      INNER JOIN cliente Cl ON C.IDCliente = Cl.IDCliente
+      INNER JOIN encuesta E ON E.Categoria = P.Categoria
+      INNER JOIN marca M ON P.IDMarca = M.IDMarca
+      WHERE E.IDEncuesta = ( SELECT MAX(IDEncuesta)
+                FROM encuesta 
+                WHERE Categoria = P.Categoria and M.Nombre = ?)
+                AND DATE_ADD(C.Fecha, INTERVAL E.DiasParaEnvio DAY) = CURDATE()
                 ORDER BY C.IDCompra;
-            `);
-      return compras;
-
-    } catch (error) {
-      throw error;
-    }
-  }
-};
+            `,[nombreMarca]);
+    } 
+  };
+ 

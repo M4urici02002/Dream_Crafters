@@ -4,7 +4,7 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
   rel="stylesheet"
 />
-<link rel="stylesheet" href="/css/botones.css">
+<link rel="stylesheet" href="/css/botones.css" />
 
 <div class="main p-3">
   <div class="container graficas">
@@ -38,7 +38,7 @@
         <button
           type="button"
           id="numeroResenas"
-          class="btn btn-outline-dark active flex-fill "
+          class="btn btn-outline-dark active flex-fill"
         >
           Número de reseñas
         </button>
@@ -117,7 +117,7 @@
 
       <div class="row mt-4">
         <div class="col-12" style="width: 100%; height: 400px">
-          <canvas id="numeroResenasGrafica"></canvas> <br>
+          <canvas id="numeroResenasGrafica"></canvas> <br />
           <div
             class="btn-group d-flex"
             role="group"
@@ -264,17 +264,39 @@
             );
         }
 
-        // Exportar gráfica a PDF "GAMEDEVMAP"
+        function getCookie(name) {
+          let cookieArray = document.cookie.split(";");
+          let cookie = cookieArray.find((c) => c.trim().startsWith(name + "="));
+          if (cookie) {
+            return cookie.split("=")[1];
+          }
+          return null;
+        }
+
         const descargarPDF = () => {
           const canvas = document.getElementById("numeroResenasGrafica");
           const imagenUno = canvas.toDataURL("image/jpeg", 1.0);
           const pdf = new jsPDF("landscape"); // Formato horizontal
 
-          // Valores dinámicos
-          const categoriaSeleccionada = $("#categoriaDropdown").val();
-          const productoSeleccionado = $("#productoDropdown").val();
-          const fechaInicio = $("#start-date").val();
-          const fechaFin = $("#end-date").val();
+          // Obtiene la marca seleccionada de las cookies
+          const marcaSeleccionada = getCookie("marcaSeleccionada");
+
+          // Valores dinámicos ajustados según selecciones
+          const categoriaSeleccionada =
+            $("#categoriaDropdown").val() || "Todas las categorías de la marca";
+          let productoSeleccionado = $("#productoDropdown").val();
+
+          // Ajustar el texto para "Todos los productos de la marca" si el valor es 'todosProductos'
+          if (
+            !productoSeleccionado ||
+            productoSeleccionado === "todosProductos"
+          ) {
+            productoSeleccionado = "Todos los productos de la marca";
+          }
+
+          const fechaInicio =
+            $("#start-date").val() || "Inicio de los registros";
+          const fechaFin = $("#end-date").val() || "Fin de los registros";
 
           // Fondo azul para la sección superior
           pdf.setFillColor(125, 157, 209); // Fondo azul
@@ -295,6 +317,14 @@
 
           pdf.setFontSize(24);
           pdf.setFont("helvetica", "normal");
+          pdf.text(
+            `Marca: ${marcaSeleccionada}`,
+            pdf.internal.pageSize.width / 2,
+            45,
+            null,
+            null,
+            "center"
+          );
           pdf.text(
             `Categoría: ${categoriaSeleccionada}`,
             pdf.internal.pageSize.width / 2,
