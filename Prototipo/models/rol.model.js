@@ -78,5 +78,10 @@ module.exports = class Rol {
   static asignarPrivilegio(idRol, idPrivilegio) {
       return db.execute('INSERT INTO posee (idrol, idprivilegio) VALUES (?, ?)', [idRol, idPrivilegio]);
   }
+
+  static obtenerPrivilegioPorNombre(permiso){
+    return db.execute('SELECT * FROM privilegio WHERE permiso = ?', [permiso])
+  } 
+
 };
 
