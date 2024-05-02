@@ -21,7 +21,7 @@ module.exports = class Compra {
                 FROM encuesta 
                 WHERE Categoria = P.Categoria and M.Nombre = ?)
                 AND DATE_ADD(C.Fecha, INTERVAL E.DiasParaEnvio DAY) = CURDATE()
-                ORDER BY c.IDCompra;
+                ORDER BY C.IDCompra;
             `,[nombreMarca]);
     } 
   };

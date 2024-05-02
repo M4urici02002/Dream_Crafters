@@ -45,7 +45,7 @@
                 Id: <%= compra.IDProducto %><br>
                 <%= compra.nombreProducto %>
               </td>
-              <td><%= compra.fechaCompra %></td>
+              <td><%= new Date (compra.fechaCompra).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' }) %></td>
               <td>
                 Id: <%= compra.IDEncuesta %>
                 <%= compra.tituloEncuesta %>
