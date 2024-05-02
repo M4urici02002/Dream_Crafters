@@ -2,12 +2,28 @@
 <div class="main p-3">
     <div class="container">
         <form class="template">
-            <img src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg" class="img-fluid img-marca" alt="Imagen logo marca">
+            <% if (idMarca === 1) { %>
+                <img src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg" class="img-fluid img-marca" alt="Imagen logo marca 1">
+            <% } else if (idMarca === 2) { %>
+                <img src="https://ibb.co/25QrhLj" class="img-fluid img-marca" alt="Imagen logo marca 2">
+            <% } else if (idMarca === 3) { %>
+                <img src="https://ibb.co/WzDT2Kf" class="img-fluid img-marca" alt="Imagen logo marca 3">
+            <% } else { %>
+                <img src="https://ibb.co/85DhqL8" class="img-fluid img-marca" alt="Otra imagen">
+            <% } %>
             <h2 id="tituloPrincipal">Hola, <%= nombresClientes2%> </h2>
-            <div><p>Gracias por tu compra del producto <%= nombresProductos2 %>.</p><p>Ayudanos contestando la siguiente encuesta: </p></div>
+            <div><p>Gracias por tu compra del producto <%= nombresProductos2 %>.</p><br><p>¡ Tu opinion es muy importante para nosotros ! Completa nuestra encuesta y ayúdanos a mejorar tu experiencia.</p></div>
             <div class="row mb-3">
                 <div class="col-md-4 img-producto">
-                    <img src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg" class="img-fluid" alt="Imagen del producto">
+                    <% if (idMarca === 1) { %>
+                        <img src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg" class="img-fluid" alt="Imagen del producto">
+                    <% } else if (idMarca === 2) { %>
+                        <img src="https://ibb.co/Gk6Br5T" class="img-fluid img-marca" alt="Imagen logo marca 2">
+                    <% } else if (idMarca === 3) { %>
+                        <img src="https://ibb.co/yyZHYrB" class="img-fluid img-marca" alt="Imagen logo marca 3">
+                    <% } else { %>
+                        <img src="https://ibb.co/gZjLy9h" class="img-fluid img-marca" alt="Otra imagen de producto">
+                    <% } %>
                 </div>
             </div>
 
@@ -33,11 +49,11 @@
 
             <!-- Pregunta 2 -->
             <div class="mb-5 contenido-con-margen">
-                <label for="aliviarProblemas"
-                >Escribe tu opinion porfis</label
-                >
-                <textarea id="aliviarProblemas" class="form-control" name="reason" rows="3"> </textarea>
-            </div>
+                <label for="Titulo" style="color: red;">
+                    Escribe tu opinión porfis
+                </label>
+                <textarea id="Titulo" class="form-control" name="reason" rows="3"> </textarea>
+            </div>            
             
             <!-- Iterar sobre las preguntas con un ciclo for -->
             <% for (let i = 0; i < 1; i++) { %>
@@ -52,7 +68,7 @@
             <% } %>
 
             <div class="btn-template">
-                <button type="submit" class="btn btn-custom-pregunta">Enviar</button>
+                <button type="submit" class="btn btn-custom-pregunta"  >Enviar</button>
             </div>
 
             <footer class="footer-template">

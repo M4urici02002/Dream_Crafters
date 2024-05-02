@@ -47,7 +47,8 @@ exports.post_emailForm = async (req, res, next) => {
         const idEncuestas2 = [1, 3]; // Arreglo de IDs de Encuesta
         const nombresClientes2 = ["Paola", "Valeria"]; // Arreglo de nombres de clientes
         const nombresProductos2 = ["Colchón", "Almohada"]; // Arreglo de nombres de productos
-        const correosClientes2 = ["pm.garridoo@gmail.com", "valeria.zuniga.men@gmail.com"]; // Arreglo de correos electrónicos
+        const correosClientes2 = ["paolamariagarrido@gmail.com", "valeria.zuniga.men@gmail.com"]; // Arreglo de correos electrónicos
+        const idMarca = [2,3];
 
   
         // Obtener preguntas por cada ID de Encuesta y enviar correo electrónico para cada conjunto de datos
@@ -74,7 +75,7 @@ exports.post_emailForm = async (req, res, next) => {
                         res.status(500).send('Error al cargar el formulario.');
                     } else {
                         // Renderiza el contenido del archivo EJS, pasando los valores correspondientes
-                        const htmlContent = ejs.render(data, { idEncuestas2: idEncuestas2[i], nombresClientes2: nombresClientes2[i], nombresProductos2: nombresProductos2[i], preguntas: preguntas, length : length });
+                        const htmlContent = ejs.render(data, { idEncuestas2: idEncuestas2[i], nombresClientes2: nombresClientes2[i], nombresProductos2: nombresProductos2[i], idMarca: idMarca[i], preguntas: preguntas, length : length });
                         // Agrega el contenido renderizado al cuerpo del correo electrónico
                         emailInfo.html = htmlContent;
   
