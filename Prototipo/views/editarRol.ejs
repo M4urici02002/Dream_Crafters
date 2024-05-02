@@ -18,12 +18,11 @@
           <label for="inputNombre" class="form-label label-crearUsuario">Modificar Privilegio</label>
           <div id="inputUsuario" class="form-control input-crearUsuario">
             <% privilegios.forEach(function(privilegio) { %>
-              <div>
-                  <input type="checkbox" id="<%= privilegio.permiso %>" name="rol" value="<%= privilegio.permiso %>"
-                  <%= privilegiosActuales.includes(privilegio.permiso) ? 'checked' : '' %>>
-                  <label for="<%= privilegio.permiso %>"><%= privilegio.permiso %></label>
-              </div>
-          <% }); %>
+                <div>
+                    <input type="checkbox" id="<%= privilegio.permiso %>" name="rol" value="<%= privilegio.permiso %>">
+                    <label for="<%= privilegio.permiso %>"><%= privilegio.permiso %></label>
+                </div>
+            <% }); %>
         </div>
           <label for="listaPrivilegios" class="form-label label-crearUsuario">Privilegios</label>
           <div class="card privilegio">
