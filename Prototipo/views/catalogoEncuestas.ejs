@@ -6,7 +6,7 @@
     <div class="row justify-content-end">
       <div class="col col-lg-3 col-md-4 col-sm-5">
 
-        <!--Agregar rol-->
+        <!-- Agregar encuesta -->
         <a href="/template" class="btn-agregarUsuario">
           <span> Crear encuesta </span>
           <i class="fas fa-plus"></i>
@@ -21,7 +21,7 @@
     
     <div id="notification"></div>
 
-    <!--Encabezados de la tabla-->
+    <!-- Encabezados de la tabla -->
     <div id="tarjetaRolesEncabezado" class="row tarjetaUsuario">
       <div class="col-lg-2 col-md-2 col-sm-2">
         <p class="username-usuario-tarjeta-titulo"><br />Encuesta</p>
@@ -40,41 +40,42 @@
         <p class="username-usuario-tarjeta-titulo"><br />Categoría</p>
       </div>
 
+      <div class="col-lg-1 col-md-2 col-sm-1">
+        <p class="username-usuario-tarjeta-titulo"><br />PREGUNTAS</p>
+      </div>
     </div>
 
-    <!--Tarjetas de encuestas-->
+    <!-- Tarjetas de encuestas -->
     <% for (let encuesta of encuestas) { %>
-        <div id="encuesta-<%= encuesta.IDEncuesta %>" class="row tarjetaUsuario">
-          <div class="col-sm-2">
-            <p class="username-usuario-tarjeta"><br /><%= encuesta.IDEncuesta %></p>
-          </div>
-          <div class="col-sm-1">
-            <p class="text-tarjeta-usuario"><br /><%= encuesta.Marca %></p>
-          </div>
-          <div class="col-sm-3">
-            <p class="text-tarjeta-usuario"><br /><%= encuesta.Titulo %></p>
-          </div>
-          <div class="col-sm-1">
-            <p class="text-tarjeta-usuario"><br /><%= encuesta.DiasParaEnvio %></p>
-          </div>
-          <div class="col-sm-3">
-            <p class="text-tarjeta-usuario"><br /><%= encuesta.Categoria %></p>
-          </div>
-
-    
-          <div class="col-lg-2 col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
-    
-            <!--Botón consultar encuesta-->
-            <!-- <a href="/gestionRoles/editarRol" role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar"> -->
-            <a role="button" class="btn text-tarjeta-usuario btn-secondary btn-modificar-eliminar">
-                Consultar 
-            </a>
-            &nbsp;&nbsp;
-    
-          </div>
+      <div id="encuesta-<%= encuesta.IDEncuesta %>" class="row tarjetaUsuario">
+        <div class="col-sm-2">
+          <p class="username-usuario-tarjeta"><br /><%= encuesta.IDEncuesta %></p>
         </div>
+        <div class="col-sm-1">
+          <p class="text-tarjeta-usuario"><br /><%= encuesta.Marca %></p>
+        </div>
+        <div class="col-sm-3">
+          <p class="text-tarjeta-usuario"><br /><%= encuesta.Titulo %></p>
+        </div>
+        <div class="col-sm-1">
+          <p class="text-tarjeta-usuario"><br /><%= encuesta.DiasParaEnvio %></p>
+        </div>
+        <div class="col-sm-3">
+          <p class="text-tarjeta-usuario"><br /><%= encuesta.Categoria %></p>
+        </div>
+          <!-- Preguntas asociadas a la encuesta -->
+          <div class="col-lg-2 col-md-4 col-sm-12">
+            <% if (encuesta.preguntas && encuesta.preguntas.length > 0) { %>
+              <% for (let pregunta of encuesta.preguntas) { %>
+                <p class="text-tarjeta-usuario" value="<%= pregunta.IDPregunta %>"><%= encuesta.preguntas %></p><% break; %>
+              <% } %>
+            <% } else { %>
+              <p class="text-tarjeta-usuario">No hay preguntas asociadas a esta encuesta</p>
+            <% } %>
+          </div>
+        
+      </div>
     <% } %>
-
   </div>
 </div>
 

@@ -30,13 +30,24 @@ module.exports = class Pregunta {
         }
     }
 
-    static fetchAllByEncuesta(IDEncuesta) {
-        return db.execute(`
-            SELECT P.Descripcion
-            FROM Pregunta P
-            JOIN PreguntaEncuesta PE ON P.IDPregunta = PE.IDPregunta
-            WHERE PE.IDEncuesta = ?;
-        `, [IDEncuesta]);
-    }
+    static async fetchAllByEncuesta(IDEncuesta) {
+        try {
+            const [result] = await db.execute(`
+                SELECT P.Descripcion
+                FROM Pregunta P
+                JOIN PreguntaEncuesta PE ON P.IDPregunta = PE.IDPregunta
+                WHERE PE.IDEncuesta = ?;
+            `, [IDEncuesta]);
+    
+            // Mapea los resultados para obtener un array de descripciones de preguntas
+            const descripciones = result.map(row => row.Descripcion);
+    
+            return descripciones;
+        } catch (error) {
+            console.error("Error al buscar las preguntas de la encuesta: ", IDEncuesta);
+            throw new Error("Error al buscar las preguntas de la encuesta");
+        }
+    }
+    
 
 }
