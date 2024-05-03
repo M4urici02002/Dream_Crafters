@@ -36,12 +36,11 @@
       <div class="col-lg-1 col-md-1 col-sm-1">
         <p class="username-usuario-tarjeta-titulo"><br />Días de envío</p>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-3">
+      <div class="col-lg-2 col-md-2 col-sm-2">
         <p class="username-usuario-tarjeta-titulo"><br />Categoría</p>
       </div>
-
-      <div class="col-lg-1 col-md-2 col-sm-1">
-        <p class="username-usuario-tarjeta-titulo"><br />PREGUNTAS</p>
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <p class="username-usuario-tarjeta-titulo"><br />Preguntas</p>
       </div>
     </div>
 
@@ -60,17 +59,17 @@
         <div class="col-sm-1">
           <p class="text-tarjeta-usuario"><br /><%= encuesta.DiasParaEnvio %></p>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <p class="text-tarjeta-usuario"><br /><%= encuesta.Categoria %></p>
         </div>
           <!-- Preguntas asociadas a la encuesta -->
-          <div class="col-lg-2 col-md-4 col-sm-12">
+          <div class="col-lg-3 col-md-3 col-sm-12">
             <% if (encuesta.preguntas && encuesta.preguntas.length > 0) { %>
               <% for (let pregunta of encuesta.preguntas) { %>
                 <p class="text-tarjeta-usuario" value="<%= pregunta.IDPregunta %>"><%= encuesta.preguntas %></p><% break; %>
               <% } %>
             <% } else { %>
-              <p class="text-tarjeta-usuario">No hay preguntas asociadas a esta encuesta</p>
+              <p class="text-tarjeta-usuario">No hay preguntas adicionales</p>
             <% } %>
           </div>
         
