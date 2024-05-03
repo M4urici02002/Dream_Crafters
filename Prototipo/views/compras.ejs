@@ -13,13 +13,13 @@
       <table class="table">
 
         <!-- Encabezados de la tabla -->
-        <thead class="tarjetaComprasEncabezado text-tarjeta-compra">
+        <thead class="tarjetaComprasEncabezado text-tarjeta-compra" style="height: 55px;">
           <tr>
-            <th>IDCompra</th>
-            <th>Cliente</th>
-            <th>Producto</th>
-            <th>fechaCompra</th>
-            <th>Encuesta</th>
+            <th style="vertical-align: middle;">IDCompra</th>
+            <th style="vertical-align: middle;">Cliente</th>
+            <th style="vertical-align: middle;">Producto</th>
+            <th style="vertical-align: middle;">Fecha de compra</th>
+            <th style="vertical-align: middle;">Encuesta</th>
             <th></th>
           </tr>
         </thead>
@@ -28,7 +28,9 @@
           <%
             // Inicializar un arreglo para almacenar los ID de Encuesta, nombres de cliente y nombres de producto
             const idEncuestas = [];
+            const idClientes = [];
             const nombresClientes = [];
+            const idProductos = [];
             const nombresProductos = [];
             const correosClientes = [];
 
@@ -57,6 +59,10 @@
             <% 
               // Agregar el ID de Encuesta al arreglo idEncuestas
               idEncuestas.push(compra.IDEncuesta);
+              // Agregar el ID de los Productos
+              idProductos.push(compra.IDProducto);
+              // Agregar el ID de Clientes
+              idClientes.push(compra.IDCliente);
               // Agregar el nombre de cliente al arreglo nombresClientes
               nombresClientes.push(compra.nombreCliente);
               // Agregar el nombre de producto al arreglo nombresProductos
@@ -66,7 +72,9 @@
             } 
             // Imprimir los arreglos en la consola del navegador
             console.log('ID de Encuestas:', idEncuestas);
+            console.log('ID de Clientes:', idClientes);
             console.log('Nombres de Clientes:', nombresClientes);
+            console.log('ID de Productos:', idProductos);
             console.log('Nombres de Productos:', nombresProductos);
             console.log('Correos de clientes:', correosClientes);
           %>
@@ -80,10 +88,11 @@
 
     <!-- Botón enviar encuesta -->
     <!-- Contenedor del botón enviar encuesta alineado a la derecha -->
-    <div class="justify-content-end mb-3">
+    <div class="justify-content-end mb-3 espacio-boton">
       <!-- Pasar el arreglo idEncuestas como un atributo de datos -->
-      <button id="sendEncuestaCompra" data-nombres-clientes="<%= JSON.stringify(nombresClientes) %>" data-nombres-productos="<%= JSON.stringify(nombresProductos) %>" data-id-encuestas="<%= JSON.stringify(idEncuestas) %>" data-correos-clientes="<%= JSON.stringify(correosClientes) %>">Enviar Encuesta</button>
+      <button class = "envio-boton" id="sendEncuestaCompra" data-nombres-clientes="<%= JSON.stringify(nombresClientes) %>" data-nombres-productos="<%= JSON.stringify(nombresProductos) %>" data-id-encuestas="<%= JSON.stringify(idEncuestas) %>" data-id-productos="<%= JSON.stringify(idProductos) %>" data-id-clientes="<%= JSON.stringify(idClientes) %>" data-correos-clientes="<%= JSON.stringify(correosClientes) %>"> Enviar <i class="fa-regular fa-paper-plane"></i></button>
     </div>
+
 
 <script>
   const sendEncuesta = document.querySelector('#sendEncuestaCompra');
@@ -93,6 +102,8 @@
 
           // Obtener el arreglo idEncuestas del atributo de datos
           const idEncuestas = JSON.parse(sendEncuesta.getAttribute('data-id-encuestas'));
+          const idProductos = JSON.parse(sendEncuesta.getAttribute('data-id-productos'));
+          const idClientes = JSON.parse(sendEncuesta.getAttribute('data-id-clientes'));
           const nombresClientes = JSON.parse(sendEncuesta.getAttribute('data-nombres-clientes'));
           const nombresProductos = JSON.parse(sendEncuesta.getAttribute('data-nombres-productos'));
           const correosClientes = JSON.parse(sendEncuesta.getAttribute('data-correos-clientes'));
@@ -104,7 +115,7 @@
                 'csrf-token': csrf,
               },
               // Enviar el arreglo idEncuestas como parte del cuerpo de la solicitud POST
-              body: JSON.stringify({ idEncuestas: idEncuestas, nombresClientes: nombresClientes, nombresProductos: nombresProductos, correosClientes: correosClientes })
+              body: JSON.stringify({ idEncuestas: idEncuestas, idClientes: idClientes, idProductos: idProductos, nombresClientes: nombresClientes, nombresProductos: nombresProductos, correosClientes: correosClientes })
           });
           const data = await response.json();
 
@@ -118,6 +129,7 @@
           alert('Ocurrió un error al enviar el correo electrónico.');
       }
   });
+
 </script>
 
 <%- include('includes/footer.ejs') %>
