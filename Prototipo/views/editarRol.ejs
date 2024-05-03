@@ -10,6 +10,14 @@
 
       <h1 class="titulo-form">Modificar rol: <%= rol.nombre %></h1>
 
+      <!-- Muestra el mensaje de error si existe -->
+      <% if (error) { %>
+        <div class="alert alert-danger" role="alert">
+          <%= error %>
+        </div>
+      <% } %>
+    
+
 
         <div class="mb-5 contenido-con-margen">
           <label for="inputNombre" class="form-label label-crearUsuario">Nombre del rol</label>
