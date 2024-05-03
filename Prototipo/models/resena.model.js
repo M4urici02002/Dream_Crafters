@@ -24,6 +24,24 @@ module.exports = class Resena {
     this.visibilidad = visibilidad;
   }
 
+  static async save(IDEncuesta, IDProducto, IDCliente, rating, Titulo) {
+    try {
+        console.log("IDEncuesta:", IDEncuesta);
+        console.log("IDProducto:", IDProducto);
+        console.log("IDCliente:", IDCliente);
+        console.log("rating:", rating);
+        console.log("Titulo:", Titulo);
+        const result = await db.execute(
+            `INSERT INTO resena(IDEncuesta, IDProducto, IDCliente, Rating, Titulo, Enviada, FechaContestacion, Visibilidad) VALUES
+            (?, ?, ?, ?, ?, 1, CURRENT_DATE, 1);`,
+            [IDEncuesta, IDProducto, IDCliente, rating, Titulo]
+        );
+        return result; // Devuelve el resultado completo sin desestructurarlo
+    } catch (error) {
+        throw new Error("Error al guardar la encuesta en la base de datos: " + error.message);
+    }
+  }
+
   static fetchAll(categoria = null, nombreMarca = null) {
     let query = '\
       SELECT r.*, p.Nombre as NombreProducto, c.Correo, m.Nombre as NombreMarca \

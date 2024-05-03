@@ -2,18 +2,20 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
-<input type="hidden" id="encuestaId" value="<%= idEncuestas2 %>">
+<input type="hidden" id="IDEncuesta" value="<%= idEncuestas2 %>">
+<input type="hidden" id="IDCliente" value="<%= idClientes2 %>">
+<input type="hidden" id="IDProducto" value="<%= idProductos2 %>">
 <div class="main p-3">
     <div class="container">
         <form class="template">
             <% if (idMarca === 1) { %>
                 <img src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/A1AM78C64UM0Y8/c7f7c01c3f0c2f46f73ef9bf05a1d4a8.w3000.h600._CR0%2C0%2C3000%2C600_SX1280_.jpg" class="img-fluid img-marca" alt="Imagen logo marca 1" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
             <% } else if (idMarca === 2) { %>
-                <img src="https://ibb.co/25QrhLj" class="img-fluid img-marca" alt="Imagen logo marca 2" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                <img src="https://i.pinimg.com/736x/8d/25/77/8d25779eba03936b2a5e8185406fa2fa.jpg" class="img-fluid img-marca" alt="Imagen logo marca 2" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
             <% } else if (idMarca === 3) { %>
-                <img src="https://ibb.co/WzDT2Kf" class="img-fluid img-marca" alt="Imagen logo marca 3" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                <img src="https://i.pinimg.com/736x/df/fb/f6/dffbf64b0ed187f2db7a0fcb43bc78b7.jpg" class="img-fluid img-marca" alt="Imagen logo marca 3" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
             <% } else { %>
-                <img src="https://ibb.co/85DhqL8" class="img-fluid img-marca" alt="Otra imagen" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                <img src="https://i.pinimg.com/736x/2e/41/16/2e41167f8e79324609efbea60e4bd32a.jpg" class="img-fluid img-marca" alt="Otra imagen" style="margin-top: 30px; max-width: 90%; display: block; margin-left: auto; margin-right: auto;">
             <% } %>
             <h2 id="tituloPrincipal" style="font-family: 'Montserrat'; text-align: center; padding-top: 30px; padding-bottom: 30px; color:black;">Hola, <%= nombresClientes2%> </h2>
             <div><p style="font-family: 'Montserrat', sans-serif; font-size: 16px; text-align: center; color:black;">Gracias por tu compra del producto <%= nombresProductos2 %>.</p><br><p style="font-family: 'Montserrat', sans-serif; font-size: 16px; text-align: center; color:black;">¡ Tu opinion es muy importante para nosotros ! Completa nuestra encuesta y ayúdanos a mejorar tu experiencia.</p><br></div>
@@ -22,11 +24,11 @@
                     <% if (idMarca === 1) { %>
                         <img src="https://www.costco.com.mx/medias/sys_master/products/h64/hc4/35035601960990.jpg" class="img-fluid" alt="Imagen del producto" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
                     <% } else if (idMarca === 2) { %>
-                        <img src="https://ibb.co/Gk6Br5T" class="img-fluid img-marca" alt="Imagen logo marca 2" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
+                        <img src="https://i.pinimg.com/736x/54/ba/91/54ba91efb0038caaf8c2e28ee5de0121.jpg" class="img-fluid img-marca" alt="Imagen logo marca 2" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
                     <% } else if (idMarca === 3) { %>
-                        <img src="https://ibb.co/yyZHYrB" class="img-fluid img-marca" alt="Imagen logo marca 3" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
+                        <img src="https://i.pinimg.com/736x/04/85/f1/0485f1d50d6a9a039b0c8fa5bbd76071.jpg" class="img-fluid img-marca" alt="Imagen logo marca 3" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
                     <% } else { %>
-                        <img src="https://ibb.co/gZjLy9h" class="img-fluid img-marca" alt="Otra imagen de producto" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
+                        <img src="https://i.pinimg.com/736x/60/64/7f/60647fbe69e883a733d1101f3f45a3db.jpg" class="img-fluid img-marca" alt="Otra imagen de producto" style="max-width: 280px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
                     <% } %>
                 </div>
             </div>
@@ -36,15 +38,15 @@
                 <label for="marca" style="font-family: 'Montserrat', sans-serif;font-size: 16px; text-align: center; color:black;">¿Qué te ha parecido tu <%= nombresProductos2%></label>
                 <div class="row mb-3">
                         <div class="rating">
-                            <input type="radio" id="star5" name="rating" value="5">
+                            <input type="radio" id="rating1" name="rating" value="5">
                             <label for="star5"> </label>
-                            <input type="radio" id="star4" name="rating" value="4">
+                            <input type="radio" id="rating2" name="rating" value="4">
                             <label for="star4"></label>
-                            <input type="radio" id="star3" name="rating" value="3">
+                            <input type="radio" id="rating3" name="rating" value="3">
                             <label for="star3"></label>
-                            <input type="radio" id="star2" name="rating" value="2">
+                            <input type="radio" id="rating4" name="rating" value="2">
                             <label for="star2"></label>
-                            <input type="radio" id="star1" name="rating" value="1">
+                            <input type="radio" id="rating5" name="rating" value="1">
                             <label for="star1"></label>
                         </div>
                         <p style="margin-top: 5px;">1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4&nbsp;&nbsp;5</p>
@@ -74,7 +76,7 @@
             <% } %>
 
             <div class="btn-template" style="text-align: center;">
-                <button type="submit" class="btn btn-custom-pregunta">Enviar</button>
+                <button type="submit" class="btn btn-custom-pregunta" id="sendData">Enviar</button>
             </div>            
 
             <footer class="footer-template" style="background-color: #133464; height: 40px; width: 100%; margin-top: 20px; margin-bottom: 40px;"></footer>
@@ -89,4 +91,30 @@
             </footer>
         </form>           
     </div>
-</div>        
+</div>       
+
+<script>
+document.getElementById("sendData").addEventListener("click", async () => {
+    const formData = {
+        IDEncuesta: document.getElementById("IDEncuesta").value,
+        IDProducto: document.getElementById("IDProducto").value,
+        IDCliente: document.getElementById("IDCliente").value,
+        rating: document.querySelector('input[name="rating"]:checked').value,
+        Titulo: document.getElementById("Titulo").value
+    };
+
+    try {
+        const response = await fetch("/catalogoCompras/guardarDatosEncuesta", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData)
+        });
+        const responseData = await response.json();
+        console.log(responseData); // Puedes manejar la respuesta del servidor aquí
+    } catch (error) {
+        console.error("Error al enviar la encuesta:", error);
+    }
+});
+</script>
