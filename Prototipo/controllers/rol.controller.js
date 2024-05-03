@@ -21,6 +21,7 @@ exports.get_crearRol = async (request, response, next) => {
 
 exports.post_crearRol = async (request, response, next) => {
     const nuevo_Rol = new Rol(request.body.nombreRol);
+    request.body.nombreRol
 
     try {
         const rolExiste = await Rol.findByNombre(request.body.nombreRol);
@@ -33,8 +34,16 @@ exports.post_crearRol = async (request, response, next) => {
         } else {
              // Limpiar otros mensajes de sesión para evitar confusiones
              request.session.error = ''; 
-            await nuevo_Rol.save();
+             nuevo_Rol.save()
+             .then(async () => {
+                 const [rol] = await Rol.obtenerRolPorNombre(request.body.nombreRol)
+                 const privilegios = request.body["asignarRol[]"] || []
+                 for (const privilegio of privilegios){
+                     const [pri] = await Rol.obtenerPrivilegioPorNombre(privilegio)
+                     Rol.asignarPrivilegio(rol[0].idrol, pri[0].idprivilegio);
+                 }            
             response.redirect('/gestionRoles');
+        })
 
         }
     } catch (error) {
@@ -49,9 +58,7 @@ exports.post_crearRol = async (request, response, next) => {
 exports.get_editarRol = async (req, res, next) => {
     const privilegios = await Rol.privilegioAll();
 
-    Rol.fetchAll().then(([roles]) => {
-        
-        return Rol.findByNombre(req.params.nombreRol)
+        return Rol.obtenerRolPorNombre(req.params.nombreRol)
         .then(([roles, fieldData]) => {
             res.render("editarRol", {
                 nombreRol: req.session.nombreRol || '',
@@ -63,8 +70,8 @@ exports.get_editarRol = async (req, res, next) => {
             });
             // Después de enviar el mensaje, elimina el mensaje de la sesión para evitar que se muestre en futuras solicitudes
             delete req.session.mensaje;
-        }); 
-    }).catch ((error) => {
+        })
+    .catch ((error) => {
         console.error('Error al obtener el rol para editar:', error);
         res.status(500).send('Error al obtener el rol para editar');
     });
@@ -74,19 +81,24 @@ exports.get_editarRol = async (req, res, next) => {
 exports.post_editarRol = async (req, res, next) => {
     try {
         // Actualizar el nombre del rol en la base de datos
+        console.log("Current body = ", req.body)
         const idRol = req.body.idRol;
         const nuevoNombreRol = req.body.nombreRol;
         await Rol.update(idRol, nuevoNombreRol);
 
         // Verificar si hay privilegios seleccionados
-        if (req.body.privilegios) {
+        if (req.body.rol) {
+            console.log([req.body.rol].flat())
             // Eliminar todos los privilegios asociados al rol
             await Rol.eliminarPrivilegios(idRol);
 
             // Asignar los nuevos privilegios seleccionados al rol
-            const privilegiosSeleccionados = req.body.privilegios;
-            const asignacionesPromises = privilegiosSeleccionados.map(privilegio => {
-                return Rol.asignarPrivilegio(idRol, privilegio);
+            const privilegiosSeleccionados = [req.body.rol].flat();
+            const asignacionesPromises = privilegiosSeleccionados.map( async privilegio => {
+                console.log(privilegio)
+                const [idprivilegio] = await Rol.obtenerPrivilegioPorNombre(privilegio)
+                console.log(idprivilegio);
+                return Rol.asignarPrivilegio(idRol, idprivilegio[0].idprivilegio);
             });
             await Promise.all(asignacionesPromises);
         }
@@ -100,6 +112,3 @@ exports.post_editarRol = async (req, res, next) => {
         res.redirect('/gestionRoles'); // Manejar el error redirigiendo a una página apropiada o mostrando un mensaje de error en la página de gestión de roles
     }
 };
-
-
-
